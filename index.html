@@ -2,217 +2,240 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Distrito Imports | Moda Masculina</title>
+<title>Distrito Imports | O seu estilo, nossa marca</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <style>
 :root {
-  --primary-red: #e60000; /* Vermelho da Logo */
-  --whatsapp-green: #25D366;
-  --bg-dark: #0b0b0b;
-  --header-black: #000000;
-  --card-bg: #1a1a1a;
+  --vermelho: #cc0000;
+  --preto: #000000;
+  --cinza-fundo: #f8f8f8;
+  --branco: #ffffff;
 }
 
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
-  background: var(--bg-dark);
-  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--cinza-fundo);
+  color: var(--preto);
 }
 
-/* Cabeçalho */
-header {
-  padding: 40px 20px;
+/* Faixa de anúncio topo */
+.top-bar {
+  background: var(--vermelho);
+  color: white;
   text-align: center;
-  background: var(--header-black);
-  border-bottom: 2px solid var(--primary-red);
+  padding: 8px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Header */
+header {
+  background: var(--preto);
+  padding: 30px;
+  text-align: center;
 }
 
 header h1 {
-  font-size: 35px;
-  font-weight: 900;
-  text-transform: uppercase;
+  color: var(--branco);
   margin: 0;
-  letter-spacing: -1px;
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: -2px;
 }
 
-header span { color: var(--primary-red); }
+header h1 span { color: var(--vermelho); }
 
-/* Menu de Navegação */
+/* Menu */
 nav {
-  background: #111;
+  background: var(--branco);
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid #222;
+  border-bottom: 2px solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 nav a {
-  padding: 15px 25px;
+  padding: 15px 20px;
   text-decoration: none;
-  color: #fff;
-  font-weight: bold;
-  font-size: 14px;
+  color: var(--preto);
+  font-weight: 700;
+  font-size: 13px;
   transition: 0.3s;
 }
 
-nav a:hover, nav a.active {
-  background: var(--primary-red);
-  color: #fff;
-}
+nav a:hover { color: var(--vermelho); }
 
-/* Container de Produtos */
-.main-content {
-  background: #f4f4f4; /* Fundo claro para destacar os produtos conforme solicitado */
-  color: #111;
-  padding: 40px 20px;
-}
-
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-h2.section-title {
+/* Banner Principal */
+.main-banner {
+  width: 100%;
+  height: 350px;
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?auto=format&fit=crop&q=80&w=1200');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
   text-align: center;
-  font-size: 28px;
-  margin-bottom: 30px;
-  color: #000;
+}
+
+.main-banner h2 { font-size: 35px; text-transform: uppercase; }
+
+/* Grid de Produtos */
+.container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+
+.section-title {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 40px;
   text-transform: uppercase;
+  font-weight: 900;
 }
 
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
+  gap: 30px;
 }
 
-/* Card de Produto */
 .card {
-  background: #fff;
-  border-radius: 8px;
+  background: var(--branco);
+  border-radius: 4px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   transition: 0.3s;
-  border: 1px solid #ddd;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-.card:hover {
-  transform: translateY(-5px);
-}
+.card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+.img-container { overflow: hidden; height: 350px; }
 
 .card img {
   width: 100%;
-  height: 300px;
+  height: 100%;
   object-fit: cover;
+  transition: 0.5s;
 }
 
-.card-content {
-  padding: 20px;
-  text-align: center;
-}
+.card:hover img { transform: scale(1.1); }
 
-.card-content h3 {
-  margin: 0 0 10px;
-  font-size: 18px;
-}
+.card-content { padding: 20px; text-align: center; }
 
-.price {
-  font-size: 22px;
-  font-weight: 900;
-  color: #000;
-  margin-bottom: 15px;
-}
+.card-content h3 { font-size: 16px; margin: 0 0 10px; text-transform: uppercase; }
 
-/* Botão WhatsApp */
-.buy-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: var(--whatsapp-green);
-  color: #fff;
+.price { font-size: 22px; font-weight: 900; color: var(--vermelho); margin-bottom: 15px; }
+
+.btn-buy {
+  display: block;
+  background: var(--preto);
+  color: white;
   padding: 12px;
-  border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
+  border-radius: 4px;
   transition: 0.3s;
 }
 
-.buy-btn:hover {
-  background: #1da851;
-  transform: scale(1.02);
+.btn-buy:hover { background: var(--vermelho); }
+
+/* Botão WhatsApp Flutuante */
+.whatsapp-fixed {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25d366;
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 1000;
 }
 
-footer {
-  background: #000;
-  color: #666;
-  text-align: center;
-  padding: 30px;
-  font-size: 13px;
-}
+footer { background: #111; color: #666; padding: 40px; text-align: center; font-size: 13px; }
+
 </style>
 </head>
 <body>
+
+<div class="top-bar">🚚 Enviamos para todo o Brasil • Estilo e Qualidade</div>
 
 <header>
   <h1>Distrito <span>Imports</span></h1>
 </header>
 
 <nav>
-  <a href="#" class="active">HOME</a>
-  <a href="#">CAMISETAS</a>
-  <a href="#">CALÇAS</a>
-  <a href="#">CONJUNTOS</a>
-  <a href="#">CONTATO</a>
+  <a href="#">Início</a>
+  <a href="#">Camisetas</a>
+  <a href="#">Conjuntos</a>
+  <a href="#">Lançamentos</a>
 </nav>
 
-<main class="main-content">
-  <div class="container">
-    <h2 class="section-title">🔥 Destaques da Semana</h2>
+<div class="main-banner">
+  <div>
+    <h2>Nova Coleção 2026</h2>
+    <p>O melhor da moda importada com o melhor preço.</p>
+  </div>
+</div>
 
-    <div class="products-grid">
-      <article class="card">
-        <img src="https://via.placeholder.com/400x500?text=Camisa+Premium" alt="Camisa Premium">
-        <div class="card-content">
-          <h3>Camisa Masculina Premium</h3>
-          <div class="price">R$ 79,90</div>
-          <a class="buy-btn" href="https://wa.me/5522997815147" target="_blank">
-            <i class="fab fa-whatsapp"></i> Chamar no WhatsApp
-          </a>
-        </div>
-      </article>
+<main class="container">
+  <h2 class="section-title">Nossos Destaques</h2>
 
-      <article class="card">
-        <img src="https://via.placeholder.com/400x500?text=Conjunto+Dryfit" alt="Conjunto Dryfit">
-        <div class="card-content">
-          <h3>Conjunto Dryfit Performance</h3>
-          <div class="price">R$ 129,90</div>
-          <a class="buy-btn" href="https://wa.me/5522999400239" target="_blank">
-            <i class="fab fa-whatsapp"></i> Chamar no WhatsApp
-          </a>
-        </div>
-      </article>
+  <div class="products-grid">
+    <div class="card">
+      <div class="img-container">
+        <img src="https://images.unsplash.com/photo-1583743814966-8936f5b721fa?q=80&w=500" alt="Produto">
+      </div>
+      <div class="card-content">
+        <h3>Camiseta Slim Premium</h3>
+        <div class="price">R$ 89,90</div>
+        <a href="https://wa.me/5522997815147" class="btn-buy">COMPRAR AGORA</a>
+      </div>
+    </div>
 
-      <article class="card">
-        <img src="https://via.placeholder.com/400x500?text=Bermuda+Casual" alt="Bermuda Casual">
-        <div class="card-content">
-          <h3>Bermuda Masculina Casual</h3>
-          <div class="price">R$ 69,90</div>
-          <a class="buy-btn" href="https://wa.me/5522999400239" target="_blank">
-            <i class="fab fa-whatsapp"></i> Chamar no WhatsApp
-          </a>
-        </div>
-      </article>
+    <div class="card">
+      <div class="img-container">
+        <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=500" alt="Produto">
+      </div>
+      <div class="card-content">
+        <h3>Casaco Tech Masculino</h3>
+        <div class="price">R$ 189,90</div>
+        <a href="https://wa.me/5522997815147" class="btn-buy">COMPRAR AGORA</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="img-container">
+        <img src="https://images.unsplash.com/photo-1591195853828-11db59a44f6b?q=80&w=500" alt="Produto">
+      </div>
+      <div class="card-content">
+        <h3>Bermuda Cargo Importada</h3>
+        <div class="price">R$ 75,90</div>
+        <a href="https://wa.me/5522997815147" class="btn-buy">COMPRAR AGORA</a>
+      </div>
     </div>
   </div>
 </main>
 
+<a href="https://wa.me/5522997815147" class="whatsapp-fixed" target="_blank">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
 <footer>
-  &copy; 2026 Distrito Imports. Todos os direitos reservados.
+  <p>&copy; 2026 Distrito Imports. Todos os direitos reservados.</p>
 </footer>
 
 </body>
 </html>
+
