@@ -2,26 +2,30 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Distrito Imports | Moda Masculina & Sport</title>
+<title>Distrito Imports | Moda Masculina</title>
+
+<meta name="description" content="Distrito Imports - Loja de roupa masculina em Itaperuna RJ. Camisas premium, conjuntos, bermudas e moda sport.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <style>
 :root {
-  --destaque: #E60000; 
+  --destaque: #E60000;
   --preto: #0a0a0a;
-  --cinza-fundo: #f4f4f4;
-  --branco: #FFFFFF;
+  --cinza: #f4f4f4;
+  --branco: #ffffff;
 }
 
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  background-color: var(--cinza-fundo);
+  background: var(--cinza);
   color: var(--preto);
 }
 
+/* TOPO */
 .top-bar {
   background: var(--destaque);
   color: white;
@@ -30,9 +34,9 @@ body {
   font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
+/* HEADER */
 header {
   background: var(--preto);
   padding: 30px 20px;
@@ -41,25 +45,25 @@ header {
 }
 
 header h1 {
-  color: var(--branco);
+  color: white;
   margin: 0;
   font-size: 36px;
   font-weight: 900;
   text-transform: uppercase;
   font-style: italic;
-  letter-spacing: -1px;
 }
 
-header h1 span { color: var(--destaque); }
+header span { color: var(--destaque); }
 
+/* MENU */
 nav {
-  background: var(--branco);
+  background: white;
   display: flex;
   justify-content: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   position: sticky;
   top: 0;
   z-index: 999;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 nav a {
@@ -69,44 +73,40 @@ nav a {
   font-weight: 700;
   font-size: 13px;
   text-transform: uppercase;
-  transition: 0.3s;
 }
 
-nav a:hover { color: var(--destaque); border-bottom: 3px solid var(--destaque); }
+nav a:hover {
+  color: var(--destaque);
+  border-bottom: 3px solid var(--destaque);
+}
 
-.hero-banner {
-  position: relative;
-  height: 400px;
-  background: url('https://images.unsplash.com/photo-1517466787929-bc90951d0974?q=80&w=1600') center/cover no-repeat;
+/* HERO */
+.hero {
+  height: 420px;
+  background: linear-gradient(rgba(0,0,0,.85), rgba(230,0,0,.25)),
+  url('https://images.unsplash.com/photo-1517466787929-bc90951d0974?q=80&w=1600') center/cover;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.hero-overlay {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: linear-gradient(45deg, rgba(0,0,0,0.8), rgba(230, 0, 0, 0.2));
-}
-
-.hero-content {
-  position: relative;
-  z-index: 1;
   text-align: center;
   color: white;
-  padding: 20px;
 }
 
-.hero-content h2 { 
-  font-size: 42px; 
-  margin: 0 0 10px; 
-  text-transform: uppercase; 
+.hero h2 {
+  font-size: 42px;
+  font-weight: 900;
+  text-transform: uppercase;
   font-style: italic;
 }
 
+.hero p {
+  font-size: 16px;
+}
+
+/* CONTAINER */
 .container {
   max-width: 1200px;
-  margin: 50px auto;
+  margin: 60px auto;
   padding: 0 20px;
 }
 
@@ -118,45 +118,90 @@ nav a:hover { color: var(--destaque); border-bottom: 3px solid var(--destaque); 
   margin-bottom: 40px;
 }
 
-.products-grid {
+/* PRODUTOS */
+.products {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
 }
 
 .card {
-  background: var(--branco);
+  background: white;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
   transition: 0.3s;
 }
 
-.card:hover { transform: translateY(-10px); }
+.card:hover { transform: translateY(-8px); }
 
-.img-box { height: 400px; overflow: hidden; position: relative; }
-.img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-.card:hover .img-box img { transform: scale(1.1); }
+.card img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+}
 
-.info-box { padding: 25px; text-align: center; }
-.info-box h3 { font-size: 18px; margin: 0 0 10px; font-weight: 700; text-transform: uppercase; }
-.price { font-size: 26px; font-weight: 900; color: var(--destaque); margin-bottom: 20px; display: block; }
+.card .info {
+  padding: 25px;
+  text-align: center;
+}
 
-.btn-comprar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+.card h3 {
+  font-size: 17px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.price {
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--destaque);
+  margin: 15px 0;
+}
+
+.buy {
   background: #25D366;
   color: white;
   padding: 12px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
   text-decoration: none;
   font-weight: 700;
   text-transform: uppercase;
-  border-radius: 6px;
 }
 
-.whatsapp-float {
+/* SOBRE */
+.about {
+  background: white;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.about p {
+  max-width: 800px;
+  margin: auto;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* AVALIAÇÕES */
+.reviews {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.review-card {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* WHATS */
+.whatsapp {
   position: fixed;
   bottom: 25px;
   right: 25px;
@@ -168,31 +213,23 @@ nav a:hover { color: var(--destaque); border-bottom: 3px solid var(--destaque); 
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 35px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  z-index: 1000;
-  animation: pulse 2s infinite;
+  font-size: 34px;
 }
 
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-  70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-}
-
+/* FOOTER */
 footer {
   background: var(--preto);
-  color: #888;
+  color: #777;
   text-align: center;
-  padding: 50px 20px;
-  margin-top: 60px;
+  padding: 40px 20px;
   border-top: 5px solid var(--destaque);
 }
 </style>
 </head>
+
 <body>
 
-<div class="top-bar">entregamos em itaperuna rj• Distrito Imports</div>
+<div class="top-bar">Entrega rápida em Itaperuna RJ • Distrito Imports</div>
 
 <header>
   <h1>Distrito <span>Imports</span></h1>
@@ -200,59 +237,42 @@ footer {
 
 <nav>
   <a href="#">Início</a>
-  <a href="#">Camisas Premium </a>
+  <a href="#">Camisas</a>
   <a href="#">Conjuntos</a>
-  <a href="#">Corta-Vento</a>
+  <a href="#">Bermudas</a>
   <a href="#">Contato</a>
 </nav>
 
-<div class="hero-banner">
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
+<section class="hero">
+  <div>
     <h2>Performance e Estilo</h2>
-    <p>Os melhores kits você só encontra aqui.</p>
+    <p>Moda masculina sem exagero. Qualidade e presença.</p>
   </div>
-</div>
+</section>
 
 <main class="container">
-  <h2 class="section-title">🔥 Destaques da Semana</h2>
-  <div class="products-grid">
+  <h2 class="section-title">Destaques</h2>
+
+  <div class="products">
 
     <div class="card">
-      <div class="img-box">
-        <img src="https://images.unsplash.com/photo-1577212017184-80cc0da115d7?q=80&w=600" alt="Produto">
-      </div>
-      <div class="info-box">
-        <h3>Camisa Tailandeza 1:1</h3>
-        <span class="price">R$ 129,90</span>
-        <a href="https://wa.me/5522997815147" class="btn-comprar">
-          <i class="fab fa-whatsapp"></i> Comprar agora
+      <img src="https://images.unsplash.com/photo-1577212017184-80cc0da115d7?q=80&w=600">
+      <div class="info">
+        <h3>Camisa Premium</h3>
+        <div class="price">R$ 129,90</div>
+        <a class="buy" href="https://wa.me/5522997815147?text=Olá! Vi a *Camisa Premium* no site da Distrito Imports. Tem disponível no meu tamanho?">
+          <i class="fab fa-whatsapp"></i> Comprar
         </a>
       </div>
     </div>
 
     <div class="card">
-      <div class="img-box">
-        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600" alt="Produto">
-      </div>
-      <div class="info-box">
-        <h3>Conjunto Dryfit</h3>
-        <span class="price">R$ 189,90</span>
-        <a href="https://wa.me/5522997815147" class="btn-comprar">
-          <i class="fab fa-whatsapp"></i> Comprar agora
-        </a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="img-box">
-        <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?q=80&w=600" alt="Produto">
-      </div>
-      <div class="info-box">
-        <h3>Bermuda cargo</h3>
-        <span class="price">R$ 159,90</span>
-        <a href="https://wa.me/5522997815147" class="btn-comprar">
-          <i class="fab fa-whatsapp"></i> Comprar agora
+      <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600">
+      <div class="info">
+        <h3>Conjunto Dry Fit</h3>
+        <div class="price">R$ 189,90</div>
+        <a class="buy" href="https://wa.me/5522997815147?text=Olá! Quero saber mais sobre o *Conjunto Dry Fit* da Distrito Imports.">
+          <i class="fab fa-whatsapp"></i> Comprar
         </a>
       </div>
     </div>
@@ -260,15 +280,32 @@ footer {
   </div>
 </main>
 
-<a href="https://wa.me/5522997815147" class="whatsapp-float" target="_blank">
+<section class="about">
+  <h2 class="section-title">Sobre a Loja</h2>
+  <p>
+    A Distrito Imports trabalha com moda masculina focada em qualidade,
+    conforto e estilo. Peças selecionadas, entrega rápida em Itaperuna
+    e atendimento direto pelo WhatsApp.
+  </p>
+</section>
+
+<section class="container">
+  <h2 class="section-title">O que os clientes dizem</h2>
+
+  <div class="reviews">
+    <div class="review-card">⭐⭐⭐⭐⭐<br><strong>Lucas M.</strong><br>Produto chegou rápido e qualidade absurda.</div>
+    <div class="review-card">⭐⭐⭐⭐⭐<br><strong>Rafael S.</strong><br>Atendimento rápido e roupa top.</div>
+    <div class="review-card">⭐⭐⭐⭐⭐<br><strong>Matheus C.</strong><br>Loja de confiança. Recomendo.</div>
+  </div>
+</section>
+
+<a class="whatsapp" href="https://wa.me/5522997815147?text=Olá! Vim pelo site da Distrito Imports.">
   <i class="fab fa-whatsapp"></i>
 </a>
 
 <footer>
-  <p>&copy; 2026 Distrito Imports. Todos os direitos reservados.</p>
+  <p>© 2026 Distrito Imports — Todos os direitos reservados</p>
 </footer>
 
 </body>
-</html>
-
-
+          </html>
