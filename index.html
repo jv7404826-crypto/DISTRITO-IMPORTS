@@ -111,4 +111,99 @@
         <div class="grid">
             <div class="product-card">
                 <img src="https://images.unsplash.com/photo-1618354721010-2c3bf4321001?q=80&w=600" class="product-img">
-                
+                <div class="product-info">
+                    <h3>Camisa Peruana 40.1</h3>
+                    <span class="product-price">R$ 99,90</span>
+                    <a href="https://wa.me/5522999400239" class="btn-buy"><i class="fab fa-whatsapp"></i> Eu quero</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mantos" class="category-section">
+        <div class="grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1577212017184-80cc0da115d7?q=80&w=600" class="product-img">
+                <div class="product-info">
+                    <h3>Manto Tailandês 1:1</h3>
+                    <span class="product-price">R$ 129,90</span>
+                    <a href="https://wa.me/5522999400239" class="btn-buy"><i class="fab fa-whatsapp"></i> Eu quero</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="dryfit" class="category-section">
+        <div class="grid">
+            <div class="product-card">
+                <img src="IMG-20260124-WA0217.jpg" class="product-img">
+                <div class="product-info">
+                    <h3>Conjunto Dry-Fit Elite</h3>
+                    <span class="product-price">R$ 179,90</span>
+                    <a href="https://wa.me/5522999400239" class="btn-buy"><i class="fab fa-whatsapp"></i> Eu quero</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="IMG-20260124-WA0214.jpg" class="product-img">
+                <div class="product-info">
+                    <h3>Conjunto Dry-Fit Treino</h3>
+                    <span class="product-price">R$ 179,90</span>
+                    <a href="https://wa.me/5522999400239" class="btn-buy"><i class="fab fa-whatsapp"></i> Eu quero</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mauricinho" class="category-section">
+        <div class="grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=600" class="product-img">
+                <div class="product-info">
+                    <h3>Bermuda Mauricinho</h3>
+                    <span class="product-price">R$ 65,00</span>
+                    <a href="https://wa.me/5522999400239" class="btn-buy"><i class="fab fa-whatsapp"></i> Eu quero</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cargo" class="category-section">
+        <div class="grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1565041439234-8373bb95186b?q=80&w=600" class="product-img">
+                <div class="product-info">
+                    <h3>Bermuda Cargo Sarja</h3>
+                    <span class="product-price">R$ 110,00</span>
+                    <a href="https://wa.me/5522999400239" class="btn-buy"><i class="fab fa-whatsapp"></i> Eu quero</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<a href="https://wa.me/5522999400239" class="whatsapp-float" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<footer>
+    <p>&copy; 2026 Distrito Imports — Itaperuna / RJ</p>
+</footer>
+
+<script>
+function showCat(catId, btn) {
+    // Esconde todas as seções e remove active dos botões
+    document.querySelectorAll('.category-section').forEach(sec => sec.classList.remove('active'));
+    document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+    
+    // Mostra a selecionada
+    document.getElementById(catId).classList.add('active');
+    btn.classList.add('active');
+    
+    // Rola para o início
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
