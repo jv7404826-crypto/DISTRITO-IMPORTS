@@ -1,197 +1,114 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Distrito Imports | Catálogo Interativo</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distrito Imports | Catálogo Oficial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --destaque: #E60000;
+            --preto: #0a0a0a;
+            --cinza-fundo: #f4f4f4;
+            --whatsapp: #25D366;
+            --branco: #ffffff;
+        }
 
-<style>
-:root {
-  --destaque: #E60000;
-  --preto: #0a0a0a;
-  --cinza-fundo: #f4f4f4;
-  --branco: #ffffff;
-  --whatsapp: #25D366;
-}
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--cinza-fundo); color: var(--preto); }
 
-body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--cinza-fundo); color: var(--preto); }
+        /* HEADER */
+        header { background: var(--preto); padding: 25px; text-align: center; border-bottom: 4px solid var(--destaque); }
+        header h1 { color: var(--branco); margin: 0; font-size: 28px; text-transform: uppercase; font-style: italic; font-weight: 900; }
+        header h1 span { color: var(--destaque); }
 
-/* BARRA DE TOPO */
-.top-bar { background: var(--destaque); color: white; text-align: center; padding: 10px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        /* MENU DE NAVEGAÇÃO POR ABAS */
+        nav { 
+            background: var(--branco); 
+            display: flex; 
+            overflow-x: auto; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        nav::-webkit-scrollbar { display: none; }
 
-header { background: var(--preto); padding: 25px; text-align: center; border-bottom: 4px solid var(--destaque); }
-header h1 { color: white; margin: 0; font-size: 30px; font-weight: 900; text-transform: uppercase; font-style: italic; }
-header h1 span { color: var(--destaque); }
+        .nav-link {
+            padding: 18px 25px;
+            border: none;
+            background: none;
+            font-weight: 700;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #666;
+            cursor: pointer;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            transition: 0.3s;
+        }
+        .nav-link.active { color: var(--destaque); border-bottom-color: var(--destaque); }
 
-/* MENU EM ABAS */
-nav { 
-    background: var(--branco); 
-    display: flex; 
-    justify-content: center; 
-    position: sticky; 
-    top: 0; 
-    z-index: 1000; 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
-    overflow-x: auto; /* Para celulares não quebrarem o menu */
-    white-space: nowrap;
-}
+        /* CONTAINER DE PRODUTOS */
+        .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; min-height: 60vh; }
 
-.tab-btn {
-    padding: 18px 20px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 11px;
-    text-transform: uppercase;
-    color: #555;
-    transition: 0.3s;
-    border-bottom: 3px solid transparent;
-}
+        .category-section { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .category-section.active { display: block; }
 
-.tab-btn.active {
-    color: var(--destaque);
-    border-bottom: 3px solid var(--destaque);
-}
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* CONTEÚDO DAS ABAS */
-.tab-content {
-    display: none; /* Esconde todas por padrão */
-    padding: 40px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    animation: fadeIn 0.5s ease;
-}
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 15px; }
 
-.tab-content.active {
-    display: block; /* Mostra apenas a ativa */
-}
+        /* CARD DO PRODUTO */
+        .product-card { background: var(--branco); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: 0.3s; }
+        .product-card:hover { transform: translateY(-5px); }
+        .product-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; background: #eee; display: block; }
+        .product-info { padding: 15px; text-align: center; }
+        .product-info h3 { font-size: 13px; margin: 0 0 8px 0; font-weight: 700; text-transform: uppercase; color: #333; height: 32px; overflow: hidden; }
+        .product-price { color: var(--destaque); font-weight: 900; font-size: 18px; margin-bottom: 12px; display: block; }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+        .btn-buy { 
+            background: var(--whatsapp); 
+            color: var(--branco); 
+            text-decoration: none; 
+            font-size: 11px; 
+            font-weight: 700; 
+            padding: 10px; 
+            border-radius: 5px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 5px;
+            text-transform: uppercase;
+        }
 
-/* GRID DE PRODUTOS */
-.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-.card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
-.img-box { height: 400px; background: #eee; overflow: hidden; }
-.img-box img { width: 100%; height: 100%; object-fit: cover; }
-.info-box { padding: 20px; text-align: center; }
-.info-box h3 { font-size: 16px; margin: 0; font-weight: 800; text-transform: uppercase; }
-.price { font-size: 24px; font-weight: 900; color: var(--destaque); margin: 15px 0; display: block; }
+        /* WHATSAPP FLUTUANTE */
+        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: var(--whatsapp); color: #fff; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000; }
 
-.btn-buy { 
-    background: var(--whatsapp); 
-    color: white; 
-    padding: 12px; 
-    text-decoration: none; 
-    font-weight: 700; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    gap: 8px; 
-    border-radius: 6px;
-    text-transform: uppercase;
-}
+        footer { background: var(--preto); color: #666; text-align: center; padding: 40px 20px; font-size: 12px; margin-top: 50px; }
 
-/* WHATSAPP */
-.whatsapp-fixed { position: fixed; bottom: 20px; right: 20px; background: var(--whatsapp); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; z-index: 2000; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-
-footer { background: var(--preto); color: #666; text-align: center; padding: 30px; margin-top: 50px; font-size: 12px; }
-</style>
+        /* AJUSTE PARA TELAS GRANDES */
+        @media (min-width: 768px) { .grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; } }
+    </style>
 </head>
 <body>
 
-<div class="top-bar">🔥 Distrito Imports • Selecione uma categoria no menu abaixo</div>
-
 <header>
-  <h1>Distrito <span>Imports</span></h1>
+    <h1>Distrito <span>Imports</span></h1>
 </header>
 
-<nav id="main-nav">
-  <button class="tab-btn active" onclick="openTab(event, 'peruanas')">Peruanas</button>
-  <button class="tab-btn" onclick="openTab(event, 'mantos')">Mantos</button>
-  <button class="tab-btn" onclick="openTab(event, 'mauricinho')">Mauricinho</button>
-  <button class="tab-btn" onclick="openTab(event, 'cargo')">Bermuda Cargo</button>
+<nav>
+    <button class="nav-link active" onclick="showCat('peruanas', this)">Peruanas</button>
+    <button class="nav-link" onclick="showCat('mantos', this)">Mantos</button>
+    <button class="nav-link" onclick="showCat('dryfit', this)">Conjuntos Dry-Fit</button>
+    <button class="nav-link" onclick="showCat('mauricinho', this)">Mauricinho</button>
+    <button class="nav-link" onclick="showCat('cargo', this)">Cargo</button>
 </nav>
 
-<div id="peruanas" class="tab-content active">
-    <div class="products-grid">
-      <div class="card">
-        <div class="img-box"><img src="https://images.unsplash.com/photo-1618354721010-2c3bf4321001?q=80&w=600"></div>
-        <div class="info-box"><h3>Camisa Peruana Black Premium</h3><span class="price">R$ 99,90</span><a href="https://wa.me/5522999400239" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar agora</a></div>
-      </div>
-      <div class="card">
-        <div class="img-box"><img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=600"></div>
-        <div class="info-box"><h3>Camisa Peruana White Pima</h3><span class="price">R$ 99,90</span><a href="https://wa.me/5522999400239" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar agora</a></div>
-      </div>
-    </div>
-</div>
-
-<div id="mantos" class="tab-content">
-    <div class="products-grid">
-      <div class="card">
-        <div class="img-box"><img src="https://images.unsplash.com/photo-1577212017184-80cc0da115d7?q=80&w=600"></div>
-        <div class="info-box"><h3>Manto Europeu Principal</h3><span class="price">R$ 129,90</span><a href="https://wa.me/5522999400239" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar agora</a></div>
-      </div>
-      <div class="card">
-        <div class="img-box"><img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=600"></div>
-        <div class="info-box"><h3>Camisa de Treino Tailandesa</h3><span class="price">R$ 119,90</span><a href="https://wa.me/5522999400239" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar agora</a></div>
-      </div>
-    </div>
-</div>
-
-<div id="mauricinho" class="tab-content">
-    <div class="products-grid">
-      <div class="card">
-        <div class="img-box"><img src="https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=600"></div>
-        <div class="info-box"><h3>Mauricinho Tactel Estampada</h3><span class="price">R$ 65,00</span><a href="https://wa.me/5522999400239" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar agora</a></div>
-      </div>
-    </div>
-</div>
-
-<div id="cargo" class="tab-content">
-    <div class="products-grid">
-      <div class="card">
-        <div class="img-box"><img src="https://images.unsplash.com/photo-1565041439234-8373bb95186b?q=80&w=600"></div>
-        <div class="info-box"><h3>Bermuda Cargo 6 Bolsos</h3><span class="price">R$ 110,00</span><a href="https://wa.me/5522999400239" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar agora</a></div>
-      </div>
-    </div>
-</div>
-
-<a href="https://wa.me/5522999400239" class="whatsapp-fixed" target="_blank"><i class="fab fa-whatsapp"></i></a>
-
-<footer>
-  <p>&copy; 2026 Distrito Imports — Itaperuna/RJ</p>
-</footer>
-
-<script>
-function openTab(evt, tabName) {
-  var i, tabcontent, tablinks;
-  
-  // Esconde todos os conteúdos
-  tabcontent = document.getElementsByClassName("tab-content");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].classList.remove("active");
-  }
-
-  // Tira a classe 'active' de todos os botões
-  tablinks = document.getElementsByClassName("tab-btn");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].classList.remove("active");
-  }
-
-  // Mostra a aba atual e marca o botão como ativo
-  document.getElementById(tabName).classList.add("active");
-  evt.currentTarget.classList.add("active");
-  
-  // Rola para o topo do conteúdo para melhorar a experiência
-  window.scrollTo({top: 0, behavior: 'smooth'});
-}
-</script>
-
-</body>
-</html>
+<main class="container">
+    
+    <section id="peruanas" class="category-section active">
+        <div class="grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1618354721010-2c3bf4321001?q=80&w=600" class="product-img">
+                
