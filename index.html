@@ -1,157 +1,274 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Distrito Imports | Catálogo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root { --destaque: #E60000; --preto: #0a0a0a; --cinza-fundo: #f2f2f2; --whatsapp: #25D366; --branco: #ffffff; }
-        body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--cinza-fundo); color: var(--preto); }
-        header { background: var(--preto); padding: 20px; text-align: center; border-bottom: 4px solid var(--destaque); }
-        header h1 { color: var(--branco); margin: 0; font-size: 26px; text-transform: uppercase; font-style: italic; font-weight: 900; }
-        header h1 span { color: var(--destaque); }
-        nav { background: var(--branco); display: flex; overflow-x: auto; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        nav::-webkit-scrollbar { display: none; }
-        .nav-link { padding: 15px 20px; border: none; background: none; font-weight: 700; font-size: 11px; text-transform: uppercase; color: #666; cursor: pointer; white-space: nowrap; border-bottom: 3px solid transparent; }
-        .nav-link.active { color: var(--destaque); border-bottom-color: var(--destaque); }
-        .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; min-height: 70vh; }
-        .category-section { display: none; animation: fadeIn 0.3s ease; }
-        .category-section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
-        .product-card { background: var(--branco); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-direction: column; text-align: center; }
-        .product-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; background: #ddd; display: block; transition: 0.3s; }
-        .product-info { padding: 12px; flex-grow: 1; }
-        .product-info h3 { font-size: 12px; margin: 0 0 8px 0; font-weight: 700; text-transform: uppercase; height: 30px; overflow: hidden; }
-        .product-price { color: var(--destaque); font-weight: 900; font-size: 18px; margin-bottom: 12px; display: block; }
-        .color-dots { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; }
-        .dot { width: 22px; height: 22px; border-radius: 50%; cursor: pointer; border: 2px solid #ccc; }
-        .btn-buy { background: var(--whatsapp); color: var(--branco); text-decoration: none; font-size: 10px; font-weight: 700; padding: 10px 5px; border-radius: 4px; display: flex; align-items: center; justify-content: center; gap: 5px; text-transform: uppercase; }
-        footer { background: var(--preto); color: #666; text-align: center; padding: 30px 20px; font-size: 11px; margin-top: 40px; }
-        @media (min-width: 768px) { .grid { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Distrito Imports | Catálogo</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+:root {
+    --destaque:#E60000;
+    --preto:#0a0a0a;
+    --cinza-fundo:#f2f2f2;
+    --whatsapp:#25D366;
+    --branco:#ffffff;
+}
+
+body {
+    margin:0;
+    font-family:'Montserrat',sans-serif;
+    background:var(--cinza-fundo);
+    color:var(--preto);
+}
+
+header {
+    background:var(--preto);
+    padding:20px;
+    text-align:center;
+    border-bottom:4px solid var(--destaque);
+}
+
+header h1 {
+    color:#fff;
+    margin:0;
+    font-size:26px;
+    font-weight:900;
+    font-style:italic;
+    text-transform:uppercase;
+}
+
+header h1 span { color:var(--destaque); }
+
+nav {
+    background:#fff;
+    display:flex;
+    overflow-x:auto;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+.nav-link {
+    padding:15px 20px;
+    background:none;
+    border:none;
+    font-weight:700;
+    font-size:11px;
+    text-transform:uppercase;
+    color:#666;
+    cursor:pointer;
+    border-bottom:3px solid transparent;
+    white-space:nowrap;
+}
+
+.nav-link.active {
+    color:var(--destaque);
+    border-bottom-color:var(--destaque);
+}
+
+.container {
+    max-width:1200px;
+    margin:20px auto;
+    padding:0 15px;
+}
+
+.category-section { display:none; }
+.category-section.active { display:block; }
+
+.grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+    gap:15px;
+}
+
+.product-card {
+    background:#fff;
+    border-radius:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,.05);
+    overflow:hidden;
+    text-align:center;
+}
+
+.product-img {
+    width:100%;
+    aspect-ratio:3/4;
+    object-fit:cover;
+}
+
+.product-info { padding:12px; }
+
+.product-info h3 {
+    font-size:12px;
+    text-transform:uppercase;
+    font-weight:700;
+    height:32px;
+    overflow:hidden;
+}
+
+.product-price {
+    color:var(--destaque);
+    font-weight:900;
+    font-size:18px;
+    display:block;
+    margin-bottom:10px;
+}
+
+.color-dots {
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin-bottom:10px;
+}
+
+.dot {
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    border:2px solid #ccc;
+    cursor:pointer;
+}
+
+.btn-buy {
+    background:var(--whatsapp);
+    color:#fff;
+    text-decoration:none;
+    font-size:10px;
+    font-weight:700;
+    padding:10px;
+    border-radius:4px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    text-transform:uppercase;
+}
+
+/* WhatsApp flutuante */
+.whatsapp-float {
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#25D366;
+    color:#fff;
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    box-shadow:0 4px 10px rgba(0,0,0,.3);
+    z-index:9999;
+}
+
+footer {
+    background:var(--preto);
+    color:#666;
+    text-align:center;
+    padding:30px;
+    font-size:11px;
+}
+</style>
 </head>
+
 <body>
 
 <header><h1>Distrito <span>Imports</span></h1></header>
 
 <nav>
-    <button class="nav-link active" onclick="showCat('peruanas', this)">Peruanas</button>
-    <button class="nav-link" onclick="showCat('mantos', this)">Mantos</button>
-    <button class="nav-link" onclick="showCat('dryfit', this)">Conjuntos Dry-Fit</button>
-    <button class="nav-link" onclick="showCat('mauricinho', this)">Mauricinho</button>
-    <button class="nav-link" onclick="showCat('cargo', this)">Cargo</button>
-    <button class="nav-link" onclick="showCat('tenis', this)">Tênis</button>
+<button class="nav-link active" onclick="showCat('peruanas',this)">Peruanas</button>
+<button class="nav-link" onclick="showCat('mantos',this)">Mantos</button>
+<button class="nav-link" onclick="showCat('dryfit',this)">Conjuntos Dry-Fit</button>
+<button class="nav-link" onclick="showCat('mauricinho',this)">Mauricinho</button>
+<button class="nav-link" onclick="showCat('cargo',this)">Cargo</button>
+<button class="nav-link" onclick="showCat('tenis',this)">Tênis</button>
 </nav>
 
 <main class="container">
-    
-    <section id="peruanas" class="category-section active">
-        <div class="grid">
-            <div class="product-card">
-                <img src="https://i.postimg.cc/xdrnT8XQ/Whats-App-Image-2026-01-24-at-20-55-04.jpg" class="product-img">
-                <div class="product-info">
-                    <h3>Camisa Peruana Hugo Boss</h3>
-                    <span class="product-price">R$ 99,90</span>
-                    <a href="https://wa.me/5522999400239?text=Quero+a+Peruana+Hugo+Boss" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="mantos" class="category-section">
-        <div class="grid">
-            <div class="product-card">
-                <img src="https://i.postimg.cc/N0Jh200V/Whats-App-Image-2026-01-25-at-13-46-15.jpg" class="product-img">
-                <div class="product-info">
-                    <h3>Manto Seleção Premium</h3>
-                    <span class="product-price">R$ 129,90</span>
-                    <a href="https://wa.me/5522999400239?text=Quero+o+Manto+da+Seleção" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="peruanas" class="category-section active">
+<div class="grid">
+<div class="product-card">
+<img src="https://i.postimg.cc/xdrnT8XQ/Whats-App-Image-2026-01-24-at-20-55-04.jpg" class="product-img">
+<div class="product-info">
+<h3>Camisa Peruana Hugo Boss</h3>
+<span class="product-price">R$ 99,90</span>
+<a class="btn-buy" href="https://wa.me/5522999400239?text=Quero+a+Peruana+Hugo+Boss">
+<i class="fab fa-whatsapp"></i> Comprar
+</a>
+</div>
+</div>
+</div>
+</section>
 
-    <section id="dryfit" class="category-section">
-        <div class="grid">
-            <div class="product-card">
-                <img src="https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg" id="img-dry-main" class="product-img">
-                <div class="product-info">
-                    <h3>Conjunto Nike Dry-Fit</h3>
-                    <div class="color-dots">
-                        <div class="dot" style="background: #000;" onclick="mudarProd('img-dry-main', 'btn-dry-main', 'https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg', 'Preto')"></div>
-                        <div class="dot" style="background: #fff;" onclick="mudarProd('img-dry-main', 'btn-dry-main', 'https://i.postimg.cc/ydk3yNzS/IMG-20260124-WA0217.jpg', 'Branco')"></div>
-                        <div class="dot" style="background: #001f3f;" onclick="mudarProd('img-dry-main', 'btn-dry-main', 'https://i.postimg.cc/pTp5JdtF/IMG-20260124-WA0215.jpg', 'Azul Marinho')"></div>
-                        <div class="dot" style="background: #444;" onclick="mudarProd('img-dry-main', 'btn-dry-main', 'https://i.postimg.cc/0QbK0Nqm/IMG-20260124-WA0216.jpg', 'Cinza Grafite')"></div>
-                    </div>
-                    <span class="product-price">R$ 179,90</span>
-                    <a href="https://wa.me/5522999400239?text=Quero+o+Dry-Fit+(Preto)" id="btn-dry-main" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="dryfit" class="category-section">
+<div class="grid">
+<div class="product-card">
+<img id="img-dry" src="https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg" class="product-img">
+<div class="product-info">
+<h3>Conjunto Nike Dry-Fit</h3>
+
+<div class="color-dots">
+<div class="dot" style="background:#000" onclick="mudarProd('Preto','https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg')"></div>
+<div class="dot" style="background:#fff" onclick="mudarProd('Branco','https://i.postimg.cc/ydk3yNzS/IMG-20260124-WA0217.jpg')"></div>
+<div class="dot" style="background:#001f3f" onclick="mudarProd('Azul Marinho','https://i.postimg.cc/pTp5JdtF/IMG-20260124-WA0215.jpg')"></div>
+<div class="dot" style="background:#444" onclick="mudarProd('Cinza','https://i.postimg.cc/0QbK0Nqm/IMG-20260124-WA0216.jpg')"></div>
+</div>
+
+<span class="product-price">R$ 179,90</span>
+
+<a id="btn-dry" class="btn-buy" href="https://wa.me/5522999400239?text=Quero+o+Dry-Fit+Preto">
+<i class="fab fa-whatsapp"></i> Comprar
+</a>
+
+</div>
+</div>
+</div>
+</section>
 
 <section id="mauricinho" class="category-section">
-        <div class="grid">
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=600" class="product-img">
-                <div class="product-info">
-                    <h3>Bermuda Mauricinho</h3>
-                    <span class="product-price">R$ 65,00</span>
-                    <a href="https://wa.me/5522999400239?text=Tenho+interesse+na+Bermuda+Mauricinho" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="cargo" class="category-section">
-        <div class="grid">
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1565041439234-8373bb95186b?q=80&w=600" class="product-img">
-                <div class="product-info">
-                    <h3>Bermuda Cargo Sarja</h3>
-                    <span class="product-price">R$ 110,00</span>
-                    <a href="https://wa.me/5522999400239?text=Tenho+interesse+na+Bermuda+Cargo" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="tenis" class="category-section">
-        <div class="grid">
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=600" class="product-img">
-                <div class="product-info">
-                    <h3>Tênis Esportivo Premium</h3>
-                    <span class="product-price">R$ 249,90</span>
-                    <a href="https://wa.me/5522999400239?text=Tenho+interesse+no+Tênis" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="grid">
+<div class="product-card">
+<img src="https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=600" class="product-img">
+<div class="product-info">
+<h3>Bermuda Mauricinho</h3>
+<span class="product-price">R$ 65,00</span>
+<a class="btn-buy" href="https://wa.me/5522999400239?text=Quero+a+Bermuda+Mauricinho">
+<i class="fab fa-whatsapp"></i> Comprar
+</a>
+</div>
+</div>
+</div>
+</section>
 
 </main>
 
-<a href="https://wa.me/5522999400239" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<a href="https://wa.me/5522999400239" class="whatsapp-float" target="_blank">
+<i class="fab fa-whatsapp"></i>
+</a>
 
-<footer><p>&copy; 2026 Distrito Imports — Itaperuna / RJ</p></footer>
+<footer>© 2026 Distrito Imports — Itaperuna / RJ</footer>
 
 <script>
-function showCat(catId, btn) {
-    var sections = document.querySelectorAll('.category-section');
-    sections.forEach(function(sec) { sec.classList.remove('active'); });
+function showCat(id,btn){
+document.querySelectorAll('.category-section').forEach(s=>s.classList.remove('active'));
+document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+btn.classList.add('active');
+window.scrollTo({top:0,behavior:'smooth'});
+}
 
-    var links = document.querySelectorAll('.nav-link');
-    links.forEach(function(link) { link.classList.remove('active'); });
-
-    document.getElementById(catId).classList.add('active');
-    btn.classList.add('active');
-    
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+function mudarProd(cor,img){
+document.getElementById('img-dry').src = img;
+document.getElementById('btn-dry').href =
+`https://wa.me/5522999400239?text=Quero+o+Dry-Fit+${encodeURIComponent(cor)}`;
 }
 </script>
 
 </body>
 </html>
+
