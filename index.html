@@ -21,7 +21,7 @@ header{background:var(--preto);color:#fff;text-align:center;padding:20px;border-
 header span{color:var(--destaque)}
 
 nav{background:#fff;display:flex;overflow-x:auto;position:sticky;top:0}
-.nav-link{padding:15px;border:none;background:none;font-weight:700;font-size:11px;text-transform:uppercase;color:#666}
+.nav-link{padding:15px;border:none;background:none;font-weight:700;font-size:11px;text-transform:uppercase;color:#666;cursor:pointer}
 .nav-link.active{color:var(--destaque);border-bottom:3px solid var(--destaque)}
 
 .container{max-width:1200px;margin:20px auto;padding:0 15px}
@@ -32,39 +32,17 @@ nav{background:#fff;display:flex;overflow-x:auto;position:sticky;top:0}
 .product-card{background:#fff;border-radius:8px;overflow:hidden;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05)}
 .product-img{width:100%;aspect-ratio:3/4;object-fit:cover}
 .product-info{padding:12px}
-.product-price{color:var(--destaque);font-weight:900;font-size:18px}
+.product-info h3{font-size:12px;font-weight:700;text-transform:uppercase;height:32px;overflow:hidden}
+.product-price{color:var(--destaque);font-weight:900;font-size:18px;margin-bottom:10px;display:block}
 
-.color-dots{display:flex;justify-content:center;gap:8px;margin:10px 0}
+.color-dots{display:flex;justify-content:center;gap:8px;margin-bottom:10px}
 .dot{width:22px;height:22px;border-radius:50%;border:2px solid #ccc;cursor:pointer}
 
 .btn-buy{background:var(--whats);color:#fff;text-decoration:none;font-size:10px;font-weight:700;padding:10px;border-radius:4px;display:flex;align-items:center;justify-content:center;gap:5px;text-transform:uppercase}
 
 .whatsapp-float{position:fixed;bottom:20px;right:20px;background:var(--whats);color:#fff;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px}
-footer{text-align:center;padding:30px;background:#0a0a0a;color:#666;font-size:11px}
 
-/* PAINEL */
-#painel{
-position:fixed;
-top:0;left:0;
-width:100%;height:100%;
-background:rgba(0,0,0,.6);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:9999
-}
-#painel form{
-background:#fff;
-padding:20px;
-border-radius:8px;
-width:90%;
-max-width:300px
-}
-#painel input{
-width:100%;
-padding:8px;
-margin-bottom:10px
-}
+footer{text-align:center;padding:30px;background:#0a0a0a;color:#666;font-size:11px}
 </style>
 </head>
 
@@ -73,76 +51,79 @@ margin-bottom:10px
 <header><h1>Distrito <span>Imports</span></h1></header>
 
 <nav>
-<button class="nav-link active" onclick="showCat('dryfit',this)">Dry-Fit</button>
+<button class="nav-link active" onclick="showCat('peruanas',this)">Peruanas</button>
+<button class="nav-link" onclick="showCat('dryfit',this)">Dry-Fit</button>
+<button class="nav-link" onclick="showCat('mauricinho',this)">Mauricinho</button>
 </nav>
 
 <main class="container">
 
-<section id="dryfit" class="category-section active">
+<!-- PERUANAS -->
+<section id="peruanas" class="category-section active">
 <div class="grid">
-
 <div class="product-card">
-<img id="img-dry" class="product-img" src="">
+<img src="https://i.postimg.cc/xdrnT8XQ/Whats-App-Image-2026-01-24-at-20-55-04.jpg" class="product-img">
 <div class="product-info">
-<h3 id="nome-prod"></h3>
-
-<div class="color-dots">
-<div class="dot" style="background:#000" onclick="mudarProd(event,'Preto','https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg')"></div>
-<div class="dot" style="background:#fff" onclick="mudarProd(event,'Branco','https://i.postimg.cc/ydk3yNzS/IMG-20260124-WA0217.jpg')"></div>
-<div class="dot" style="background:#001f3f" onclick="mudarProd(event,'Azul Marinho','https://i.postimg.cc/pTp5JdtF/IMG-20260124-WA0215.jpg')"></div>
-<div class="dot" style="background:#444" onclick="mudarProd(event,'Cinza','https://i.postimg.cc/0QbK0Nqm/IMG-20260124-WA0216.jpg')"></div>
-</div>
-
-<span id="preco-prod" class="product-price"></span>
-
-<a id="btn-dry" class="btn-buy" href="#">
+<h3>Camisa Peruana Hugo Boss</h3>
+<span class="product-price">R$ 99,90</span>
+<a class="btn-buy" href="https://wa.me/5522999400239?text=Quero+a+Camisa+Peruana+Hugo+Boss">
 <i class="fab fa-whatsapp"></i> Comprar
 </a>
-
-<br>
-<button onclick="abrirPainel()">✏️ Editar</button>
-
 </div>
 </div>
+</div>
+</section>
 
+<!-- DRY FIT -->
+<section id="dryfit" class="category-section">
+<div class="grid">
+<div class="product-card">
+<img id="img-dry" src="https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg" class="product-img">
+<div class="product-info">
+<h3>Conjunto Nike Dry-Fit</h3>
+
+<div class="color-dots">
+<div class="dot" style="background:#000" onclick="mudarProd('Preto','https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg')"></div>
+<div class="dot" style="background:#fff" onclick="mudarProd('Branco','https://i.postimg.cc/ydk3yNzS/IMG-20260124-WA0217.jpg')"></div>
+<div class="dot" style="background:#001f3f" onclick="mudarProd('Azul Marinho','https://i.postimg.cc/pTp5JdtF/IMG-20260124-WA0215.jpg')"></div>
+<div class="dot" style="background:#444" onclick="mudarProd('Cinza','https://i.postimg.cc/0QbK0Nqm/IMG-20260124-WA0216.jpg')"></div>
+</div>
+
+<span class="product-price">R$ 179,90</span>
+
+<a id="btn-dry" class="btn-buy" href="https://wa.me/5522999400239?text=Quero+o+Dry-Fit+Preto">
+<i class="fab fa-whatsapp"></i> Comprar
+</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- MAURICINHO -->
+<section id="mauricinho" class="category-section">
+<div class="grid">
+<div class="product-card">
+<img src="https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=600" class="product-img">
+<div class="product-info">
+<h3>Bermuda Mauricinho</h3>
+<span class="product-price">R$ 65,00</span>
+<a class="btn-buy" href="https://wa.me/5522999400239?text=Quero+a+Bermuda+Mauricinho">
+<i class="fab fa-whatsapp"></i> Comprar
+</a>
+</div>
+</div>
 </div>
 </section>
 
 </main>
 
-<a href="https://wa.me/5522999400239" class="whatsapp-float"><i class="fab fa-whatsapp"></i></a>
+<a href="https://wa.me/5522999400239" class="whatsapp-float">
+<i class="fab fa-whatsapp"></i>
+</a>
 
-<footer>© 2026 Distrito Imports</footer>
-
-<!-- PAINEL -->
-<div id="painel">
-<form onsubmit="salvar(event)">
-<h3>Editar Produto</h3>
-<input id="p-nome" placeholder="Nome">
-<input id="p-preco" placeholder="Preço">
-<input id="p-img" placeholder="Imagem padrão">
-<button type="submit">Salvar</button>
-<button type="button" onclick="fecharPainel()">Cancelar</button>
-</form>
-</div>
+<footer>© 2026 Distrito Imports — Itaperuna / RJ</footer>
 
 <script>
-let produto = JSON.parse(localStorage.getItem('produto')) || {
-nome:"Conjunto Nike Dry-Fit",
-preco:"R$ 179,90",
-img:"https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg"
-};
-
-function render(){
-document.getElementById('nome-prod').innerText = produto.nome;
-document.getElementById('preco-prod').innerText = produto.preco;
-document.getElementById('img-dry').src = produto.img;
-document.getElementById('btn-dry').href =
-"https://wa.me/5522999400239?text=" +
-encodeURIComponent("Quero o "+produto.nome);
-}
-render();
-
 function showCat(id,btn){
 document.querySelectorAll('.category-section').forEach(s=>s.classList.remove('active'));
 document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
@@ -150,44 +131,13 @@ document.getElementById(id).classList.add('active');
 btn.classList.add('active');
 }
 
-function mudarProd(e,cor,img){
+function mudarProd(cor,img){
 document.getElementById('img-dry').src = img;
-document.querySelectorAll('.dot').forEach(d=>d.style.border="2px solid #ccc");
-e.target.style.border="2px solid #E60000";
-
 document.getElementById('btn-dry').href =
 "https://wa.me/5522999400239?text=" +
-encodeURIComponent("Olá! Quero o "+produto.nome+" na cor "+cor);
-}
-
-function abrirPainel(){
-document.getElementById('painel').style.display="flex";
-document.getElementById('p-nome').value = produto.nome;
-document.getElementById('p-preco').value = produto.preco;
-document.getElementById('p-img').value = produto.img;
-}
-
-function fecharPainel(){
-document.getElementById('painel').style.display="none";
-}
-
-function salvar(e){
-e.preventDefault();
-produto.nome = document.getElementById('p-nome').value;
-produto.preco = document.getElementById('p-preco').value;
-produto.img = document.getElementById('p-img').value;
-localStorage.setItem('produto',JSON.stringify(produto));
-fecharPainel();
-render();
+encodeURIComponent("Quero o Conjunto Nike Dry-Fit na cor "+cor);
 }
 </script>
 
-<!-- 
-🔥 BASE GOOGLE PLANILHAS (ATIVAR DEPOIS)
-fetch("LINK_DA_PLANILHA_JSON")
-.then(res=>res.json())
-.then(dados=>{ ... });
--->
-
 </body>
-    </html>
+</html>
