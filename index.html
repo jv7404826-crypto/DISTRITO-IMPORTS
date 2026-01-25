@@ -1,4 +1,24 @@
-<!DOCTYPE html>
+[15:18, 25/01/2026] ~Jv🇩🇪: <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distrito Imports | Catálogo Oficial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --destaque: #E60000;
+            --preto: #0a0a0a;
+            --cinza-fundo: #f2f2f2;
+            --whatsapp: #25D366;
+            --branco: #ffffff;
+        }
+
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--cinza-fundo); color: var(--preto); }
+
+        header { ba…
+[15:25, 25/01/2026] ~Jv🇩🇪: <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -98,6 +118,7 @@
     <button class="nav-link" onclick="showCat('mantos', this)">Mantos</button>
     <button class="nav-link" onclick="showCat('mauricinho', this)">Mauricinho</button>
     <button class="nav-link" onclick="showCat('cargo', this)">Cargo</button>
+    <button class="nav-link" onclick="showCat('tenis', this)">Tênis</button>
 </nav>
 
 <main class="container">
@@ -105,20 +126,19 @@
     <section id="dryfit" class="category-section active">
         <div class="grid">
             <div class="product-card">
-                <img src="https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg" id="main-img-dryfit" class="product-img" alt="Conjunto Dry-Fit">
-                
+                <img src="https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg" id="main-img-dryfit" class="product-img">
                 <div class="product-info">
                     <h3>Conjunto Nike Dry-Fit Strike</h3>
-                    
                     <div class="color-dots">
-                        <div class="dot" style="background-color: #000;" onclick="document.getElementById('main-img-dryfit').src='https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg'" title="Preto"></div>
-                        <div class="dot" style="background-color: #fff;" onclick="document.getElementById('main-img-dryfit').src='https://i.postimg.cc/pTp5JdtF/IMG-20260124-WA0215.jpg'" title="Branco"></div>
-                        <div class="dot" style="background-color: #001f3f;" onclick="document.getElementById('main-img-dryfit').src='https://i.postimg.cc/0QbK0Nqm/IMG-20260124-WA0216.jpg'" title="Azul Marinho"></div>
-                        <div class="dot" style="background-color: #444;" onclick="document.getElementById('main-img-dryfit').src='https://i.postimg.cc/ydk3yNzS/IMG-20260124-WA0217.jpg'" title="Cinza Grafite"></div>
+                        <div class="dot" style="background-color: #000;" onclick="mudarProduto('https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg', 'Preto')"></div>
+                        <div class="dot" style="background-color: #fff;" onclick="mudarProduto('https://i.postimg.cc/pTp5JdtF/IMG-20260124-WA0215.jpg', 'Branco')"></div>
+                        <div class="dot" style="background-color: #001f3f;" onclick="mudarProduto('https://i.postimg.cc/0QbK0Nqm/IMG-20260124-WA0216.jpg', 'Azul Marinho')"></div>
+                        <div class="dot" style="background-color: #444;" onclick="mudarProduto('https://i.postimg.cc/ydk3yNzS/IMG-20260124-WA0217.jpg', 'Cinza Grafite')"></div>
                     </div>
-
                     <span class="product-price">R$ 179,90</span>
-                    <a href="https://wa.me/5522999400239?text=Olá,+tenho+interesse+no+Conjunto+Nike+DryFit" class="btn-buy"><i class="fab fa-whatsapp"></i> Chamar no Zap</a>
+                    <a href="https://wa.me/5522999400239?text=Olá,+tenho+interesse+no+Conjunto+Nike+(Cor:+Preto)" id="btn-zap-dryfit" class="btn-buy">
+                        <i class="fab fa-whatsapp"></i> Chamar no Zap
+                    </a>
                 </div>
             </div>
         </div>
@@ -126,7 +146,40 @@
 
     <section id="peruanas" class="category-section">
         <div class="grid">
-            <p style="text-align: center; width: 100%;">Adicione aqui suas camisas peruanas...</p>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/600x800?text=Sua+Foto+Aqui" class="product-img">
+                <div class="product-info">
+                    <h3>Camisa Peruana - Modelo 1</h3>
+                    <span class="product-price">R$ 99,90</span>
+                    <a href="https://wa.me/5522999400239?text=Quero+a+Peruana+Modelo+1" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
+                </div>
+            </div>
+            </div>
+    </section>
+
+    <section id="mantos" class="category-section">
+        <div class="grid">
+            <div class="product-card">
+                <img src="https://via.placeholder.com/600x800?text=Manto+Tailandês" class="product-img">
+                <div class="product-info">
+                    <h3>Manto Tailandês 1:1</h3>
+                    <span class="product-price">R$ 129,90</span>
+                    <a href="https://wa.me/5522999400239" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cargo" class="category-section">
+        <div class="grid">
+            <div class="product-card">
+                <img src="https://via.placeholder.com/600x800?text=Bermuda+Cargo" class="product-img">
+                <div class="product-info">
+                    <h3>Bermuda Cargo Sarja</h3>
+                    <span class="product-price">R$ 110,00</span>
+                    <a href="https://wa.me/5522999400239" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -137,18 +190,21 @@
 <footer><p>&copy; 2026 Distrito Imports — Itaperuna / RJ</p></footer>
 
 <script>
+// Função para trocar foto e mensagem do zap ao mesmo tempo
+function mudarProduto(linkFoto, corNome) {
+    document.getElementById('main-img-dryfit').src = linkFoto;
+    const msg = "Olá, tenho interesse no Conjunto Nike (Cor: " + corNome + ")";
+    document.getElementById('btn-zap-dryfit').href = "https://wa.me/5522999400239?text=" + encodeURIComponent(msg);
+}
+
+// Função de trocar de aba
 function showCat(catId, btn) {
-    var sections = document.querySelectorAll('.category-section');
-    sections.forEach(function(sec) { sec.classList.remove('active'); });
-
-    var links = document.querySelectorAll('.nav-link');
-    links.forEach(function(link) { link.classList.remove('active'); });
-
+    document.querySelectorAll('.category-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
     document.getElementById(catId).classList.add('active');
     btn.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
-
 </body>
 </html>
