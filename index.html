@@ -82,9 +82,9 @@
                     <h3>Conjunto Nike Dry-Fit</h3>
                     <div class="color-dots">
                         <div class="dot" style="background: #000;" onclick="mudarProd('img-dry-main', 'btn-dry-main', 'https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg', 'Preto')"></div>
-                        <div class="dot" style="background: #fff;" onclick="mudarProd('img-dry-main', 'btn-dry-main', 'https://i.postimg.cc/pTp5JdtF/IMG-20260124-WA0215.jpg', 'Branco')"></div>
-                        <div class="dot" style="background: #001f3f;" onclick="mudarProd('img-dry-main', 'btn-dry-main', 'https://i.postimg.cc/0QbK0Nqm/IMG-20260124-WA0216.jpg', 'Azul Marinho')"></div>
-                        <div class="dot" style="background: #444;" onclick="mudarProd('img-dry-main', 'btn-dry-main', 'https://i.postimg.cc/ydk3yNzS/IMG-20260124-WA0217.jpg', 'Cinza Grafite')"></div>
+                        <div class="dot" style="background: #fff;" onclick="mudarProd('img-dry-main', 'btn-dry-main', 'https://i.postimg.cc/pTp5JdtF/IMG-20260124-WA0217.jpg', 'Branco')"></div>
+                        <div class="dot" style="background: #001f3f;" onclick="mudarProd('img-dry-main', 'btn-dry-main', 'https://i.postimg.cc/0QbK0Nqm/IMG-20260124-WA0215.jpg', 'Azul Marinho')"></div>
+                        <div class="dot" style="background: #444;" onclick="mudarProd('img-dry-main', 'btn-dry-main', 'https://i.postimg.cc/ydk3yNzS/IMG-20260124-WA0216.jpg', 'Cinza Grafite')"></div>
                     </div>
                     <span class="product-price">R$ 179,90</span>
                     <a href="https://wa.me/5522999400239?text=Quero+o+Dry-Fit+(Preto)" id="btn-dry-main" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
@@ -92,21 +92,66 @@
             </div>
         </div>
     </section>
+
+section id="mauricinho" class="category-section">
+        <div class="grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=600" class="product-img">
+                <div class="product-info">
+                    <h3>Bermuda Mauricinho</h3>
+                    <span class="product-price">R$ 65,00</span>
+                    <a href="https://wa.me/5522999400239?text=Tenho+interesse+na+Bermuda+Mauricinho" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cargo" class="category-section">
+        <div class="grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1565041439234-8373bb95186b?q=80&w=600" class="product-img">
+                <div class="product-info">
+                    <h3>Bermuda Cargo Sarja</h3>
+                    <span class="product-price">R$ 110,00</span>
+                    <a href="https://wa.me/5522999400239?text=Tenho+interesse+na+Bermuda+Cargo" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tenis" class="category-section">
+        <div class="grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=600" class="product-img">
+                <div class="product-info">
+                    <h3>Tênis Esportivo Premium</h3>
+                    <span class="product-price">R$ 249,90</span>
+                    <a href="https://wa.me/5522999400239?text=Tenho+interesse+no+Tênis" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </main>
 
-<script>
-    function mudarProd(imgId, btnId, foto, cor) {
-        document.getElementById(imgId).src = foto;
-        const msg = encodeURIComponent("Olá! Tenho interesse no Conjunto Nike (Cor: " + cor + ")");
-        document.getElementById(btnId).href = "https://wa.me/5522999400239?text=" + msg;
-    }
+<a href="https://wa.me/5522999400239" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
-    function showCat(catId, btn) {
-        document.querySelectorAll('.category-section').forEach(s => s.classList.remove('active'));
-        document.getElementById(catId).classList.add('active');
-        btn.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+<footer><p>&copy; 2026 Distrito Imports — Itaperuna / RJ</p></footer>
+
+<script>
+function showCat(catId, btn) {
+    var sections = document.querySelectorAll('.category-section');
+    sections.forEach(function(sec) { sec.classList.remove('active'); });
+
+    var links = document.querySelectorAll('.nav-link');
+    links.forEach(function(link) { link.classList.remove('active'); });
+
+    document.getElementById(catId).classList.add('active');
+    btn.classList.add('active');
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 </script>
+
 </body>
 </html>
