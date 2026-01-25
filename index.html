@@ -56,11 +56,15 @@
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
 
         .product-card { background: var(--branco); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
-        .product-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; background: #ddd; display: block; }
+        .product-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; background: #ddd; display: block; transition: 0.3s; }
         
         .product-info { padding: 12px; text-align: center; flex-grow: 1; }
         .product-info h3 { font-size: 12px; margin: 0 0 8px 0; font-weight: 700; text-transform: uppercase; height: 30px; overflow: hidden; }
         .product-price { color: var(--destaque); font-weight: 900; font-size: 18px; margin-bottom: 12px; display: block; }
+
+        .color-dots { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; }
+        .dot { width: 22px; height: 22px; border-radius: 50%; cursor: pointer; border: 2px solid #ccc; transition: 0.2s; }
+        .dot:hover { transform: scale(1.1); border-color: var(--destaque); }
 
         .btn-buy { 
             background: var(--whatsapp); 
@@ -89,91 +93,40 @@
 <header><h1>Distrito <span>Imports</span></h1></header>
 
 <nav>
-    <button class="nav-link active" onclick="showCat('peruanas', this)">Peruanas</button>
+    <button class="nav-link active" onclick="showCat('dryfit', this)">Conjuntos Dry-Fit</button>
+    <button class="nav-link" onclick="showCat('peruanas', this)">Peruanas</button>
     <button class="nav-link" onclick="showCat('mantos', this)">Mantos</button>
-    <button class="nav-link" onclick="showCat('dryfit', this)">Conjuntos Dry-Fit</button>
     <button class="nav-link" onclick="showCat('mauricinho', this)">Mauricinho</button>
     <button class="nav-link" onclick="showCat('cargo', this)">Cargo</button>
-    <button class="nav-link" onclick="showCat('tenis', this)">Tênis</button>
 </nav>
 
 <main class="container">
     
-    <section id="peruanas" class="category-section active">
+    <section id="dryfit" class="category-section active">
         <div class="grid">
             <div class="product-card">
-                <img src="https://i.postimg.cc/xdrnT8XQ/Whats-App-Image-2026-01-24-at-20-55-04.jpg" class="product-img">
+                <img src="https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg" id="main-img-dryfit" class="product-img" alt="Conjunto Dry-Fit">
+                
                 <div class="product-info">
-                    <h3>Camisa Peruana Premium</h3>
-                    <span class="product-price">R$ 99,90</span>
-                    <a href="https://wa.me/5522999400239?text=Fala,+chefe.+Tenho+interesse+na+Camisa+Peruana.+Quais+tamanhos+disponíveis+e+formas+de+pagamento?" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
-                </div>
-            </div>
-        </div>
-    </section>
+                    <h3>Conjunto Nike Dry-Fit Strike</h3>
+                    
+                    <div class="color-dots">
+                        <div class="dot" style="background-color: #000;" onclick="document.getElementById('main-img-dryfit').src='https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg'" title="Preto"></div>
+                        <div class="dot" style="background-color: #fff;" onclick="document.getElementById('main-img-dryfit').src='https://i.postimg.cc/pTp5JdtF/IMG-20260124-WA0215.jpg'" title="Branco"></div>
+                        <div class="dot" style="background-color: #001f3f;" onclick="document.getElementById('main-img-dryfit').src='https://i.postimg.cc/0QbK0Nqm/IMG-20260124-WA0216.jpg'" title="Azul Marinho"></div>
+                        <div class="dot" style="background-color: #444;" onclick="document.getElementById('main-img-dryfit').src='https://i.postimg.cc/ydk3yNzS/IMG-20260124-WA0217.jpg'" title="Cinza Grafite"></div>
+                    </div>
 
-    <section id="mantos" class="category-section">
-        <div class="grid">
-            <div class="product-card">
-                <img src="https://i.postimg.cc/N0Jh200V/Whats-App-Image-2026-01-25-at-13-46-15.jpg" class="product-img">
-                <div class="product-info">
-                    <h3>Manto Tailandês 1:1</h3>
-                    <span class="product-price">R$ 129,90</span>
-                    <a href="https://wa.me/5522999400239?text=Fala,+chefe.+Tenho+interesse+no+Manto+Tailandês.+Quais+tamanhos+disponíveis+e+formas+de+pagamento?" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="dryfit" class="category-section">
-        <div class="grid">
-            <div class="product-card">
-                <img src="https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg" class="product-img">
-                <div class="product-info">
-                    <h3>Conjunto Dry-Fit Elite</h3>
                     <span class="product-price">R$ 179,90</span>
-                    <a href="https://wa.me/5522999400239?text=Fala,+chefe.+Tenho+interesse+no+Conjunto+Dry-Fit+Elite.+Quais+tamanhos+disponíveis+e+formas+de+pagamento?" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
+                    <a href="https://wa.me/5522999400239?text=Olá,+tenho+interesse+no+Conjunto+Nike+DryFit" class="btn-buy"><i class="fab fa-whatsapp"></i> Chamar no Zap</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="mauricinho" class="category-section">
+    <section id="peruanas" class="category-section">
         <div class="grid">
-            <div class="product-card">
-                <img src="" class="product-img">
-                <div class="product-info">
-                    <h3>Bermuda Mauricinho</h3>
-                    <span class="product-price">R$ 65,00</span>
-                    <a href="https://wa.me/5522999400239?text=Fala,+chefe.+Tenho+interesse+na+Bermuda+Mauricinho.+Quais+tamanhos+disponíveis+e+formas+de+pagamento?" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="cargo" class="category-section">
-        <div class="grid">
-            <div class="product-card">
-                <img src="" class="product-img">
-                <div class="product-info">
-                    <h3>Bermuda Cargo Sarja</h3>
-                    <span class="product-price">R$ 110,00</span>
-                    <a href="https://wa.me/5522999400239?text=Fala,+chefe.+Tenho+interesse+na+Bermuda+Cargo.+Quais+tamanhos+disponíveis+e+formas+de+pagamento?" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="tenis" class="category-section">
-        <div class="grid">
-            <div class="product-card">
-                <img src="" class="product-img">
-                <div class="product-info">
-                    <h3>Tênis Esportivo Premium</h3>
-                    <span class="product-price">R$ 249,90</span>
-                    <a href="https://wa.me/5522999400239?text=Fala,+chefe.+Tenho+interesse+no+Tênis.+Quais+tamanhos+disponíveis+e+formas+de+pagamento?" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
-                </div>
-            </div>
+            <p style="text-align: center; width: 100%;">Adicione aqui suas camisas peruanas...</p>
         </div>
     </section>
 
@@ -193,7 +146,6 @@ function showCat(catId, btn) {
 
     document.getElementById(catId).classList.add('active');
     btn.classList.add('active');
-    
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
