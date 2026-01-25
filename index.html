@@ -2,9 +2,8 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Distrito Imports | Moda Masculina</title>
-
-<meta name="description" content="Distrito Imports - Loja de roupa masculina em Itaperuna RJ. Camisas premium, conjuntos, bermudas e moda sport.">
+<title>Distrito Imports | Moda Masculina & Sport Premium</title>
+<meta name="description" content="Distrito Imports - Loja de roupa masculina em Itaperuna RJ. Camisas premium, conjuntos, tênis e moda sport.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
@@ -14,18 +13,20 @@
 :root {
   --destaque: #E60000;
   --preto: #0a0a0a;
-  --cinza: #f4f4f4;
+  --cinza-fundo: #f4f4f4;
   --branco: #ffffff;
+  --whatsapp: #25D366;
 }
 
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  background: var(--cinza);
+  background: var(--cinza-fundo);
   color: var(--preto);
+  scroll-behavior: smooth;
 }
 
-/* TOPO */
+/* BARRA DE TOPO */
 .top-bar {
   background: var(--destaque);
   color: white;
@@ -34,6 +35,7 @@ body {
   font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 /* HEADER */
@@ -53,17 +55,18 @@ header h1 {
   font-style: italic;
 }
 
-header span { color: var(--destaque); }
+header h1 span { color: var(--destaque); }
 
-/* MENU */
+/* NAVEGAÇÃO */
 nav {
   background: white;
   display: flex;
   justify-content: center;
   position: sticky;
   top: 0;
-  z-index: 999;
+  z-index: 1000;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  flex-wrap: wrap;
 }
 
 nav a {
@@ -73,94 +76,47 @@ nav a {
   font-weight: 700;
   font-size: 13px;
   text-transform: uppercase;
-}
-
-nav a:hover {
-  color: var(--destaque);
-  border-bottom: 3px solid var(--destaque);
-}
-
-/* HERO */
-.hero {
-  height: 420px;
-  background: linear-gradient(rgba(0,0,0,.85), rgba(230,0,0,.25)),
-  url('https://images.unsplash.com/photo-1517466787929-bc90951d0974?q=80&w=1600') center/cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: white;
-}
-
-.hero h2 {
-  font-size: 42px;
-  font-weight: 900;
-  text-transform: uppercase;
-  font-style: italic;
-}
-
-.hero p {
-  font-size: 16px;
-}
-
-/* CONTAINER */
-.container {
-  max-width: 1200px;
-  margin: 60px auto;
-  padding: 0 20px;
-}
-
-.section-title {
-  text-align: center;
-  font-size: 28px;
-  font-weight: 900;
-  text-transform: uppercase;
-  margin-bottom: 40px;
-}
-
-/* PRODUTOS */
-.products {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-}
-
-.card {
-  background: white;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
   transition: 0.3s;
 }
 
+nav a:hover { color: var(--destaque); border-bottom: 3px solid var(--destaque); }
+
+/* CARROSSEL DE BANNERS */
+.slider { width: 100%; height: 450px; overflow: hidden; position: relative; }
+.slides { display: flex; width: 300%; height: 100%; transition: 0.8s ease; }
+.slide { 
+  width: 100.33%; height: 100%; 
+  background-size: cover; 
+  background-position: center; 
+  display: flex; align-items: center; justify-content: center; 
+  position: relative; 
+}
+.slide::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); }
+
+.slide-content { position: relative; color: white; text-align: center; z-index: 1; padding: 20px; }
+.slide-content h2 { font-size: 42px; font-weight: 900; text-transform: uppercase; font-style: italic; margin: 0; }
+.slide-content p { font-size: 18px; font-weight: 500; }
+
+/* CONTAINER GERAL */
+.container { max-width: 1200px; margin: 60px auto; padding: 0 20px; }
+.section-title { text-align: center; font-size: 28px; font-weight: 900; text-transform: uppercase; margin-bottom: 40px; }
+.section-title span { color: var(--destaque); }
+
+/* GRID DE PRODUTOS */
+.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+.card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: 0.3s; }
 .card:hover { transform: translateY(-8px); }
 
-.card img {
-  width: 100%;
-  height: 380px;
-  object-fit: cover;
-}
+.img-box { height: 380px; overflow: hidden; }
+.img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+.card:hover img { transform: scale(1.1); }
 
-.card .info {
-  padding: 25px;
-  text-align: center;
-}
+.info-box { padding: 25px; text-align: center; }
+.info-box h3 { font-size: 17px; font-weight: 800; text-transform: uppercase; margin: 0; }
+.price { font-size: 26px; font-weight: 900; color: var(--destaque); margin: 15px 0; display: block; }
 
-.card h3 {
-  font-size: 17px;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-
-.price {
-  font-size: 26px;
-  font-weight: 900;
-  color: var(--destaque);
-  margin: 15px 0;
-}
-
-.buy {
-  background: #25D366;
+.btn-buy {
+  background: var(--whatsapp);
   color: white;
   padding: 12px;
   border-radius: 6px;
@@ -170,42 +126,23 @@ nav a:hover {
   text-decoration: none;
   font-weight: 700;
   text-transform: uppercase;
+  transition: 0.3s;
 }
+.btn-buy:hover { filter: brightness(1.1); }
 
-/* SOBRE */
-.about {
-  background: white;
-  padding: 60px 20px;
-  text-align: center;
-}
+/* SOBRE E DEPOIMENTOS */
+.about { background: white; padding: 60px 20px; text-align: center; }
+.about p { max-width: 800px; margin: auto; line-height: 1.6; font-weight: 500; font-size: 18px; }
 
-.about p {
-  max-width: 800px;
-  margin: auto;
-  line-height: 1.6;
-  font-weight: 500;
-}
+.reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
+.review-card { background: var(--cinza-fundo); padding: 25px; border-radius: 10px; text-align: center; font-size: 14px; }
 
-/* AVALIAÇÕES */
-.reviews {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-}
-
-.review-card {
-  background: white;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-/* WHATS */
-.whatsapp {
+/* WHATSAPP FLUTUANTE */
+.whatsapp-fixed {
   position: fixed;
   bottom: 25px;
   right: 25px;
-  background: #25D366;
+  background: var(--whatsapp);
   color: white;
   width: 65px;
   height: 65px;
@@ -214,22 +151,23 @@ nav a:hover {
   align-items: center;
   justify-content: center;
   font-size: 34px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  z-index: 2000;
+  animation: pulse 2s infinite;
 }
 
-/* FOOTER */
-footer {
-  background: var(--preto);
-  color: #777;
-  text-align: center;
-  padding: 40px 20px;
-  border-top: 5px solid var(--destaque);
+@keyframes pulse { 
+  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 
+  70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } 
 }
+
+footer { background: var(--preto); color: #777; text-align: center; padding: 40px 20px; border-top: 5px solid var(--destaque); }
 </style>
 </head>
-
 <body>
 
-<div class="top-bar">Entrega rápida em Itaperuna RJ • Distrito Imports</div>
+<div class="top-bar">🚚 Entrega rápida em Itaperuna RJ e região • Distrito Imports</div>
 
 <header>
   <h1>Distrito <span>Imports</span></h1>
@@ -237,75 +175,104 @@ footer {
 
 <nav>
   <a href="#">Início</a>
-  <a href="#">Camisas</a>
-  <a href="#">Conjuntos</a>
-  <a href="#">Bermudas</a>
-  <a href="#">Contato</a>
+  <a href="#camisas">Camisas</a>
+  <a href="#tenis">Tênis</a>
+  <a href="#conjuntos">Conjuntos</a>
+  <a href="#sobre">Sobre Nós</a>
 </nav>
 
-<section class="hero">
-  <div>
-    <h2>Performance e Estilo</h2>
-    <p>Moda masculina sem exagero. Qualidade e presença.</p>
+<div class="slider">
+  <div class="slides" id="slides">
+    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1600');">
+      <div class="slide-content"><h2>Pise com Estilo</h2><p>Tênis importados com qualidade premium.</p></div>
+    </div>
+    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1600');">
+      <div class="slide-content"><h2>Mantos Tailandeses</h2><p>As melhores camisas de time 1:1 do mercado.</p></div>
+    </div>
+    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1517466787929-bc90951d0974?q=80&w=1600');">
+      <div class="slide-content"><h2>Performance Sport</h2><p>Kits de treino para quem busca o melhor.</p></div>
+    </div>
   </div>
-</section>
+</div>
 
 <main class="container">
-  <h2 class="section-title">Destaques</h2>
-
-  <div class="products">
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1577212017184-80cc0da115d7?q=80&w=600">
-      <div class="info">
-        <h3>Camisa Premium</h3>
-        <div class="price">R$ 129,90</div>
-        <a class="buy" href="https://wa.me/5522997815147?text=Olá! Vi a *Camisa Premium* no site da Distrito Imports. Tem disponível no meu tamanho?">
-          <i class="fab fa-whatsapp"></i> Comprar
-        </a>
+  
+  <section id="camisas">
+    <h2 class="section-title">⚽ Camisas de <span>Time</span></h2>
+    <div class="products-grid">
+      <div class="card">
+        <div class="img-box"><img src="https://images.unsplash.com/photo-1577212017184-80cc0da115d7?q=80&w=600"></div>
+        <div class="info-box">
+          <h3>Camisa Titular 24/25</h3>
+          <span class="price">R$ 129,90</span>
+          <a href="https://wa.me/5522999400239?text=Quero+a+camisa+de+time" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-box"><img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=600"></div>
+        <div class="info-box">
+          <h3>Camisa Treino Elite</h3>
+          <span class="price">R$ 119,90</span>
+          <a href="https://wa.me/5522999400239?text=Quero+a+camisa+de+treino" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
+        </div>
       </div>
     </div>
+  </section>
 
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600">
-      <div class="info">
-        <h3>Conjunto Dry Fit</h3>
-        <div class="price">R$ 189,90</div>
-        <a class="buy" href="https://wa.me/5522997815147?text=Olá! Quero saber mais sobre o *Conjunto Dry Fit* da Distrito Imports.">
-          <i class="fab fa-whatsapp"></i> Comprar
-        </a>
+  <section id="tenis" style="margin-top: 80px;">
+    <h2 class="section-title">👟 Linha de <span>Tênis</span></h2>
+    <div class="products-grid">
+      <div class="card">
+        <div class="img-box"><img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?q=80&w=600"></div>
+        <div class="info-box">
+          <h3>Tênis Sport Green</h3>
+          <span class="price">R$ 249,90</span>
+          <a href="https://wa.me/5522999400239?text=Quero+o+tenis+sport" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-box"><img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?q=80&w=600"></div>
+        <div class="info-box">
+          <h3>Casual Premium White</h3>
+          <span class="price">R$ 299,90</span>
+          <a href="https://wa.me/5522999400239?text=Quero+o+tenis+casual" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
+        </div>
       </div>
     </div>
+  </section>
 
-  </div>
 </main>
 
-<section class="about">
-  <h2 class="section-title">Sobre a Loja</h2>
-  <p>
-    A Distrito Imports trabalha com moda masculina focada em qualidade,
-    conforto e estilo. Peças selecionadas, entrega rápida em Itaperuna
-    e atendimento direto pelo WhatsApp.
-  </p>
-</section>
-
-<section class="container">
-  <h2 class="section-title">O que os clientes dizem</h2>
-
-  <div class="reviews">
-    <div class="review-card">⭐⭐⭐⭐⭐<br><strong>Lucas M.</strong><br>Produto chegou rápido e qualidade absurda.</div>
-    <div class="review-card">⭐⭐⭐⭐⭐<br><strong>Rafael S.</strong><br>Atendimento rápido e roupa top.</div>
-    <div class="review-card">⭐⭐⭐⭐⭐<br><strong>Matheus C.</strong><br>Loja de confiança. Recomendo.</div>
+<section class="about" id="sobre">
+  <div class="container">
+    <h2 class="section-title">Sobre a <span>Distrito</span></h2>
+    <p>Trabalhamos com moda masculina focada em qualidade, conforto e estilo. Peças selecionadas para quem não abre mão de estar bem vestido, seja no esporte ou no dia a dia. Atendimento exclusivo em Itaperuna-RJ.</p>
+    
+    <div class="reviews">
+      <div class="review-card">⭐⭐⭐⭐⭐<br><strong>Lucas M.</strong><br>Qualidade absurda e entrega rápida.</div>
+      <div class="review-card">⭐⭐⭐⭐⭐<br><strong>Rafael S.</strong><br>Melhores mantos que já comprei.</div>
+      <div class="review-card">⭐⭐⭐⭐⭐<br><strong>Matheus C.</strong><br>Loja de confiança, recomendo a todos!</div>
+    </div>
   </div>
 </section>
 
-<a class="whatsapp" href="https://wa.me/5522997815147?text=Olá! Vim pelo site da Distrito Imports.">
+<a href="https://wa.me/5522999400239" class="whatsapp-fixed" target="_blank">
   <i class="fab fa-whatsapp"></i>
 </a>
 
 <footer>
-  <p>© 2026 Distrito Imports — Todos os direitos reservados</p>
+  <p>&copy; 2026 Distrito Imports — Todos os direitos reservados</p>
 </footer>
 
+<script>
+  let index = 0;
+  const slides = document.getElementById('slides');
+  setInterval(() => {
+    index++;
+    if (index > 2) index = 0;
+    slides.style.transform = `translateX(-${index * 33.33}%)`;
+  }, 4500);
+</script>
+
 </body>
-          </html>
+</html>
