@@ -2,178 +2,198 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Catálogo com Estoque Automático</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Distrito Imports | Catálogo</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-body{margin:0;font-family:Arial;background:#f2f2f2}
-header{background:#111;color:#fff;padding:15px;text-align:center}
-nav button{margin:5px;padding:10px;border:none;border-radius:5px;cursor:pointer}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;padding:15px}
-.card{background:#fff;border-radius:10px;padding:10px}
-.card img{width:100%;border-radius:10px}
-.dots{display:flex;gap:8px;margin:8px 0}
-.dot{width:20px;height:20px;border-radius:50%;cursor:pointer;border:2px solid #ccc}
-.dot.active{border-color:#000}
-.sizes{display:flex;gap:8px;flex-wrap:wrap}
-.size{padding:5px 10px;border:1px solid #000;border-radius:5px;cursor:pointer}
-.size.disabled{opacity:.4;pointer-events:none}
-.buy{margin-top:10px;padding:10px;width:100%;border:none;border-radius:5px;background:#25D366;color:#fff;font-weight:bold;cursor:pointer}
-.buy[disabled]{opacity:.4;cursor:not-allowed}
+:root{
+ --red:#E60000;
+ --black:#0a0a0a;
+ --white:#ffffff;
+ --gray:#f2f2f2;
+ --whats:#25D366
+}
+body{margin:0;font-family:Montserrat;background:var(--gray)}
+header{background:var(--black);color:#fff;text-align:center;padding:20px;border-bottom:4px solid var(--red)}
+header span{color:var(--red)}
+nav{background:var(--white);display:flex;overflow-x:auto;position:sticky;top:0;z-index:1000}
+nav::-webkit-scrollbar{display:none}
+.nav-link{padding:15px;border:none;background:none;font-weight:700;font-size:11px;text-transform:uppercase;color:#666;cursor:pointer}
+.nav-link.active{color:var(--red);border-bottom:3px solid var(--red)}
+.container{max-width:1200px;margin:20px auto;padding:0 15px}
+.category{display:none}
+.category.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:15px}
 
-/* ADMIN */
-#admin{background:#fff;padding:15px}
-input{width:50px}
+.card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.card img{width:100%;aspect-ratio:3/4;object-fit:cover;cursor:zoom-in}
+
+.info{padding:12px;text-align:center}
+.info h3{font-size:12px;margin:0 0 6px;text-transform:uppercase}
+.price{color:var(--red);font-weight:900;font-size:18px;margin-bottom:6px;display:block}
+
+.colors,.sizes{display:flex;justify-content:center;gap:6px;margin:6px 0}
+.dot{width:22px;height:22px;border-radius:50%;border:2px solid #ccc;cursor:pointer}
+.dot.active{border-color:var(--red)}
+
+.size{border:2px solid #ccc;padding:4px 7px;font-size:10px;font-weight:700;cursor:pointer}
+.size.disabled{opacity:.3;pointer-events:none}
+.size.active{border-color:var(--red)}
+
+.buy{background:var(--whats);color:#fff;text-decoration:none;font-size:10px;font-weight:700;padding:10px;border-radius:4px;display:block;text-transform:uppercase;opacity:.4;pointer-events:none}
+
+#zoom{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);align-items:center;justify-content:center;z-index:2000}
+#zoom img{max-width:90%;max-height:90%}
+
+.whats-float{position:fixed;bottom:20px;right:20px;background:var(--whats);color:#fff;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;z-index:1500}
+
+footer{text-align:center;padding:30px;background:#0a0a0a;color:#666;font-size:11px;margin-top:40px}
 </style>
 </head>
 
 <body>
 
-<header>
-<h2>CATÁLOGO</h2>
+<header><h1>Distrito <span>Imports</span></h1></header>
+
 <nav>
-<button onclick="showCat('camisas')">Camisas</button>
-<button onclick="showCat('bermudas')">Bermudas</button>
-<button onclick="showCat('conjuntos')">Conjuntos</button>
-<button onclick="toggleAdmin()">ADMIN</button>
+<button class="nav-link active" onclick="showCat('peruanas',this)">Peruanas</button>
+<button class="nav-link" onclick="showCat('mantos',this)">Mantos</button>
+<button class="nav-link" onclick="showCat('dryfit',this)">Dry-Fit</button>
+<button class="nav-link" onclick="showCat('cargo',this)">Cargo</button>
+<button class="nav-link" onclick="showCat('mauricinho',this)">Mauricinho</button>
+<button class="nav-link" onclick="showCat('calcados',this)">Calçados</button>
 </nav>
-</header>
 
-<div id="catalogo"></div>
+<main class="container">
+<section id="peruanas" class="category active"><div class="grid" id="grid-peruanas"></div></section>
+<section id="mantos" class="category"><div class="grid" id="grid-mantos"></div></section>
+<section id="dryfit" class="category"><div class="grid" id="grid-dryfit"></div></section>
+<section id="cargo" class="category"><div class="grid" id="grid-cargo"></div></section>
+<section id="mauricinho" class="category"><div class="grid" id="grid-mauricinho"></div></section>
+<section id="calcados" class="category"><div class="grid" id="grid-calcados"></div></section>
+</main>
 
-<div id="admin" style="display:none"></div>
+<div id="zoom" onclick="this.style.display='none'"><img></div>
+
+<a class="whats-float" href="https://wa.me/5522999400239"><i class="fab fa-whatsapp"></i></a>
+
+<footer>© 2026 Distrito Imports — Itaperuna / RJ</footer>
 
 <script>
 const whatsapp="5522999400239";
 
-let produtos={
-camisas:[
-{
-nome:"Camisa Premium",
-preco:79.90,
-cores:{
-preto:{img:"https://via.placeholder.com/300/000",estoque:{P:5,M:5,G:3}},
-vermelho:{img:"https://via.placeholder.com/300/f00",estoque:{P:2,M:0,G:1}}
-}
-}
-],
-bermudas:[
-{
-nome:"Bermuda Dry",
-preco:89.90,
-cores:{
-preto:{img:"https://via.placeholder.com/300/111",estoque:{38:3,40:2,42:1}},
-azul:{img:"https://via.placeholder.com/300/00f",estoque:{38:1,40:0,42:2}}
-}
-}
-],
-conjuntos:[
-{
-nome:"Conjunto Esportivo",
-preco:149.90,
-cores:{
-cinza:{img:"https://via.placeholder.com/300/999",estoque:{P:2,M:2,G:2}},
-preto:{img:"https://via.placeholder.com/300/000",estoque:{P:0,M:1,G:1}}
-}
-}
-]
+/* === ESTOQUE COM SALVAMENTO === */
+let produtos = JSON.parse(localStorage.getItem("produtos")) || {
+  peruanas:[{
+    nome:"Camisa Peruana Premium",
+    preco:"99,90",
+    cores:{
+      Preto:{img:"https://i.postimg.cc/xdrnT8XQ/Whats-App-Image.jpg",estoque:{P:1,M:1,G:1,GG:0}}
+    }
+  }],
+  mantos:[{
+    nome:"Manto Seleção",
+    preco:"129,90",
+    cores:{
+      Azul:{img:"https://i.postimg.cc/N0Jh200V/Whats-App-Image.jpg",estoque:{P:1,M:1,G:1,GG:1}}
+    }
+  }],
+  dryfit:[{
+    nome:"Conjunto Nike Dry-Fit",
+    preco:"179,90",
+    cores:{
+      Preto:{img:"https://i.postimg.cc/zDQZp382/IMG.jpg",estoque:{P:1,M:1,G:0,GG:0}},
+      Branco:{img:"https://i.postimg.cc/ydk3yNzS/IMG.jpg",estoque:{P:1,M:0,G:1,GG:0}}
+    }
+  }],
+  cargo:[{
+    nome:"Bermuda Cargo",
+    preco:"110,00",
+    cores:{
+      Verde:{img:"https://i.postimg.cc/WtRW03ty/IMG.jpg",estoque:{38:1,40:1,42:0}}
+    }
+  }],
+  mauricinho:[{
+    nome:"Bermuda Mauricinho",
+    preco:"65,00",
+    cores:{
+      Estampada:{img:"https://i.postimg.cc/t70SFTY0/IMG.jpg",estoque:{P:1,M:1,G:1}}
+    }
+  }],
+  calcados:[{
+    nome:"Tênis Premium",
+    preco:"249,90",
+    cores:{
+      Preto:{img:"https://i.postimg.cc/FKJ2d2PZ/IMG.jpg",estoque:{39:1,40:1,41:0,42:0}}
+    }
+  }]
 };
 
-let categoriaAtual="camisas";
+function salvar(){localStorage.setItem("produtos",JSON.stringify(produtos));}
 
-function showCat(cat){
-categoriaAtual=cat;
-render();
+function showCat(id,btn){
+document.querySelectorAll('.category').forEach(c=>c.classList.remove('active'));
+document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+btn.classList.add('active');
 }
 
-function render(){
-const div=document.getElementById("catalogo");
-div.innerHTML=`<div class="grid" id="grid"></div>`;
-const grid=document.getElementById("grid");
+function zoom(img){
+document.querySelector('#zoom img').src=img.src;
+document.getElementById('zoom').style.display='flex';
+}
 
-produtos[categoriaAtual].forEach((p,i)=>{
-const corInicial=Object.keys(p.cores)[0];
+function render(cat){
+const grid=document.getElementById('grid-'+cat);
+grid.innerHTML='';
+produtos[cat].forEach((p,i)=>{
+const corPadrao=Object.keys(p.cores)[0];
 grid.innerHTML+=`
 <div class="card">
-<img src="${p.cores[corInicial].img}">
+<img id="img-${cat}-${i}" src="${p.cores[corPadrao].img}" onclick="zoom(this)">
+<div class="info">
 <h3>${p.nome}</h3>
-<p>R$ ${p.preco.toFixed(2)}</p>
-
-<div class="dots">
-${Object.keys(p.cores).map(c=>`
-<div class="dot" style="background:${c}" onclick="selectCor(${i},'${c}')"></div>`).join("")}
+<span class="price">R$ ${p.preco}</span>
+<div class="colors">
+${Object.keys(p.cores).map(c=>`<div class="dot" onclick="selectCor('${cat}',${i},'${c}')"></div>`).join('')}
 </div>
-
-<div class="sizes" id="sizes-${i}"></div>
-
-<button class="buy" id="buy-${i}" disabled>Escolha tamanho</button>
+<div class="sizes" id="sizes-${cat}-${i}"></div>
+<a id="buy-${cat}-${i}" class="buy">Escolha tamanho</a>
 </div>
-`;
-selectCor(i,corInicial);
+</div>`;
+selectCor(cat,i,corPadrao);
 });
 }
 
-let selecao={};
-
-function selectCor(i,cor){
-selecao[i]={cor:null,tam:null};
-const card=document.querySelectorAll(".card")[i];
-card.querySelector("img").src=produtos[categoriaAtual][i].cores[cor].img;
-selecao[i].cor=cor;
-
-const sizes=document.getElementById(`sizes-${i}`);
-sizes.innerHTML="";
-Object.entries(produtos[categoriaAtual][i].cores[cor].estoque).forEach(([t,q])=>{
+function selectCor(cat,i,cor){
+document.getElementById(`img-${cat}-${i}`).src=produtos[cat][i].cores[cor].img;
+const sizes=document.getElementById(`sizes-${cat}-${i}`);
+sizes.innerHTML='';
+Object.entries(produtos[cat][i].cores[cor].estoque).forEach(([t,q])=>{
 sizes.innerHTML+=`
-<div class="size ${q==0?'disabled':''}" onclick="selectSize(${i},'${t}')">${t}</div>`;
-});
-
-document.getElementById(`buy-${i}`).disabled=true;
-}
-
-function selectSize(i,t){
-selecao[i].tam=t;
-const btn=document.getElementById(`buy-${i}`);
-btn.disabled=false;
-btn.onclick=()=>{
-let prod=produtos[categoriaAtual][i];
-let cor=selecao[i].cor;
-if(prod.cores[cor].estoque[t]>0){
-prod.cores[cor].estoque[t]--;
-render();
-window.open(`https://wa.me/${whatsapp}?text=`+
-encodeURIComponent(`Quero ${prod.nome} cor ${cor} tamanho ${t}`));
-}else alert("Estoque esgotado");
-};
-}
-
-function toggleAdmin(){
-const adm=document.getElementById("admin");
-adm.style.display=adm.style.display=="none"?"block":"none";
-renderAdmin();
-}
-
-function renderAdmin(){
-const adm=document.getElementById("admin");
-adm.innerHTML="<h3>Painel de Estoque</h3>";
-Object.entries(produtos).forEach(([cat,lista])=>{
-adm.innerHTML+=`<h4>${cat}</h4>`;
-lista.forEach((p,i)=>{
-Object.entries(p.cores).forEach(([c,info])=>{
-Object.entries(info.estoque).forEach(([t,q])=>{
-adm.innerHTML+=`
-<p>${p.nome} | ${c} | ${t}:
-<input type="number" value="${q}"
-onchange="produtos['${cat}'][${i}].cores['${c}'].estoque['${t}']=parseInt(this.value)">
-</p>`;
-});
-});
-});
+<div class="size ${q==0?'disabled':''}"
+onclick="selectSize('${cat}',${i},'${cor}','${t}')">${t}</div>`;
 });
 }
 
-render();
+function selectSize(cat,i,cor,t){
+if(produtos[cat][i].cores[cor].estoque[t]<=0)return;
+produtos[cat][i].cores[cor].estoque[t]--;
+salvar();
+const btn=document.getElementById(`buy-${cat}-${i}`);
+btn.style.opacity=1;
+btn.style.pointerEvents='auto';
+btn.href=`https://wa.me/${whatsapp}?text=${encodeURIComponent(
+`Quero ${produtos[cat][i].nome} | Cor ${cor} | Tam ${t}`
+)}`;
+render(cat);
+}
+
+Object.keys(produtos).forEach(render);
 </script>
 
 </body>
-</html>
+                                        </html>
