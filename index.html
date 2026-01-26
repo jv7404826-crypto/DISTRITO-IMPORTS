@@ -2,156 +2,177 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Distrito Imports</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<title>Catálogo com Estoque Automático</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-:root{--red:#E60000;--black:#0a0a0a;--gray:#f2f2f2;--whats:#25D366}
-body{margin:0;font-family:Montserrat;background:var(--gray)}
-header{background:var(--black);color:#fff;text-align:center;padding:20px;border-bottom:4px solid var(--red)}
-header span{color:var(--red)}
-nav{background:#fff;display:flex;overflow-x:auto}
-.nav-link{padding:15px;border:none;background:none;font-weight:700;font-size:11px;color:#666;cursor:pointer}
-.nav-link.active{color:var(--red);border-bottom:3px solid var(--red)}
-.container{max-width:1200px;margin:20px auto;padding:15px}
-.category{display:none}
-.category.active{display:block}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:15px}
-.card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.card img{width:100%;aspect-ratio:3/4;object-fit:cover}
-.info{text-align:center;padding:10px}
-.price{color:var(--red);font-weight:900;font-size:18px}
-.colors,.sizes{display:flex;justify-content:center;gap:6px;margin:8px 0}
-.dot{width:22px;height:22px;border-radius:50%;border:2px solid #ccc;cursor:pointer}
-.size{border:2px solid #ccc;padding:4px 7px;font-size:10px;font-weight:700;cursor:pointer}
-.size.disabled{opacity:.3;pointer-events:none}
-.buy{background:var(--whats);color:#fff;text-decoration:none;font-size:10px;font-weight:700;padding:10px;border-radius:4px;display:block;margin-top:8px;opacity:.4;pointer-events:none}
-.buy.active{opacity:1;pointer-events:auto}
+body{margin:0;font-family:Arial;background:#f2f2f2}
+header{background:#111;color:#fff;padding:15px;text-align:center}
+nav button{margin:5px;padding:10px;border:none;border-radius:5px;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;padding:15px}
+.card{background:#fff;border-radius:10px;padding:10px}
+.card img{width:100%;border-radius:10px}
+.dots{display:flex;gap:8px;margin:8px 0}
+.dot{width:20px;height:20px;border-radius:50%;cursor:pointer;border:2px solid #ccc}
+.dot.active{border-color:#000}
+.sizes{display:flex;gap:8px;flex-wrap:wrap}
+.size{padding:5px 10px;border:1px solid #000;border-radius:5px;cursor:pointer}
+.size.disabled{opacity:.4;pointer-events:none}
+.buy{margin-top:10px;padding:10px;width:100%;border:none;border-radius:5px;background:#25D366;color:#fff;font-weight:bold;cursor:pointer}
+.buy[disabled]{opacity:.4;cursor:not-allowed}
 
 /* ADMIN */
-#admin{display:none;background:#fff;padding:20px}
-#admin h2{margin-top:0}
-.admin-item{border-bottom:1px solid #ccc;padding:10px 0}
-.admin-item button{margin-left:5px}
-
-/* FLOAT */
-.whats-float{position:fixed;bottom:20px;right:20px;background:var(--whats);color:#fff;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px}
+#admin{background:#fff;padding:15px}
+input{width:50px}
 </style>
 </head>
 
 <body>
 
-<header><h1>Distrito <span>Imports</span></h1></header>
+<header>
+<h2>CATÁLOGO</h2>
+<nav>
+<button onclick="showCat('camisas')">Camisas</button>
+<button onclick="showCat('bermudas')">Bermudas</button>
+<button onclick="showCat('conjuntos')">Conjuntos</button>
+<button onclick="toggleAdmin()">ADMIN</button>
+</nav>
+</header>
 
-<nav id="nav"></nav>
-
-<div class="container">
 <div id="catalogo"></div>
-<div id="admin"></div>
-</div>
 
-<a class="whats-float" href="https://wa.me/5522999400239"><i class="fab fa-whatsapp"></i></a>
+<div id="admin" style="display:none"></div>
 
 <script>
 const whatsapp="5522999400239";
-const senhaAdmin="1234";
 
-const baseProdutos={
-dryfit:[{
- nome:"Conjunto Nike Dry-Fit",
- preco:"179,90",
- cores:{
-  Preto:{img:"https://i.postimg.cc/zDQZp382/IMG.jpg",estoque:{P:3,M:2,G:1}},
-  Branco:{img:"https://i.postimg.cc/ydk3yNzS/IMG.jpg",estoque:{P:2,M:1,G:0}}
- }
-}]
+let produtos={
+camisas:[
+{
+nome:"Camisa Premium",
+preco:79.90,
+cores:{
+preto:{img:"https://via.placeholder.com/300/000",estoque:{P:5,M:5,G:3}},
+vermelho:{img:"https://via.placeholder.com/300/f00",estoque:{P:2,M:0,G:1}}
+}
+}
+],
+bermudas:[
+{
+nome:"Bermuda Dry",
+preco:89.90,
+cores:{
+preto:{img:"https://via.placeholder.com/300/111",estoque:{38:3,40:2,42:1}},
+azul:{img:"https://via.placeholder.com/300/00f",estoque:{38:1,40:0,42:2}}
+}
+}
+],
+conjuntos:[
+{
+nome:"Conjunto Esportivo",
+preco:149.90,
+cores:{
+cinza:{img:"https://via.placeholder.com/300/999",estoque:{P:2,M:2,G:2}},
+preto:{img:"https://via.placeholder.com/300/000",estoque:{P:0,M:1,G:1}}
+}
+}
+]
 };
 
-let produtos=JSON.parse(localStorage.getItem("estoque"))||baseProdutos;
+let categoriaAtual="camisas";
 
-function salvar(){localStorage.setItem("estoque",JSON.stringify(produtos));}
-
-function renderCatalogo(){
-document.getElementById("catalogo").innerHTML="";
-document.getElementById("nav").innerHTML="";
-
-Object.keys(produtos).forEach(cat=>{
-document.getElementById("nav").innerHTML+=`<button class="nav-link" onclick="show('${cat}')">${cat}</button>`;
-document.getElementById("catalogo").innerHTML+=`<div id="${cat}" class="category"><div class="grid"></div></div>`;
-produtos[cat].forEach((p,i)=>{
-let cor=Object.keys(p.cores)[0];
-let html=`<div class="card"><img src="${p.cores[cor].img}">
-<div class="info"><h3>${p.nome}</h3><span class="price">R$ ${p.preco}</span>
-<div class="colors">${Object.keys(p.cores).map(c=>`<div class="dot" onclick="selCor('${cat}',${i},'${c}')"></div>`).join("")}</div>
-<div class="sizes" id="s-${cat}-${i}"></div>
-<a class="buy" id="b-${cat}-${i}">Escolha tamanho</a></div></div>`;
-document.querySelector(`#${cat} .grid`).innerHTML+=html;
-selCor(cat,i,cor);
-});
-});
-show(Object.keys(produtos)[0]);
+function showCat(cat){
+categoriaAtual=cat;
+render();
 }
 
-function selCor(cat,i,cor){
-const p=produtos[cat][i];
-const sizes=document.getElementById(`s-${cat}-${i}`);
+function render(){
+const div=document.getElementById("catalogo");
+div.innerHTML=`<div class="grid" id="grid"></div>`;
+const grid=document.getElementById("grid");
+
+produtos[categoriaAtual].forEach((p,i)=>{
+const corInicial=Object.keys(p.cores)[0];
+grid.innerHTML+=`
+<div class="card">
+<img src="${p.cores[corInicial].img}">
+<h3>${p.nome}</h3>
+<p>R$ ${p.preco.toFixed(2)}</p>
+
+<div class="dots">
+${Object.keys(p.cores).map(c=>`
+<div class="dot" style="background:${c}" onclick="selectCor(${i},'${c}')"></div>`).join("")}
+</div>
+
+<div class="sizes" id="sizes-${i}"></div>
+
+<button class="buy" id="buy-${i}" disabled>Escolha tamanho</button>
+</div>
+`;
+selectCor(i,corInicial);
+});
+}
+
+let selecao={};
+
+function selectCor(i,cor){
+selecao[i]={cor:null,tam:null};
+const card=document.querySelectorAll(".card")[i];
+card.querySelector("img").src=produtos[categoriaAtual][i].cores[cor].img;
+selecao[i].cor=cor;
+
+const sizes=document.getElementById(`sizes-${i}`);
 sizes.innerHTML="";
-Object.entries(p.cores[cor].estoque).forEach(([t,q])=>{
-sizes.innerHTML+=`<div class="size ${q==0?'disabled':''}" onclick="selTam('${cat}',${i},'${cor}','${t}')">${t}</div>`;
+Object.entries(produtos[categoriaAtual][i].cores[cor].estoque).forEach(([t,q])=>{
+sizes.innerHTML+=`
+<div class="size ${q==0?'disabled':''}" onclick="selectSize(${i},'${t}')">${t}</div>`;
 });
+
+document.getElementById(`buy-${i}`).disabled=true;
 }
 
-function selTam(cat,i,cor,t){
-const btn=document.getElementById(`b-${cat}-${i}`);
-btn.classList.add("active");
-btn.href=`https://wa.me/${whatsapp}?text=${encodeURIComponent(`Quero ${produtos[cat][i].nome} ${cor} tam ${t}`)}`;
+function selectSize(i,t){
+selecao[i].tam=t;
+const btn=document.getElementById(`buy-${i}`);
+btn.disabled=false;
+btn.onclick=()=>{
+let prod=produtos[categoriaAtual][i];
+let cor=selecao[i].cor;
+if(prod.cores[cor].estoque[t]>0){
+prod.cores[cor].estoque[t]--;
+render();
+window.open(`https://wa.me/${whatsapp}?text=`+
+encodeURIComponent(`Quero ${prod.nome} cor ${cor} tamanho ${t}`));
+}else alert("Estoque esgotado");
+};
 }
 
-function show(id){
-document.querySelectorAll(".category").forEach(c=>c.classList.remove("active"));
-document.getElementById(id).classList.add("active");
+function toggleAdmin(){
+const adm=document.getElementById("admin");
+adm.style.display=adm.style.display=="none"?"block":"none";
+renderAdmin();
 }
 
 function renderAdmin(){
-let html="<h2>Painel Admin</h2>";
-Object.keys(produtos).forEach(cat=>{
-produtos[cat].forEach((p,i)=>{
-Object.entries(p.cores).forEach(([cor,d])=>{
-Object.entries(d.estoque).forEach(([t,q])=>{
-html+=`<div class="admin-item">
-${p.nome} | ${cor} | ${t} → ${q}
-<button onclick="baixar('${cat}',${i},'${cor}','${t}')">-1</button>
-<button onclick="somar('${cat}',${i},'${cor}','${t}')">+1</button>
-</div>`;
+const adm=document.getElementById("admin");
+adm.innerHTML="<h3>Painel de Estoque</h3>";
+Object.entries(produtos).forEach(([cat,lista])=>{
+adm.innerHTML+=`<h4>${cat}</h4>`;
+lista.forEach((p,i)=>{
+Object.entries(p.cores).forEach(([c,info])=>{
+Object.entries(info.estoque).forEach(([t,q])=>{
+adm.innerHTML+=`
+<p>${p.nome} | ${c} | ${t}:
+<input type="number" value="${q}"
+onchange="produtos['${cat}'][${i}].cores['${c}'].estoque['${t}']=parseInt(this.value)">
+</p>`;
 });
 });
 });
 });
-document.getElementById("admin").innerHTML=html;
 }
 
-function baixar(cat,i,cor,t){
-if(produtos[cat][i].cores[cor].estoque[t]>0){
-produtos[cat][i].cores[cor].estoque[t]--;
-salvar();renderCatalogo();renderAdmin();
-}
-}
-function somar(cat,i,cor,t){
-produtos[cat][i].cores[cor].estoque[t]++;
-salvar();renderCatalogo();renderAdmin();
-}
-
-if(location.hash=="#admin"){
-const s=prompt("Senha admin:");
-if(s===senhaAdmin){
-document.getElementById("catalogo").style.display="none";
-document.getElementById("admin").style.display="block";
-renderAdmin();
-}else alert("Senha errada");
-}else renderCatalogo();
+render();
 </script>
 
 </body>
