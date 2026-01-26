@@ -13,11 +13,17 @@
 body{margin:0;font-family:Montserrat;background:var(--gray)}
 header{background:var(--black);color:#fff;text-align:center;padding:20px;border-bottom:4px solid var(--red)}
 header span{color:var(--red)}
-nav{background:#fff;display:flex;overflow-x:auto;position:sticky;top:0;z-index:1000;box-shadow: 0 2px 5px rgba(0,0,0,0.1);}
+
+/* Barra de Busca */
+.search-container { background: #fff; padding: 10px 15px; display: flex; justify-content: center; }
+#searchBar { width: 100%; max-width: 500px; padding: 10px; border: 1px solid #ccc; border-radius: 20px; outline: none; font-family: Montserrat; }
+
+nav{background:#fff;display:flex;overflow-x:auto;position:sticky;top:0;z-index:1000;box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-top: 1px solid #eee;}
 nav::-webkit-scrollbar{display:none}
 .nav-link{padding:15px;border:none;background:none;font-weight:700;font-size:11px;text-transform:uppercase;color:#666;cursor:pointer;white-space:nowrap}
 .nav-link.active{color:var(--red);border-bottom:3px solid var(--red)}
-.container{max-width:1200px;margin:20px auto;padding:0 15px}
+
+.container{max-width:1200px;margin:10px auto;padding:0 15px}
 .category{display:none}
 .category.active{display:block; animation: fadeIn 0.3s;}
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -25,16 +31,19 @@ nav::-webkit-scrollbar{display:none}
 h2 { font-size: 18px; text-transform: uppercase; font-weight: 900; margin: 25px 0 15px; border-left: 4px solid var(--red); padding-left: 10px; display: flex; align-items: center; gap: 8px; }
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:15px}
-.card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05); display: flex; flex-direction: column;}
+.card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05); display: flex; flex-direction: column; position: relative;}
 .card img{width:100%;aspect-ratio:3/4;object-fit:cover;cursor:zoom-in}
+
+/* Badge de Destaque */
+.badge { position: absolute; top: 10px; left: 10px; background: var(--red); color: white; font-size: 9px; font-weight: 900; padding: 4px 8px; border-radius: 4px; text-transform: uppercase; z-index: 10; }
 
 .info{padding:12px;text-align:center; flex-grow: 1;}
 .info h3{font-size:12px;margin:0 0 6px;text-transform:uppercase; height: 30px; overflow: hidden;}
 .price{color:var(--red);font-weight:900;font-size:18px;margin-bottom:6px;display:block}
 
-.colors,.sizes{display:flex;justify-content:center;gap:6px;margin:6px 0;flex-wrap:wrap}
+.colors,.sizes{display:flex;justify-content:center;gap:6px;margin:6px 0;flex-wrap:wrap;}
 .dot{width:22px;height:22px;border-radius:50%;border:2px solid #ccc;cursor:pointer}
-.dot.selected{border-color:var(--red); transform: scale(1.1);}
+.dot.selected{border-color:var(--red); transform: scale(1.2); box-shadow: 0 0 5px rgba(0,0,0,0.2);}
 
 .size{border:2px solid #ccc;padding:4px 8px;font-size:10px;font-weight:700;cursor:pointer; border-radius: 4px;}
 .size.disabled{opacity:.2;pointer-events:none; background: #eee;}
@@ -46,7 +55,8 @@ h2 { font-size: 18px; text-transform: uppercase; font-weight: 900; margin: 25px 
 #zoom img{max-width:95%;max-height:85%; border-radius: 8px; animation: zoomAnim 0.3s ease;}
 @keyframes zoomAnim { from { transform: scale(0.8); } to { transform: scale(1); } }
 
-.whats-float{position:fixed;bottom:20px;right:20px;background:var(--whats);color:#fff;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;z-index:1500; box-shadow: 0 4px 10px rgba(0,0,0,0.3);}
+.whats-float{position:fixed;bottom:20px;right:20px;background:var(--whats);color:#fff;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;z-index:1500; box-shadow: 0 4px 10px rgba(0,0,0,0.3); animation: pulse 2s infinite;}
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
 
 #adminPanel{display:none;position:fixed;inset:0;background:#000c;color:#fff;z-index:3000;padding:20px;overflow:auto}
 #adminPanel h2{color:var(--red)}
@@ -57,12 +67,17 @@ h2 { font-size: 18px; text-transform: uppercase; font-weight: 900; margin: 25px 
 footer{text-align:center;padding:30px;background:#0a0a0a;color:#666;font-size:11px;margin-top:40px}
 </style>
 </head>
-
 <body>
 
 <header id="logo"><h1>Distrito <span>Imports</span></h1></header>
 
-<nav>
+<div class="search-container">
+    <input type="text" id="searchBar" placeholder="Pesquisar produto..." onkeyup="search()">
+</div>
+
+<div id="zoom" onclick="this.style.display='none'"><img src=""></div>
+
+<nav id="navbar">
 <button class="nav-link active" onclick="showCat('peruanas',this)">Peruanas</button>
 <button class="nav-link" onclick="showCat('mantos',this)">Mantos</button>
 <button class="nav-link" onclick="showCat('dryfit',this)">Dry-Fit</button>
@@ -72,16 +87,13 @@ footer{text-align:center;padding:30px;background:#0a0a0a;color:#666;font-size:11
 </nav>
 
 <main class="container">
-<section id="peruanas" class="category active"><h2>👕 Camisas Peruanas</h2><div class="grid" id="grid-peruanas"></div></section>
-<section id="mantos" class="category"><h2>🏆 Mantos Sagrados</h2><div class="grid" id="grid-mantos"></div></section>
-<section id="dryfit" class="category"><h2>🏃 Conjuntos Dry-Fit</h2><div class="grid" id="grid-dryfit"></div></section>
-<section id="cargo" class="category"><h2>📦 Bermudas Cargo</h2><div class="grid" id="grid-cargo"></div></section>
-<section id="mauricinho" class="category"><h2>🩳 Bermudas Mauricinho</h2><div class="grid" id="grid-mauricinho"></div></section>
-<section id="calcados" class="category"><h2>👟 Calçados Premium</h2><div class="grid" id="grid-calcados"></div></section>
+<section id="peruanas" class="category active"><h2>👕 Peruanas</h2><div class="grid" id="grid-peruanas"></div></section>
+<section id="mantos" class="category"><h2>🏆 Mantos</h2><div class="grid" id="grid-mantos"></div></section>
+<section id="dryfit" class="category"><h2>🏃 Dry-Fit</h2><div class="grid" id="grid-dryfit"></div></section>
+<section id="cargo" class="category"><h2>📦 Cargo</h2><div class="grid" id="grid-cargo"></div></section>
+<section id="mauricinho" class="category"><h2>🩳 Mauricinho</h2><div class="grid" id="grid-mauricinho"></div></section>
+<section id="calcados" class="category"><h2>👟 Calçados</h2><div class="grid" id="grid-calcados"></div></section>
 </main>
-
-<div id="zoom" onclick="this.style.display='none'"><img src=""></div>
-<a class="whats-float" href="https://wa.me/5522999400239"><i class="fab fa-whatsapp"></i></a>
 
 <div id="adminPanel">
 <h2>Painel de Estoque</h2>
@@ -89,54 +101,74 @@ footer{text-align:center;padding:30px;background:#0a0a0a;color:#666;font-size:11
 <button class="btn-close-admin" onclick="closeAdmin()">Salvar e Fechar</button>
 </div>
 
+<a class="whats-float" href="https://wa.me/5522999400239?text=Olá! Vim pelo catálogo e tenho uma dúvida."><i class="fab fa-whatsapp"></i></a>
 <footer>© 2026 Distrito Imports — Itaperuna / RJ</footer>
 
 <script>
 const whatsapp="5522999400239";
 const senhaAdmin="2123";
 
+// LISTA DE PRODUTOS (Para adicionar mais, basta seguir o padrão abaixo)
 const produtosBase={
-peruanas:[{nome:"Camisa Peruana Hugo Boss",preco:"99,90",cores:{Original:{img:"https://i.postimg.cc/xdrnT8XQ/Whats-App-Image-2026-01-24-at-20-55-04.jpg",estoque:{P:1,M:1,G:1,GG:1}}}}],
+peruanas:[{nome:"Camisa Peruana Hugo Boss",preco:"99,90",destaque:true,cores:{Original:{img:"https://i.postimg.cc/xdrnT8XQ/Whats-App-Image-2026-01-24-at-20-55-04.jpg",estoque:{P:1,M:1,G:1,GG:1}}}}],
 mantos:[{nome:"Manto Seleção Premium",preco:"129,90",cores:{Brasil:{img:"https://i.postimg.cc/N0Jh200V/Whats-App-Image-2026-01-25-at-13-46-15.jpg",estoque:{P:1,M:1,G:1,GG:1}}}}],
-dryfit:[{nome:"Conjunto Nike Dry-Fit",preco:"179,90",cores:{Preto:{img:"https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg",estoque:{P:1,M:1,G:1,GG:1}},Branco:{img:"https://i.postimg.cc/ydk3yNzS/IMG-20260124-WA0217.jpg",estoque:{P:1,M:1,G:1,GG:1}},Marinho:{img:"https://i.postimg.cc/pTp5JdtF/IMG-20260124-WA0215.jpg",estoque:{P:1,M:1,G:1,GG:1}},Cinza:{img:"https://i.postimg.cc/0QbK0Nqm/IMG-20260124-WA0216.jpg",estoque:{P:1,M:1,G:1,GG:1}}}}],
+dryfit:[{nome:"Conjunto Nike Dry-Fit",preco:"179,90",cores:{Preto:{img:"https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg",estoque:{P:1,M:1,G:1,GG:1}},Branco:{img:"https://i.postimg.cc/ydk3yNzS/IMG-20260124-WA0217.jpg",estoque:{P:1,M:1,G:1,GG:1}}}}],
 cargo:[{nome:"Bermuda Cargo Premium",preco:"110,00",cores:{Verde:{img:"https://i.postimg.cc/WtRW03ty/Whats-App-Image-2026-01-25-at-17-24-20-(1).jpg",estoque:{38:1,40:1,42:1,44:1}}}}],
 mauricinho:[{nome:"Bermuda Mauricinho",preco:"65,00",cores:{Estampada:{img:"https://i.postimg.cc/t70SFTY0/Whats-App-Image-2026-01-25-at-17-24-20.jpg",estoque:{P:1,M:1,G:1}}}}],
-calcados:[{nome:"Tênis Premium Distrito",preco:"249,90",cores:{Original:{img:"https://i.postimg.cc/FKJ2d2PZ/Whats-App-Image-2026-01-25-at-17-37-38.jpg",estoque:{39:1,40:1,41:1,42:1}}}}]
+calcados:[{nome:"Tênis Premium Distrito",preco:"249,90",destaque:true,cores:{Original:{img:"https://i.postimg.cc/FKJ2d2PZ/Whats-App-Image-2026-01-25-at-17-37-38.jpg",estoque:{39:1,40:1,41:1,42:1}}}}]
 };
 
-let produtos=JSON.parse(localStorage.getItem("estoque"))||produtosBase;
-
-function showCat(id,btn){
-document.querySelectorAll('.category').forEach(c=>c.classList.remove('active'));
-document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-btn.classList.add('active');
-window.scrollTo({top:0, behavior:'smooth'});
-}
-
-function zoom(imgSrc){
-document.querySelector('#zoom img').src=imgSrc;
-document.getElementById('zoom').style.display='flex';
-}
+let produtos = JSON.parse(localStorage.getItem("estoque_distrito")) || produtosBase;
 
 function render(cat){
-const grid=document.getElementById('grid-'+cat);
-grid.innerHTML='';
-produtos[cat].forEach((p,i)=>{
-const coresDisponiveis = Object.keys(p.cores);
-grid.innerHTML+=`
-<div class="card">
-<img id="img-${cat}-${i}" src="${p.cores[coresDisponiveis[0]].img}" onclick="zoom(this.src)">
-<div class="info">
-<h3>${p.nome}</h3>
-<span class="price">R$ ${p.preco}</span>
-<div class="colors">${coresDisponiveis.map(c=>`<div class="dot" style="background:${getHex(c)}" onclick="selectCor('${cat}',${i},'${c}')"></div>`).join('')}</div>
-<div class="sizes" id="${cat}-sizes-${i}"></div>
-<a id="${cat}-buy-${i}" class="buy">Escolha tamanho</a>
-</div>
-</div>`;
-selectCor(cat,i,coresDisponiveis[0]);
-});
+    const grid = document.getElementById('grid-'+cat);
+    grid.innerHTML = '';
+    produtos[cat].forEach((p, i) => {
+        const coresDisp = Object.keys(p.cores);
+        grid.innerHTML += `
+            <div class="card" data-name="${p.nome}">
+                ${p.destaque ? '<div class="badge">Destaque</div>' : ''}
+                <img id="img-${cat}-${i}" src="${p.cores[coresDisp[0]].img}" onclick="zoom(this.src)">
+                <div class="info">
+                    <h3>${p.nome}</h3>
+                    <span class="price">R$ ${p.preco}</span>
+                    <div class="colors">${coresDisp.map(c=>`<div class="dot" style="background:${getHex(c)}" onclick="selectCor('${cat}',${i},'${c}')"></div>`).join('')}</div>
+                    <div class="sizes" id="${cat}-sizes-${i}"></div>
+                    <a id="${cat}-buy-${i}" class="buy">Escolha tamanho</a>
+                </div>
+            </div>`;
+        selectCor(cat, i, coresDisp[0]);
+    });
+}
+
+function selectCor(cat, i, cor){
+    const p = produtos[cat][i];
+    document.getElementById(`img-${cat}-${i}`).src = p.cores[cor].img;
+    const sizes = document.getElementById(`${cat}-sizes-${i}`);
+    sizes.innerHTML = '';
+    Object.entries(p.cores[cor].estoque).forEach(([t, q]) => {
+        sizes.innerHTML += `<div class="size ${q <= 0 ? 'disabled' : ''}" onclick="selectSize(this, '${cat}',${i},'${cor}','${t}')">${t}</div>`;
+    });
+}
+
+function selectSize(el, cat, i, cor, t){
+    document.querySelectorAll(`#${cat}-sizes-${i} .size`).forEach(s => s.classList.remove('selected'));
+    el.classList.add('selected');
+    const btn = document.getElementById(`${cat}-buy-${i}`);
+    btn.style.opacity = 1; btn.style.pointerEvents = 'auto'; btn.innerText = "Comprar Agora";
+    btn.onclick = () => {
+        const msg = `Olá! Quero comprar:\n\n🔥 *${produtos[cat][i].nome}*\n🎨 Cor: ${cor}\n📏 Tamanho: ${t}\n\nEstá disponível?`;
+        window.location.href = `https://wa.me/${whatsapp}?text=${encodeURIComponent(msg)}`;
+    };
+}
+
+function search() {
+    let input = document.getElementById('searchBar').value.toLowerCase();
+    let cards = document.getElementsByClassName('card');
+    for (let i = 0; i < cards.length; i++) {
+        let name = cards[i].getAttribute('data-name').toLowerCase();
+        cards[i].style.display = name.includes(input) ? "flex" : "none";
+    }
 }
 
 function getHex(cor){
@@ -144,78 +176,47 @@ function getHex(cor){
     return cores[cor] || '#ccc';
 }
 
-function selectCor(cat,i,cor){
-const p=produtos[cat][i];
-document.getElementById(`img-${cat}-${i}`).src=p.cores[cor].img;
+function zoom(src){ document.querySelector('#zoom img').src = src; document.getElementById('zoom').style.display = 'flex'; }
 
-// Marcar ponto selecionado
-const dots = document.querySelectorAll(`#grid-${cat} .card:nth-child(${i+1}) .dot`);
-dots.forEach(d => d.classList.remove('selected'));
-
-const sizes=document.getElementById(`${cat}-sizes-${i}`);
-sizes.innerHTML='';
-Object.entries(p.cores[cor].estoque).forEach(([t,q])=>{
-sizes.innerHTML+=`<div class="size ${q<=0?'disabled':''}" onclick="selectSize(this, '${cat}',${i},'${cor}','${t}')">${t}</div>`;
-});
-
-const btn=document.getElementById(`${cat}-buy-${i}`);
-btn.style.opacity=0.4;
-btn.style.pointerEvents='none';
-btn.innerText = "Escolha tamanho";
+function showCat(id, btn){
+    document.querySelectorAll('.category').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
 }
 
-function selectSize(el, cat,i,cor,t){
-document.querySelectorAll(`#${cat}-sizes-${i} .size`).forEach(s=>s.classList.remove('selected'));
-el.classList.add('selected');
-
-const btn=document.getElementById(`${cat}-buy-${i}`);
-btn.style.opacity=1;
-btn.style.pointerEvents='auto';
-btn.innerText = "Comprar Agora";
-btn.onclick=()=>{
-window.location.href=`https://wa.me/${whatsapp}?text=${encodeURIComponent(`Olá! Quero comprar:\n\n*${produtos[cat][i].nome}*\nCor: ${cor}\nTamanho: ${t}`)}`;
-};
-}
-
-// Inicialização
 Object.keys(produtos).forEach(render);
 
-// Admin
-let taps=0;
-document.getElementById("logo").addEventListener("click",()=>{
-taps++;
-setTimeout(()=>taps=0,800);
-if(taps>=5){
-const s=prompt("Senha do painel:");
-if(s===senhaAdmin)openAdmin();
-}
+let taps = 0;
+document.getElementById("logo").addEventListener("click", () => {
+    taps++; setTimeout(() => taps = 0, 800);
+    if(taps >= 5){ if(prompt("Senha:") === senhaAdmin) openAdmin(); }
 });
 
 function openAdmin(){
-document.getElementById("adminPanel").style.display="block";
-const c=document.getElementById("adminContent");
-c.innerHTML='';
-Object.entries(produtos).forEach(([cat,arr])=>{
-arr.forEach(p=>{
-Object.entries(p.cores).forEach(([cor,obj])=>{
-Object.entries(obj.estoque).forEach(([t,q])=>{
-c.innerHTML+=`<div class="admin-item">${p.nome} (${cor}) - Tam ${t}: <input type="number" value="${q}" onchange="updateStock('${cat}','${p.nome}','${cor}','${t}',this.value)"></div>`;
-});
-});
-});
-});
+    document.getElementById("adminPanel").style.display = "block";
+    const c = document.getElementById("adminContent");
+    c.innerHTML = '';
+    Object.entries(produtos).forEach(([cat, arr]) => {
+        arr.forEach((p, i) => {
+            Object.entries(p.cores).forEach(([cor, obj]) => {
+                Object.entries(obj.estoque).forEach(([t, q]) => {
+                    c.innerHTML += `<div class="admin-item">${p.nome} (${cor}) - Tam ${t}: <input type="number" value="${q}" onchange="updateStock('${cat}',${i},'${cor}','${t}',this.value)"></div>`;
+                });
+            });
+        });
+    });
 }
 
-function updateStock(cat,nome,cor,t,val){
-produtos[cat].find(p=>p.nome===nome).cores[cor].estoque[t]=Number(val);
-localStorage.setItem("estoque",JSON.stringify(produtos));
+function updateStock(cat, idx, cor, t, val){
+    produtos[cat][idx].cores[cor].estoque[t] = Number(val);
+    localStorage.setItem("estoque_distrito", JSON.stringify(produtos));
 }
 
-function closeAdmin(){
-document.getElementById("adminPanel").style.display="none";
-Object.keys(produtos).forEach(render);
-}
+function closeAdmin(){ document.getElementById("adminPanel").style.display = "none"; Object.keys(produtos).forEach(render); }
 </script>
 
 </body>
 </html>
+
