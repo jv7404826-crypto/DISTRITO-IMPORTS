@@ -9,12 +9,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <style>
-:root{
- --destaque:#E60000;
- --preto:#0a0a0a;
- --cinza:#f2f2f2;
- --whats:#25D366;
-}
+:root{--destaque:#E60000;--preto:#0a0a0a;--cinza:#f2f2f2;--whats:#25D366}
 body{margin:0;font-family:Montserrat;background:var(--cinza)}
 header{background:var(--preto);color:#fff;text-align:center;padding:20px;border-bottom:4px solid var(--destaque)}
 header span{color:var(--destaque)}
@@ -32,10 +27,8 @@ nav{background:#fff;display:flex;overflow-x:auto;position:sticky;top:0;z-index:1
 .product-price{color:var(--destaque);font-weight:900;font-size:18px}
 .color-dots,.sizes{display:flex;justify-content:center;gap:8px;margin:10px 0}
 .dot{width:22px;height:22px;border-radius:50%;border:2px solid #ccc;cursor:pointer}
-.dot.active{border-color:var(--destaque)}
 .size{padding:6px 8px;border:2px solid #ccc;border-radius:4px;font-size:11px;font-weight:700;cursor:pointer}
 .size.disabled{opacity:.3;pointer-events:none}
-.size.active{border-color:var(--destaque)}
 .btn-buy{background:var(--whats);color:#fff;text-decoration:none;font-size:10px;font-weight:700;padding:10px;border-radius:4px;display:block;margin-top:10px}
 .btn-buy.disabled{background:#999;pointer-events:none}
 #modalZoom{display:none;position:fixed;z-index:2000;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);align-items:center;justify-content:center}
@@ -49,19 +42,43 @@ footer{text-align:center;padding:30px;background:#0a0a0a;color:#666;font-size:11
 
 <header><h1>Distrito <span>Imports</span></h1></header>
 
-<div id="modalZoom" onclick="this.style.display='none'">
-  <img id="imgZoom">
-</div>
+<div id="modalZoom" onclick="this.style.display='none'"><img id="imgZoom"></div>
 
 <nav>
- <button class="nav-link active" onclick="showCat('dryfit',this)">Dry-Fit</button>
+ <button class="nav-link active" onclick="showCat('peruanas',this)">Peruanas</button>
+ <button class="nav-link" onclick="showCat('mantos',this)">Mantos</button>
+ <button class="nav-link" onclick="showCat('dryfit',this)">Dry-Fit</button>
+ <button class="nav-link" onclick="showCat('cargo',this)">Cargo</button>
+ <button class="nav-link" onclick="showCat('mauricinho',this)">Mauricinho</button>
+ <button class="nav-link" onclick="showCat('calcados',this)">Calçados</button>
 </nav>
 
 <main class="container">
-<section id="dryfit" class="category-section active">
- <h2>Conjuntos Dry-Fit</h2>
+
+<section id="peruanas" class="category-section active">
+ <div class="grid" id="grid-peruanas"></div>
+</section>
+
+<section id="mantos" class="category-section">
+ <div class="grid" id="grid-mantos"></div>
+</section>
+
+<section id="dryfit" class="category-section">
  <div class="grid" id="grid-dryfit"></div>
 </section>
+
+<section id="cargo" class="category-section">
+ <div class="grid" id="grid-cargo"></div>
+</section>
+
+<section id="mauricinho" class="category-section">
+ <div class="grid" id="grid-mauricinho"></div>
+</section>
+
+<section id="calcados" class="category-section">
+ <div class="grid" id="grid-calcados"></div>
+</section>
+
 </main>
 
 <a href="https://wa.me/5522999400239" class="whatsapp-float"><i class="fab fa-whatsapp"></i></a>
@@ -71,99 +88,92 @@ footer{text-align:center;padding:30px;background:#0a0a0a;color:#666;font-size:11
 const whatsapp="5522999400239";
 
 const produtos={
+ peruanas:[
+  {nome:"Camisa Peruana Hugo Boss",preco:"99,90",img:"https://i.postimg.cc/xdrnT8XQ/Whats-App-Image-2026-01-24-at-20-55-04.jpg"}
+ ],
+ mantos:[
+  {nome:"Manto Seleção Premium",preco:"129,90",img:"https://i.postimg.cc/N0Jh200V/Whats-App-Image-2026-01-25-at-13-46-15.jpg"}
+ ],
+ cargo:[
+  {nome:"Bermuda Cargo Premium",preco:"110,00",img:"https://i.postimg.cc/WtRW03ty/Whats-App-Image-2026-01-25-at-17-24-20-(1).jpg"}
+ ],
+ mauricinho:[
+  {nome:"Bermuda Mauricinho Estampada",preco:"65,00",img:"https://i.postimg.cc/t70SFTY0/Whats-App-Image-2026-01-25-at-17-24-20.jpg"}
+ ],
+ calcados:[
+  {nome:"Tênis Premium",preco:"249,90",img:"https://i.postimg.cc/FKJ2d2PZ/Whats-App-Image-2026-01-25-at-17-37-38.jpg"}
+ ],
  dryfit:[
   {
    nome:"Conjunto Nike Dry-Fit",
    preco:"179,90",
    cores:{
-    Preto:{
-     cor:"#000",
-     img:"https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg",
-     estoque:{P:2,M:1,G:0,GG:3}
-    },
-    Branco:{
-     cor:"#fff",
-     img:"https://i.postimg.cc/ydk3yNzS/IMG-20260124-WA0217.jpg",
-     estoque:{P:0,M:2,G:1,GG:0}
-    },
-    Azul:{
-     cor:"#001f3f",
-     img:"https://i.postimg.cc/pTp5JdtF/IMG-20260124-WA0215.jpg",
-     estoque:{P:1,M:1,G:1,GG:1}
-    }
+    Preto:{cor:"#000",img:"https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg",estoque:{P:2,M:1,G:0,GG:3}},
+    Branco:{cor:"#fff",img:"https://i.postimg.cc/ydk3yNzS/IMG-20260124-WA0217.jpg",estoque:{P:0,M:2,G:1,GG:0}}
    }
   }
  ]
 };
 
-let estado={};
+function renderSimples(cat){
+ const grid=document.getElementById("grid-"+cat);
+ grid.innerHTML="";
+ produtos[cat].forEach(p=>{
+  grid.innerHTML+=`
+   <div class="product-card">
+    <img src="${p.img}" class="product-img" onclick="zoom(this)">
+    <div class="product-info">
+     <h3>${p.nome}</h3>
+     <span class="product-price">R$ ${p.preco}</span>
+     <a class="btn-buy" href="https://wa.me/${whatsapp}?text=${encodeURIComponent("Quero "+p.nome)}">
+      <i class="fab fa-whatsapp"></i> Comprar
+     </a>
+    </div>
+   </div>`;
+ });
+}
 
-function render(){
+function renderDryfit(){
  const grid=document.getElementById("grid-dryfit");
  grid.innerHTML="";
-
  produtos.dryfit.forEach((p,i)=>{
   const corPadrao=Object.keys(p.cores)[0];
-  estado[i]={cor:corPadrao,tam:null};
-
   grid.innerHTML+=`
   <div class="product-card">
-   <img id="img-${i}" src="${p.cores[corPadrao].img}" class="product-img" onclick="zoom(this)">
+   <img id="img-dry-${i}" src="${p.cores[corPadrao].img}" class="product-img" onclick="zoom(this)">
    <div class="product-info">
     <h3>${p.nome}</h3>
-
     <div class="color-dots">
      ${Object.keys(p.cores).map(c=>`
       <div class="dot" style="background:${p.cores[c].cor}"
-       onclick="selCor(${i},'${c}',this)"></div>
-     `).join("")}
+       onclick="trocaCor(${i},'${c}')"></div>`).join("")}
     </div>
-
     <div class="sizes" id="sizes-${i}"></div>
-
     <span class="product-price">R$ ${p.preco}</span>
-    <a id="btn-${i}" class="btn-buy disabled">Selecione o tamanho</a>
+    <a id="btn-${i}" class="btn-buy disabled">Selecione tamanho</a>
    </div>
   </div>`;
-
-  renderSizes(i,corPadrao);
+  trocaCor(i,corPadrao);
  });
 }
 
-function selCor(i,cor,el){
- estado[i].cor=cor;
- estado[i].tam=null;
-
- document.getElementById(`img-${i}`).src=produtos.dryfit[i].cores[cor].img;
- document.querySelectorAll(`#grid-dryfit .dot`).forEach(d=>d.classList.remove("active"));
- el.classList.add("active");
-
- renderSizes(i,cor);
-}
-
-function renderSizes(i,cor){
+function trocaCor(i,cor){
  const p=produtos.dryfit[i];
+ document.getElementById(`img-dry-${i}`).src=p.cores[cor].img;
  const sizes=document.getElementById(`sizes-${i}`);
  sizes.innerHTML="";
-
  Object.entries(p.cores[cor].estoque).forEach(([t,q])=>{
-  sizes.innerHTML+=`
-   <div class="size ${q==0?'disabled':''}"
-    onclick="selTam(${i},'${t}',${q})">${t}</div>`;
+  sizes.innerHTML+=`<div class="size ${q==0?'disabled':''}" onclick="trocaTam(${i},'${cor}','${t}',${q})">${t}</div>`;
  });
 }
 
-function selTam(i,tam,estoque){
+function trocaTam(i,cor,tam,q){
+ if(q<=0)return;
  const btn=document.getElementById(`btn-${i}`);
- if(estoque<=0)return;
-
- estado[i].tam=tam;
  btn.classList.remove("disabled");
  btn.innerText="Comprar";
  btn.href=`https://wa.me/${whatsapp}?text=`+
- encodeURIComponent(
-  `Quero ${produtos.dryfit[i].nome} | Cor: ${estado[i].cor} | Tamanho: ${tam}`
- );
+ encodeURIComponent(`Quero ${produtos.dryfit[i].nome} | Cor: ${cor} | Tam: ${tam}`);
 }
 
 function zoom(img){
@@ -178,8 +188,13 @@ function showCat(id,btn){
  btn.classList.add('active');
 }
 
-render();
+renderSimples("peruanas");
+renderSimples("mantos");
+renderSimples("cargo");
+renderSimples("mauricinho");
+renderSimples("calcados");
+renderDryfit();
 </script>
 
 </body>
-</html>
+ </html>
