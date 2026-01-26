@@ -153,29 +153,25 @@ calcados:[
 ]
 };
 
-function render(cat){
- const page=state[cat]||1;
- const start=(page-1)*porPagina;
- const grid=document.getElementById("grid-"+cat);
- grid.innerHTML="";
- produtos[cat].slice(start,start+porPagina).forEach(p=>{
-   grid.innerHTML+=`
-   <div class="product-card">
-    <img src="${p.img}" class="product-img" onclick="zoom(this)">
-    <div class="product-info">
-     <h3>${p.nome}</h3>
-     <span class="product-price">R$ ${p.preco}</span>
-     <a class="btn-buy" href="https://wa.me/${whatsapp}?text=${encodeURIComponent("Quero "+p.nome)}">
-      <i class="fab fa-whatsapp"></i> Comprar
-     </a>
-    </div>
-   </div>`;
- });
- document.getElementById("page-"+cat).innerText="Página "+page;
-}
-
-function next(cat){
- if((state[cat]||1)*porPagina<produtos[cat].length){
+dryfit:[
+ {
+  nome:"Conjunto Nike Dry-Fit",
+  preco:"179,90",
+  cores:[
+   {nome:"Preto",img:"https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg"},
+   {nome:"Branco",img:"https://i.postimg.cc/ydk3yNzS/IMG-20260124-WA0217.jpg"},
+   {nome:"Azul Marinho",img:"https://i.postimg.cc/pTp5JdtF/IMG-20260124-WA0215.jpg"},
+   {nome:"Cinza",img:"https://i.postimg.cc/0QbK0Nqm/IMG-20260124-WA0216.jpg"}
+  ]
+ }
+],
+function trocaCor(cat,index,cor,img){
+ document.getElementById(`img-${cat}-${index}`).src=img;
+ document.getElementById(`btn-${cat}-${index}`).href=
+  `https://wa.me/${whatsapp}?text=`+
+  encodeURIComponent(`Quero ${produtos[cat][index].nome} na cor ${cor}`);
+ }
+function next(cat){ if((state[cat]||1)*porPagina<produtos[cat].length){
   state[cat]=(state[cat]||1)+1;render(cat);
  }
 }
