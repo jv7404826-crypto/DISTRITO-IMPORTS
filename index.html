@@ -1,180 +1,171 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Distrito Imports | Catálogo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root { --destaque: #E60000; --preto: #0a0a0a; --cinza: #f2f2f2; --whats: #25D366; }
-        body { margin: 0; font-family: Montserrat; background: var(--cinza); }
-        header { background: var(--preto); color: #fff; text-align: center; padding: 20px; border-bottom: 4px solid var(--destaque); }
-        header span { color: var(--destaque); }
-        nav { background: #fff; display: flex; overflow-x: auto; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        nav::-webkit-scrollbar { display: none; }
-        .nav-link { padding: 15px; border: none; background: none; font-weight: 700; font-size: 11px; text-transform: uppercase; color: #666; cursor: pointer; white-space: nowrap; }
-        .nav-link.active { color: var(--destaque); border-bottom: 3px solid var(--destaque); }
-        .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
-        .category-section { display: none; }
-        .category-section.active { display: block; animation: fadeIn 0.3s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        h2 { font-size: 18px; text-transform: uppercase; font-weight: 900; margin: 25px 0 15px; border-left: 4px solid var(--destaque); padding-left: 10px; display: flex; align-items: center; gap: 8px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
-        .product-card { background: #fff; border-radius: 8px; overflow: hidden; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,.05); display: flex; flex-direction: column; }
-        
-        /* Cursor de lupa para mostrar que dá pra clicar */
-        .product-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; cursor: zoom-in; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Distrito Imports | Catálogo</title>
 
-        .product-info { padding: 12px; flex-grow: 1; }
-        .product-info h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; height: 32px; overflow: hidden; margin: 0 0 10px; }
-        .product-price { color: var(--destaque); font-weight: 900; font-size: 18px; margin-bottom: 10px; display: block; }
-        .color-dots { display: flex; justify-content: center; gap: 8px; margin-bottom: 12px; }
-        .dot { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #ccc; cursor: pointer; transition: 0.2s; }
-        .btn-buy { background: var(--whats); color: #fff; text-decoration: none; font-size: 10px; font-weight: 700; padding: 10px; border-radius: 4px; display: flex; align-items: center; justify-content: center; gap: 5px; text-transform: uppercase; }
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-        /* ESTILO DO ZOOM (MODAL) */
-        #modalZoom { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; cursor: zoom-out; }
-        #imgZoom { max-width: 95%; max-height: 85%; border-radius: 5px; animation: zoomAnim 0.3s ease; }
-        @keyframes zoomAnim { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: var(--whats); color: #fff; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; z-index: 1000; }
-        footer { text-align: center; padding: 30px; background: #0a0a0a; color: #666; font-size: 11px; margin-top: 40px; }
-    </style>
+<style>
+:root{--destaque:#E60000;--preto:#0a0a0a;--cinza:#f2f2f2;--whats:#25D366}
+body{margin:0;font-family:Montserrat;background:var(--cinza)}
+header{background:var(--preto);color:#fff;text-align:center;padding:20px;border-bottom:4px solid var(--destaque)}
+header span{color:var(--destaque)}
+nav{background:#fff;display:flex;overflow-x:auto;position:sticky;top:0;z-index:1000;box-shadow:0 2px 5px rgba(0,0,0,.1)}
+nav::-webkit-scrollbar{display:none}
+.nav-link{padding:15px;border:none;background:none;font-weight:700;font-size:11px;text-transform:uppercase;color:#666;cursor:pointer}
+.nav-link.active{color:var(--destaque);border-bottom:3px solid var(--destaque)}
+.container{max-width:1200px;margin:20px auto;padding:0 15px}
+.category-section{display:none}
+.category-section.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:15px}
+.product-card{background:#fff;border-radius:8px;overflow:hidden;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.product-img{width:100%;aspect-ratio:3/4;object-fit:cover;cursor:zoom-in}
+.product-info{padding:12px}
+.product-info h3{font-size:12px;font-weight:700;text-transform:uppercase;margin:0 0 8px}
+.product-price{color:var(--destaque);font-weight:900;font-size:18px;margin-bottom:8px;display:block}
+.color-dots,.sizes{display:flex;justify-content:center;gap:6px;margin-bottom:8px}
+.dot{width:22px;height:22px;border-radius:50%;border:2px solid #ccc;cursor:pointer}
+.dot.active{border-color:var(--destaque)}
+.size{border:2px solid #ccc;padding:4px 6px;font-size:10px;font-weight:700;cursor:pointer}
+.size.disabled{opacity:.3;pointer-events:none}
+.size.active{border-color:var(--destaque)}
+.btn-buy{background:var(--whats);color:#fff;text-decoration:none;font-size:10px;font-weight:700;padding:10px;border-radius:4px;display:flex;justify-content:center;gap:5px;text-transform:uppercase}
+#modalZoom{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);align-items:center;justify-content:center}
+#imgZoom{max-width:95%;max-height:85%}
+.whatsapp-float{position:fixed;bottom:20px;right:20px;background:var(--whats);color:#fff;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px}
+footer{text-align:center;padding:30px;background:#0a0a0a;color:#666;font-size:11px}
+</style>
 </head>
+
 <body>
 
 <header><h1>Distrito <span>Imports</span></h1></header>
 
 <div id="modalZoom" onclick="this.style.display='none'">
-    <img id="imgZoom">
+<img id="imgZoom">
 </div>
 
 <nav>
-    <button class="nav-link active" onclick="showCat('peruanas',this)">Peruanas</button>
-    <button class="nav-link" onclick="showCat('mantos',this)">Mantos</button>
-    <button class="nav-link" onclick="showCat('dryfit',this)">Dry-Fit</button>
-    <button class="nav-link" onclick="showCat('cargo',this)">Cargo</button>
-    <button class="nav-link" onclick="showCat('mauricinho',this)">Mauricinho</button>
-    <button class="nav-link" onclick="showCat('calçados',this)">Calçados</button>
+<button class="nav-link active" onclick="showCat('peruanas',this)">Peruanas</button>
+<button class="nav-link" onclick="showCat('mantos',this)">Mantos</button>
+<button class="nav-link" onclick="showCat('dryfit',this)">Dry-Fit</button>
+<button class="nav-link" onclick="showCat('cargo',this)">Cargo</button>
+<button class="nav-link" onclick="showCat('mauricinho',this)">Mauricinho</button>
+<button class="nav-link" onclick="showCat('calcados',this)">Calçados</button>
 </nav>
 
 <main class="container">
-    <section id="peruanas" class="category-section active">
-        <h2>👕 Camisas Peruanas</h2>
-        <div class="grid">
-            <div class="product-card">
-                <img src="https://i.postimg.cc/xdrnT8XQ/Whats-App-Image-2026-01-24-at-20-55-04.jpg" class="product-img" onclick="zoomImg(this)">
-                <div class="product-info">
-                    <h3>Camisa Peruana Hugo Boss</h3>
-                    <span class="product-price">R$ 99,90</span>
-                    <a class="btn-buy" href="https://wa.me/5522999400239?text=Quero+a+Camisa+Peruana+Hugo+Boss"><i class="fab fa-whatsapp"></i> Comprar</a>
-                </div>
-            </div>
-        </div>
-    </section>
 
-   <section id="mantos" class="category-section">
-        <h2> Kits de time</h2>
-        <div class="grid">
-            <div class="product-card">
-                <img src="https://i.postimg.cc/N0Jh200V/Whats-App-Image-2026-01-25-at-13-46-15.jpg" class="product-img" onclick="zoomImg(this)">
-                <div class="product-info">
-                    <h3>Manto Seleção Premium</h3>
-                    <span class="product-price">R$ 129,90</span>
-                    <a class="btn-buy" href="https://wa.me/5522999400239?text=Quero+o+Manto+da+Seleção"><i class="fab fa-whatsapp"></i> Comprar</a>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="dryfit" class="category-section active">
+<h2>Conjuntos Dry-Fit</h2>
+<div class="grid" id="grid-dryfit"></div>
+</section>
 
-    <section id="dryfit" class="category-section">
-        <h2> Conjuntos Dry-Fit</h2>
-        <div class="grid">
-            <div class="product-card">
-                <img id="img-dry" src="https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg" class="product-img" onclick="zoomImg(this)">
-                <div class="product-info">
-                    <h3>Conjunto Nike Dry-Fit</h3>
-                    <div class="color-dots">
-                        <div class="dot" style="background:#000" onclick="mudarProd('Preto','https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg')"></div>
-                        <div class="dot" style="background:#fff" onclick="mudarProd('Branco','https://i.postimg.cc/ydk3yNzS/IMG-20260124-WA0217.jpg')"></div>
-                        <div class="dot" style="background:#001f3f" onclick="mudarProd('Azul Marinho','https://i.postimg.cc/pTp5JdtF/IMG-20260124-WA0215.jpg')"></div>
-                        <div class="dot" style="background:#444" onclick="mudarProd('Cinza','https://i.postimg.cc/0QbK0Nqm/IMG-20260124-WA0216.jpg')"></div>
-                    </div>
-                    <span class="product-price">R$ 179,90</span>
-                    <a id="btn-dry" class="btn-buy" href="https://wa.me/5522999400239?text=Quero+o+Conjunto+Nike+Dry-Fit+na+cor+Preto"><i class="fab fa-whatsapp"></i> Comprar</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="cargo" class="category-section">
-        <h2> Bermudas Cargo</h2>
-        <div class="grid">
-            <div class="product-card">
-                <img src="https://i.postimg.cc/WtRW03ty/Whats-App-Image-2026-01-25-at-17-24-20-(1).jpg" class="product-img" onclick="zoomImg(this)">
-                <div class="product-info">
-                    <h3>Bermuda Cargo Premium</h3>
-                    <span class="product-price">R$ 110,00</span>
-                    <a class="btn-buy" href="https://wa.me/5522999400239?text=Quero+a+Bermuda+Cargo"><i class="fab fa-whatsapp"></i> Comprar</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="mauricinho" class="category-section">
-        <h2> Bermudas Mauricinho</h2>
-        <div class="grid">
-            <div class="product-card">
-                <img src="https://i.postimg.cc/t70SFTY0/Whats-App-Image-2026-01-25-at-17-24-20.jpg" class="product-img" onclick="zoomImg(this)">
-                <div class="product-info">
-                    <h3>Bermuda Mauricinho Estampada</h3>
-                    <span class="product-price">R$ 65,00</span>
-                    <a class="btn-buy" href="https://wa.me/5522999400239?text=Quero+a+Bermuda+Mauricinho"><i class="fab fa-whatsapp"></i> Comprar</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="calçados" class="category-section">
-        <h2> Calçados</h2>
-        <div class="grid">
-            <div class="product-card">
-                <img src="https://i.postimg.cc/FKJ2d2PZ/Whats-App-Image-2026-01-25-at-17-37-38.jpg" class="product-img" onclick="zoomImg(this)">
-                <div class="product-info">
-                    <h3>Tênis Premium</h3>
-                    <span class="product-price">R$ 249,90</span>
-                    <a class="btn-buy" href="https://wa.me/5522999400239?text=Quero+o+Tênis+Premium"><i class="fab fa-whatsapp"></i> Comprar</a>
-                </div>
-            </div>
-        </div>
-    </section>
 </main>
 
 <a href="https://wa.me/5522999400239" class="whatsapp-float"><i class="fab fa-whatsapp"></i></a>
 <footer>© 2026 Distrito Imports — Itaperuna / RJ</footer>
 
 <script>
-    function showCat(id,btn){
-        document.querySelectorAll('.category-section').forEach(s=>s.classList.remove('active'));
-        document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        btn.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+const whatsapp="5522999400239";
 
-    function mudarProd(cor,img){
-        document.getElementById('img-dry').src = img;
-        document.getElementById('btn-dry').href = "https://wa.me/5522999400239?text=" + encodeURIComponent("Quero o Conjunto Nike Dry-Fit na cor " + cor);
+const produtos={
+ dryfit:[
+  {
+   nome:"Conjunto Nike Dry-Fit",
+   preco:"179,90",
+   cores:{
+    Preto:{
+     img:"https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg",
+     estoque:{P:2,M:1,G:1,GG:0}
+    },
+    Branco:{
+     img:"https://i.postimg.cc/ydk3yNzS/IMG-20260124-WA0217.jpg",
+     estoque:{P:1,M:2,G:0,GG:1}
     }
+   }
+  }
+ ]
+};
 
-    // NOVA FUNÇÃO DE ZOOM
-    function zoomImg(imgElement) {
-        const modal = document.getElementById('modalZoom');
-        const imgZoom = document.getElementById('imgZoom');
-        imgZoom.src = imgElement.src;
-        modal.style.display = "flex";
-    }
+let sel={};
+
+function renderDry(){
+ const g=document.getElementById("grid-dryfit");
+ g.innerHTML="";
+ produtos.dryfit.forEach((p,i)=>{
+  const cor=Object.keys(p.cores)[0];
+  sel[i]={cor,tam:null};
+  g.innerHTML+=`
+  <div class="product-card">
+   <img src="${p.cores[cor].img}" id="img-${i}" class="product-img" onclick="zoomImg(this)">
+   <div class="product-info">
+    <h3>${p.nome}</h3>
+
+    <div class="color-dots">
+     ${Object.keys(p.cores).map(c=>`
+      <div class="dot" onclick="trocaCor(${i},'${c}')"></div>`).join("")}
+    </div>
+
+    <div class="sizes" id="sizes-${i}"></div>
+
+    <span class="product-price">R$ ${p.preco}</span>
+
+    <a id="btn-${i}" class="btn-buy" style="opacity:.5;pointer-events:none">
+     <i class="fab fa-whatsapp"></i> Selecione tamanho
+    </a>
+   </div>
+  </div>`;
+  renderSizes(i);
+ });
+}
+
+function trocaCor(i,c){
+ sel[i].cor=c;
+ sel[i].tam=null;
+ document.getElementById(`img-${i}`).src=produtos.dryfit[i].cores[c].img;
+ renderSizes(i);
+}
+
+function renderSizes(i){
+ const p=produtos.dryfit[i];
+ const el=document.getElementById(`sizes-${i}`);
+ el.innerHTML="";
+ Object.entries(p.cores[sel[i].cor].estoque).forEach(([t,q])=>{
+  el.innerHTML+=`
+   <div class="size ${q==0?'disabled':''}" onclick="selTam(${i},'${t}')">${t}</div>`;
+ });
+}
+
+function selTam(i,t){
+ sel[i].tam=t;
+ const p=produtos.dryfit[i];
+ const btn=document.getElementById(`btn-${i}`);
+ btn.style.opacity=1;
+ btn.style.pointerEvents="auto";
+ btn.href=`https://wa.me/${whatsapp}?text=${encodeURIComponent(
+  `Quero ${p.nome} cor ${sel[i].cor} tamanho ${t}`
+ )}`;
+}
+
+function showCat(id,btn){
+ document.querySelectorAll('.category-section').forEach(s=>s.classList.remove('active'));
+ document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ btn.classList.add('active');
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function zoomImg(img){
+ document.getElementById("imgZoom").src=img.src;
+ document.getElementById("modalZoom").style.display="flex";
+}
+
+renderDry();
 </script>
+
 </body>
-             </html>
+</html>
