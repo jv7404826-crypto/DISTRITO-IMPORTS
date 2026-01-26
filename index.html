@@ -9,41 +9,27 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-:root{
- --red:#E60000;
- --black:#0a0a0a;
- --white:#ffffff;
- --gray:#f2f2f2;
- --whats:#25D366
-}
+:root{--red:#E60000;--black:#0a0a0a;--white:#fff;--gray:#f2f2f2;--whats:#25D366}
 body{margin:0;font-family:Montserrat;background:var(--gray)}
 header{background:var(--black);color:#fff;text-align:center;padding:20px;border-bottom:4px solid var(--red)}
 header span{color:var(--red)}
-nav{background:var(--white);display:flex;overflow-x:auto;position:sticky;top:0;z-index:1000}
-nav::-webkit-scrollbar{display:none}
+nav{background:#fff;display:flex;overflow-x:auto;position:sticky;top:0;z-index:1000}
 .nav-link{padding:15px;border:none;background:none;font-weight:700;font-size:11px;text-transform:uppercase;color:#666;cursor:pointer}
 .nav-link.active{color:var(--red);border-bottom:3px solid var(--red)}
 .container{max-width:1200px;margin:20px auto;padding:0 15px}
 .category{display:none}
 .category.active{display:block}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:15px}
-
 .card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08)}
 .card img{width:100%;aspect-ratio:3/4;object-fit:cover;cursor:zoom-in}
-
-.info{padding:12px;text-align:center}
-.info h3{font-size:12px;margin:0 0 6px;text-transform:uppercase}
-.price{color:var(--red);font-weight:900;font-size:18px;margin-bottom:6px;display:block}
-
+.info{text-align:center;padding:12px}
+.info h3{font-size:12px;text-transform:uppercase;margin:5px 0}
+.price{color:var(--red);font-weight:900}
 .colors,.sizes{display:flex;justify-content:center;gap:6px;margin:6px 0}
-.dot{width:22px;height:22px;border-radius:50%;border:2px solid #ccc;cursor:pointer}
-.dot.active{border-color:var(--red)}
-
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid #ccc;cursor:pointer}
 .size{border:2px solid #ccc;padding:4px 7px;font-size:10px;font-weight:700;cursor:pointer}
 .size.disabled{opacity:.3;pointer-events:none}
-.size.active{border-color:var(--red)}
-
-.buy{background:var(--whats);color:#fff;text-decoration:none;font-size:10px;font-weight:700;padding:10px;border-radius:4px;display:block;text-transform:uppercase;opacity:.4;pointer-events:none}
+.buy{background:var(--whats);color:#fff;font-size:10px;padding:10px;border-radius:4px;text-decoration:none;display:block;opacity:.4;pointer-events:none}
 
 #zoom{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);align-items:center;justify-content:center;z-index:2000}
 #zoom img{max-width:90%;max-height:90%}
@@ -51,6 +37,11 @@ nav::-webkit-scrollbar{display:none}
 .whats-float{position:fixed;bottom:20px;right:20px;background:var(--whats);color:#fff;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;z-index:1500}
 
 footer{text-align:center;padding:30px;background:#0a0a0a;color:#666;font-size:11px;margin-top:40px}
+
+/* ADMIN */
+#admin{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);color:#fff;z-index:3000;padding:20px;overflow:auto}
+#admin input,#admin textarea{width:100%;padding:8px;margin:5px 0}
+#admin button{background:var(--red);border:none;color:#fff;padding:10px;margin-top:10px;cursor:pointer}
 </style>
 </head>
 
@@ -77,59 +68,22 @@ footer{text-align:center;padding:30px;background:#0a0a0a;color:#666;font-size:11
 </main>
 
 <div id="zoom" onclick="this.style.display='none'"><img></div>
-
 <a class="whats-float" href="https://wa.me/5522999400239"><i class="fab fa-whatsapp"></i></a>
+<footer>© 2026 Distrito Imports</footer>
 
-<footer>© 2026 Distrito Imports — Itaperuna / RJ</footer>
+<!-- ADMIN -->
+<div id="admin">
+<h2>PAINEL ADMIN</h2>
+<textarea id="adminData" rows="20"></textarea>
+<button onclick="salvarAdmin()">SALVAR</button>
+<button onclick="document.getElementById('admin').style.display='none'">FECHAR</button>
+</div>
 
 <script>
 const whatsapp="5522999400239";
 
-/* === ESTOQUE COM SALVAMENTO === */
-let produtos = JSON.parse(localStorage.getItem("produtos")) || {
-  peruanas:[{
-    nome:"Camisa Peruana Premium",
-    preco:"99,90",
-    cores:{
-      Preto:{img:"https://i.postimg.cc/xdrnT8XQ/Whats-App-Image.jpg",estoque:{P:1,M:1,G:1,GG:0}}
-    }
-  }],
-  mantos:[{
-    nome:"Manto Seleção",
-    preco:"129,90",
-    cores:{
-      Azul:{img:"https://i.postimg.cc/N0Jh200V/Whats-App-Image.jpg",estoque:{P:1,M:1,G:1,GG:1}}
-    }
-  }],
-  dryfit:[{
-    nome:"Conjunto Nike Dry-Fit",
-    preco:"179,90",
-    cores:{
-      Preto:{img:"https://i.postimg.cc/zDQZp382/IMG.jpg",estoque:{P:1,M:1,G:0,GG:0}},
-      Branco:{img:"https://i.postimg.cc/ydk3yNzS/IMG.jpg",estoque:{P:1,M:0,G:1,GG:0}}
-    }
-  }],
-  cargo:[{
-    nome:"Bermuda Cargo",
-    preco:"110,00",
-    cores:{
-      Verde:{img:"https://i.postimg.cc/WtRW03ty/IMG.jpg",estoque:{38:1,40:1,42:0}}
-    }
-  }],
-  mauricinho:[{
-    nome:"Bermuda Mauricinho",
-    preco:"65,00",
-    cores:{
-      Estampada:{img:"https://i.postimg.cc/t70SFTY0/IMG.jpg",estoque:{P:1,M:1,G:1}}
-    }
-  }],
-  calcados:[{
-    nome:"Tênis Premium",
-    preco:"249,90",
-    cores:{
-      Preto:{img:"https://i.postimg.cc/FKJ2d2PZ/IMG.jpg",estoque:{39:1,40:1,41:0,42:0}}
-    }
-  }]
+let produtos=JSON.parse(localStorage.getItem("produtos"))||{
+ peruanas:[],mantos:[],dryfit:[],cargo:[],mauricinho:[],calcados:[]
 };
 
 function salvar(){localStorage.setItem("produtos",JSON.stringify(produtos));}
@@ -150,50 +104,47 @@ function render(cat){
 const grid=document.getElementById('grid-'+cat);
 grid.innerHTML='';
 produtos[cat].forEach((p,i)=>{
-const corPadrao=Object.keys(p.cores)[0];
+const cor=Object.keys(p.cores)[0];
 grid.innerHTML+=`
 <div class="card">
-<img id="img-${cat}-${i}" src="${p.cores[corPadrao].img}" onclick="zoom(this)">
+<img src="${p.cores[cor].img}" onclick="zoom(this)">
 <div class="info">
 <h3>${p.nome}</h3>
 <span class="price">R$ ${p.preco}</span>
-<div class="colors">
-${Object.keys(p.cores).map(c=>`<div class="dot" onclick="selectCor('${cat}',${i},'${c}')"></div>`).join('')}
+<div class="sizes">
+${Object.entries(p.cores[cor].estoque).map(([t,q])=>`
+<div class="size ${q<=0?'disabled':''}" onclick="comprar('${cat}',${i},'${cor}','${t}')">${t}</div>`).join('')}
 </div>
-<div class="sizes" id="sizes-${cat}-${i}"></div>
-<a id="buy-${cat}-${i}" class="buy">Escolha tamanho</a>
-</div>
-</div>`;
-selectCor(cat,i,corPadrao);
+<a class="buy" id="buy-${cat}-${i}">Comprar</a>
+</div></div>`;
 });
 }
 
-function selectCor(cat,i,cor){
-document.getElementById(`img-${cat}-${i}`).src=produtos[cat][i].cores[cor].img;
-const sizes=document.getElementById(`sizes-${cat}-${i}`);
-sizes.innerHTML='';
-Object.entries(produtos[cat][i].cores[cor].estoque).forEach(([t,q])=>{
-sizes.innerHTML+=`
-<div class="size ${q==0?'disabled':''}"
-onclick="selectSize('${cat}',${i},'${cor}','${t}')">${t}</div>`;
-});
-}
-
-function selectSize(cat,i,cor,t){
+function comprar(cat,i,cor,t){
 if(produtos[cat][i].cores[cor].estoque[t]<=0)return;
 produtos[cat][i].cores[cor].estoque[t]--;
 salvar();
-const btn=document.getElementById(`buy-${cat}-${i}`);
-btn.style.opacity=1;
-btn.style.pointerEvents='auto';
-btn.href=`https://wa.me/${whatsapp}?text=${encodeURIComponent(
-`Quero ${produtos[cat][i].nome} | Cor ${cor} | Tam ${t}`
-)}`;
+window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(
+`Quero ${produtos[cat][i].nome} | ${cor} | Tam ${t}`
+)}`);
 render(cat);
 }
 
 Object.keys(produtos).forEach(render);
+
+/* ADMIN */
+document.addEventListener("keydown",e=>{
+if(e.ctrlKey && e.shiftKey && e.key==="A"){
+document.getElementById("admin").style.display="block";
+document.getElementById("adminData").value=JSON.stringify(produtos,null,2);
+}});
+function salvarAdmin(){
+produtos=JSON.parse(document.getElementById("adminData").value);
+salvar();
+Object.keys(produtos).forEach(render);
+alert("SALVO COM SUCESSO");
+}
 </script>
 
 </body>
-                                        </html>
+</html>
