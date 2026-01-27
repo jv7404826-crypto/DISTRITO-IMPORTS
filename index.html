@@ -3,25 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Distrito Imports | Catálogo Oficial</title>
+<title>Distrito Imports | Catálogo</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 :root{ --red:#E60000; --black:#0a0a0a; --gray:#f2f2f2; --whats:#25D366; --white:#fff; }
-body{margin:0;font-family:Montserrat;background:var(--gray); padding-bottom: 80px;}
+body{margin:0;font-family:Montserrat;background:var(--gray); padding-bottom: 100px;}
 header{background:var(--black);color:#fff;text-align:center;padding:20px;border-bottom:4px solid var(--red); cursor: pointer;}
 header span{color:var(--red)}
 
-/* Barra de Busca */
 .search-container { background: #fff; padding: 10px 15px; display: flex; justify-content: center; position: sticky; top:0; z-index: 1100;}
-#searchBar { width: 100%; max-width: 500px; padding: 12px 20px; border: 2px solid #eee; border-radius: 25px; outline: none; font-family: Montserrat; transition: 0.3s;}
-#searchBar:focus { border-color: var(--red); }
+#searchBar { width: 100%; max-width: 500px; padding: 12px 20px; border: 2px solid #eee; border-radius: 25px; outline: none; font-family: Montserrat;}
 
-nav{background:#fff;display:flex;overflow-x:auto;position:sticky;top:58px;z-index:1000;box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-top: 1px solid #eee;}
-nav::-webkit-scrollbar{display:none}
-.nav-link{padding:15px;border:none;background:none;font-weight:700;font-size:11px;text-transform:uppercase;color:#666;cursor:pointer;white-space:nowrap}
+nav{background:#fff;display:flex;justify-content: center;position:sticky;top:58px;z-index:1000;box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-top: 1px solid #eee;}
+.nav-link{padding:15px 25px;border:none;background:none;font-weight:700;font-size:12px;text-transform:uppercase;color:#666;cursor:pointer;white-space:nowrap}
 .nav-link.active{color:var(--red);border-bottom:3px solid var(--red)}
 
 .container{max-width:1200px;margin:10px auto;padding:0 15px}
@@ -35,15 +32,13 @@ h2 { font-size: 18px; text-transform: uppercase; font-weight: 900; margin: 25px 
 .card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05); display: flex; flex-direction: column; position: relative;}
 .card img{width:100%;aspect-ratio:3/4;object-fit:cover;cursor:zoom-in}
 
-.badge { position: absolute; top: 10px; left: 10px; background: var(--red); color: white; font-size: 9px; font-weight: 900; padding: 4px 8px; border-radius: 4px; text-transform: uppercase; z-index: 10; }
-
 .info{padding:12px;text-align:center; flex-grow: 1; display: flex; flex-direction: column;}
-.info h3{font-size:12px;margin:0 0 6px;text-transform:uppercase; height: 30px; overflow: hidden;}
+.info h3{font-size:12px;margin:0 0 6px;text-transform:uppercase; min-height: 30px;}
 .price{color:var(--red);font-weight:900;font-size:18px;margin-bottom:6px;display:block}
 
 .colors,.sizes{display:flex;justify-content:center;gap:6px;margin:6px 0;flex-wrap:wrap;}
-.dot{width:22px;height:22px;border-radius:50%;border:2px solid #ccc;cursor:pointer; transition: 0.2s;}
-.dot.selected{border-color:var(--red); transform: scale(1.2); box-shadow: 0 0 5px rgba(0,0,0,0.2);}
+.dot{width:22px;height:22px;border-radius:50%;border:2px solid #ccc;cursor:pointer;}
+.dot.selected{border-color:var(--red); transform: scale(1.1);}
 
 .size{border:2px solid #ccc;padding:4px 8px;font-size:10px;font-weight:700;cursor:pointer; border-radius: 4px;}
 .size.disabled{opacity:.2;pointer-events:none; background: #eee;}
@@ -51,20 +46,14 @@ h2 { font-size: 18px; text-transform: uppercase; font-weight: 900; margin: 25px 
 
 .buy{background:var(--whats);color:#fff;border:none;width:100%;font-size:10px;font-weight:700;padding:12px;border-radius:4px;text-transform:uppercase;opacity:.4;pointer-events:none; cursor:pointer; margin-top: auto;}
 
-/* Carrinho Flutuante */
-#cart-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--black); color: white; padding: 15px; display: none; justify-content: space-around; align-items: center; z-index: 2000; border-top: 3px solid var(--red); box-shadow: 0 -5px 15px rgba(0,0,0,0.3); }
-.btn-finish { background: var(--whats); color: white; border: none; padding: 12px 20px; border-radius: 5px; font-weight: 900; cursor: pointer; text-transform: uppercase; font-size: 12px; }
+#cart-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--black); color: white; padding: 15px; display: none; justify-content: space-around; align-items: center; z-index: 2000; border-top: 3px solid var(--red); }
+.btn-finish { background: var(--whats); color: white; border: none; padding: 12px 20px; border-radius: 5px; font-weight: 900; cursor: pointer; }
 
 #zoom{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);align-items:center;justify-content:center;z-index:3000; cursor: zoom-out;}
-#zoom img{max-width:95%;max-height:85%; border-radius: 8px; animation: zoomAnim 0.3s ease;}
-
-.whats-float{position:fixed;bottom:80px;right:20px;background:var(--whats);color:#fff;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;z-index:1500; box-shadow: 0 4px 10px rgba(0,0,0,0.3);}
+#zoom img{max-width:95%;max-height:85%; border-radius: 8px;}
 
 #adminPanel{display:none;position:fixed;inset:0;background:#000c;color:#fff;z-index:4000;padding:20px;overflow:auto}
-.admin-item{border-bottom:1px solid #333;padding:10px 0;display:flex;justify-content:space-between;align-items:center;}
-.admin-item input{width:60px; background: #222; color: #fff; border: 1px solid #444; padding: 5px; text-align: center;}
-
-footer{text-align:center;padding:30px;background:#0a0a0a;color:#666;font-size:11px;}
+.admin-item{border-bottom:1px solid #333;padding:10px 0;display:flex;justify-content:space-between;}
 </style>
 </head>
 <body>
@@ -72,25 +61,19 @@ footer{text-align:center;padding:30px;background:#0a0a0a;color:#666;font-size:11
 <header id="logo"><h1>Distrito <span>Imports</span></h1></header>
 
 <div class="search-container">
-    <input type="text" id="searchBar" placeholder="Pesquisar em todo catálogo..." onkeyup="search()">
+    <input type="text" id="searchBar" placeholder="Pesquisar..." onkeyup="search()">
 </div>
 
 <nav id="navbar">
-    <button class="nav-link active" onclick="showCat('peruanas',this)">Peruanas</button>
-    <button class="nav-link" onclick="showCat('mantos',this)">Mantos</button>
-    <button class="nav-link" onclick="showCat('dryfit',this)">Dry-Fit</button>
-    <button class="nav-link" onclick="showCat('cargo',this)">Cargo</button>
-    <button class="nav-link" onclick="showCat('mauricinho',this)">Mauricinho</button>
-    <button class="nav-link" onclick="showCat('calcados',this)">Calçados</button>
+    <button class="nav-link active" onclick="showCat('camisas',this)">Camisas</button>
+    <button class="nav-link" onclick="showCat('bermudas',this)">Bermudas</button>
+    <button class="nav-link" onclick="showCat('conjuntos',this)">Conjuntos</button>
 </nav>
 
 <main class="container">
-    <section id="peruanas" class="category active"><h2>👕 Peruanas</h2><div class="grid" id="grid-peruanas"></div></section>
-    <section id="mantos" class="category"><h2>🏆 Mantos</h2><div class="grid" id="grid-mantos"></div></section>
-    <section id="dryfit" class="category"><h2>🏃 Dry-Fit</h2><div class="grid" id="grid-dryfit"></div></section>
-    <section id="cargo" class="category"><h2>📦 Cargo</h2><div class="grid" id="grid-cargo"></div></section>
-    <section id="mauricinho" class="category"><h2>🩳 Mauricinho</h2><div class="grid" id="grid-mauricinho"></div></section>
-    <section id="calcados" class="category"><h2>👟 Calçados</h2><div class="grid" id="grid-calcados"></div></section>
+    <section id="camisas" class="category active"><h2>👕 Camisas</h2><div class="grid" id="grid-camisas"></div></section>
+    <section id="bermudas" class="category"><h2>🩳 Bermudas</h2><div class="grid" id="grid-bermudas"></div></section>
+    <section id="conjuntos" class="category"><h2>⚡ Conjuntos</h2><div class="grid" id="grid-conjuntos"></div></section>
 </main>
 
 <div id="cart-bar">
@@ -104,25 +87,26 @@ footer{text-align:center;padding:30px;background:#0a0a0a;color:#666;font-size:11
 <div id="zoom" onclick="this.style.display='none'"><img src=""></div>
 
 <div id="adminPanel">
-    <h2>Painel de Estoque <button onclick="closeAdmin()" style="float:right; background:var(--red); color:#fff; border:none; padding:5px 15px; cursor:pointer;">X</button></h2>
+    <h2>Estoque <button onclick="closeAdmin()" style="float:right; background:var(--red); color:#fff; border:none; padding:5px 15px;">X</button></h2>
     <div id="adminContent"></div>
 </div>
-
-<a class="whats-float" href="https://wa.me/5522999400239?text=Olá!"><i class="fab fa-whatsapp"></i></a>
-<footer>© 2026 Distrito Imports — Itaperuna / RJ</footer>
 
 <script>
 const whatsapp = "5522999400239";
 const senhaAdmin = "2123";
 let cart = [];
 
+// Base de dados com as NOVAS categorias
 const produtosBase = {
-    peruanas:[{nome:"Camisa Peruana Hugo Boss",preco:"99,90",destaque:true,cores:{Original:{img:"https://i.postimg.cc/xdrnT8XQ/Whats-App-Image-2026-01-24-at-20-55-04.jpg",estoque:{P:1,M:1,G:1,GG:1}}}}],
-    mantos:[{nome:"Manto Seleção Premium",preco:"129,90",cores:{Brasil:{img:"https://i.postimg.cc/N0Jh200V/Whats-App-Image-2026-01-25-at-13-46-15.jpg",estoque:{P:1,M:1,G:1,GG:1}}}}],
-    dryfit:[{nome:"Conjunto Nike Dry-Fit",preco:"179,90",cores:{Preto:{img:"https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg",estoque:{P:1,M:1,G:1,GG:1}},Branco:{img:"https://i.postimg.cc/ydk3yNzS/IMG-20260124-WA0217.jpg",estoque:{P:1,M:1,G:1,GG:1}}}}],
-    cargo:[{nome:"Bermuda Cargo Premium",preco:"110,00",cores:{Verde:{img:"https://i.postimg.cc/WtRW03ty/Whats-App-Image-2026-01-25-at-17-24-20-(1).jpg",estoque:{38:1,40:1,42:1,44:1}}}}],
-    mauricinho:[{nome:"Bermuda Mauricinho",preco:"65,00",cores:{Estampada:{img:"https://i.postimg.cc/t70SFTY0/Whats-App-Image-2026-01-25-at-17-24-20.jpg",estoque:{P:1,M:1,G:1}}}}],
-    calcados:[{nome:"Tênis Premium Distrito",preco:"249,90",destaque:true,cores:{Original:{img:"https://i.postimg.cc/FKJ2d2PZ/Whats-App-Image-2026-01-25-at-17-37-38.jpg",estoque:{39:1,40:1,41:1,42:1}}}}]
+    camisas: [
+        {nome:"Camisa Peruana Premium", preco:"99,90", cores:{Preto:{img:"https://via.placeholder.com/300x400",estoque:{P:1,M:1,G:1,GG:1}}}}
+    ],
+    bermudas: [
+        {nome:"Bermuda Cargo", preco:"110,00", cores:{Verde:{img:"https://via.placeholder.com/300x400",estoque:{38:1,40:1,42:1}}}}
+    ],
+    conjuntos: [
+        {nome:"Conjunto Dry-Fit", preco:"179,90", cores:{Original:{img:"https://via.placeholder.com/300x400",estoque:{P:1,M:1,G:1}}}}
+    ]
 };
 
 let produtos = JSON.parse(localStorage.getItem("estoque_distrito")) || produtosBase;
@@ -139,7 +123,6 @@ function render(cat){
         const coresDisp = Object.keys(p.cores);
         grid.innerHTML += `
             <div class="card" data-name="${p.nome}">
-                ${p.destaque ? '<div class="badge">Destaque</div>' : ''}
                 <img id="img-${cat}-${i}" src="${p.cores[coresDisp[0]].img}" onclick="zoom(this.src)">
                 <div class="info">
                     <h3>${p.nome}</h3>
@@ -176,54 +159,38 @@ function selectSize(el, cat, i, cor, t){
     btn.onclick = () => addToCart(cat, i, cor, t);
 }
 
-// LÓGICA DO CARRINHO
 function addToCart(cat, i, cor, t) {
     const p = produtos[cat][i];
     cart.push({ nome: p.nome, preco: p.preco, cor, tamanho: t });
     updateCartUI();
-    
     const btn = document.getElementById(${cat}-buy-${i});
     btn.innerText = "✅ Adicionado!";
-    btn.style.background = "#000";
-    setTimeout(() => { 
-        btn.innerText = "Adicionar Mais"; 
-        btn.style.background = "var(--whats)";
-    }, 1500);
+    setTimeout(() => { btn.innerText = "Adicionar Mais"; }, 1500);
 }
 
 function updateCartUI() {
     const bar = document.getElementById('cart-bar');
-    const count = document.getElementById('cart-count');
-    const total = document.getElementById('cart-total');
-    
+    const total = cart.reduce((acc, item) => acc + parseFloat(item.preco.replace(',','.')), 0);
     if(cart.length > 0) {
         bar.style.display = 'flex';
-        let soma = cart.reduce((acc, item) => acc + parseFloat(item.preco.replace(',','.')), 0);
-        count.innerText = ${cart.length} ITENS NO CARRINHO;
-        total.innerText = Total: R$ ${soma.toFixed(2).replace('.',',')};
-    } else {
-        bar.style.display = 'none';
+        document.getElementById('cart-count').innerText = ${cart.length} ITENS NO CARRINHO;
+        document.getElementById('cart-total').innerText = Total: R$ ${total.toFixed(2).replace('.',',')};
     }
 }
 
 function sendCartWhatsApp() {
     let msg = 🚀 *NOVO PEDIDO - DISTRITO IMPORTS*\n\n;
     cart.forEach((item, index) => {
-        msg += ${index + 1}. *${item.nome}*\n   🎨 Cor: ${item.cor} | 📏 Tam: ${item.tamanho}\n   💰 R$ ${item.preco}\n\n;
+        msg += ${index + 1}. *${item.nome}*\n   🎨 Cor: ${item.cor} | 📏 Tam: ${item.tamanho} | R$ ${item.preco}\n\n;
     });
-    msg += 📍 *Favor confirmar disponibilidade e frete.*;
     window.location.href = https://wa.me/${whatsapp}?text=${encodeURIComponent(msg)};
 }
 
-// BUG FIX: Busca Global Inteligente
 function search() {
     let input = document.getElementById('searchBar').value.toLowerCase();
-    let categories = document.querySelectorAll('.category');
-    
-    categories.forEach(cat => {
+    document.querySelectorAll('.category').forEach(cat => {
         let cards = cat.getElementsByClassName('card');
         let hasMatch = false;
-        
         for (let card of cards) {
             let name = card.getAttribute('data-name').toLowerCase();
             if (name.includes(input)) {
@@ -233,18 +200,13 @@ function search() {
                 card.style.display = "none";
             }
         }
-        
-        if(input.length > 0) {
-            cat.style.display = hasMatch ? "block" : "none";
-        } else {
-            const btnRelativo = document.querySelector(.nav-link[onclick*="'${cat.id}'"]);
-            cat.style.display = btnRelativo.classList.contains('active') ? "block" : "none";
-        }
+        if(input.length > 0) cat.style.display = hasMatch ? "block" : "none";
+        else cat.style.display = document.querySelector(.nav-link[onclick*="'${cat.id}'"]).classList.contains('active') ? "block" : "none";
     });
 }
 
 function getHex(cor){
-    const cores = {Preto:'#000', Branco:'#fff', Marinho:'#001f3f', Cinza:'#666', Verde:'#2d5a27', Azul:'#0074D9', Original: 'linear-gradient(45deg, #333, #666)'};
+    const cores = {Preto:'#000', Branco:'#fff', Marinho:'#001f3f', Verde:'#2d5a27', Original: '#666'};
     return cores[cor] || '#ccc';
 }
 
@@ -256,10 +218,8 @@ function showCat(id, btn){
     document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
     document.getElementById(id).style.display = 'block';
     btn.classList.add('active');
-    window.scrollTo({top:0, behavior:'smooth'});
 }
 
-// ADMIN
 let taps = 0;
 document.getElementById("logo").addEventListener("click", () => {
     taps++; setTimeout(() => taps = 0, 1000);
@@ -271,15 +231,10 @@ function openAdmin(){
     const c = document.getElementById("adminContent");
     c.innerHTML = '';
     Object.entries(produtos).forEach(([cat, arr]) => {
-        c.innerHTML += <h3 style="color:var(--red); border-bottom:1px solid #444; margin-top:20px">${cat.toUpperCase()}</h3>;
         arr.forEach((p, i) => {
             Object.entries(p.cores).forEach(([cor, obj]) => {
                 Object.entries(obj.estoque).forEach(([t, q]) => {
-                    c.innerHTML += `
-                    <div class="admin-item">
-                        <span>${p.nome} (${cor}) - <b>${t}</b></span>
-                        <input type="number" value="${q}" onchange="updateStock('${cat}',${i},'${cor}','${t}',this.value)">
-                    </div>`;
+                    c.innerHTML += <div class="admin-item">${p.nome} (${cor}) - ${t}: <input type="number" value="${q}" onchange="updateStock('${cat}',${i},'${cor}','${t}',this.value)"></div>;
                 });
             });
         });
@@ -291,14 +246,9 @@ function updateStock(cat, idx, cor, t, val){
     localStorage.setItem("estoque_distrito", JSON.stringify(produtos));
 }
 
-function closeAdmin(){ 
-    document.getElementById("adminPanel").style.display = "none"; 
-    renderAll(); 
-}
+function closeAdmin(){ document.getElementById("adminPanel").style.display = "none"; renderAll(); }
 
-// Iniciar
 renderAll();
 </script>
-
 </body>
 </html>
