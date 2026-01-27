@@ -1,101 +1,104 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Distrito Imports | Catálogo Oficial</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distrito Imports | Catálogo Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root{ --red:#E60000; --black:#0a0a0a; --gray:#f2f2f2; --whats:#25D366; --yellow:#FFD700; --white:#fff; }
+        body{margin:0;font-family:Montserrat;background:var(--gray); padding-bottom: 120px; color: var(--black);}
+        header{background:var(--black);color:#fff;text-align:center;padding:25px;border-bottom:4px solid var(--red); cursor: pointer;}
+        header span{color:var(--red)}
+        
+        .search-container { background: #fff; padding: 15px; display: flex; justify-content: center; position: sticky; top:0; z-index: 1100; box-shadow: 0 2px 10px rgba(0,0,0,0.05);}
+        #searchBar { width: 100%; max-width: 600px; padding: 12px 25px; border: 2px solid #eee; border-radius: 30px; outline: none; font-family: Montserrat; font-size: 16px;}
+        
+        nav{background:#fff;display:flex;justify-content: center;position:sticky;top:72px;z-index:1000;box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-top: 1px solid #eee; overflow-x: auto;}
+        .nav-link{padding:18px 25px;border:none;background:none;font-weight:700;font-size:12px;text-transform:uppercase;color:#666;cursor:pointer;white-space:nowrap;}
+        .nav-link.active{color:var(--red);border-bottom:3px solid var(--red)}
+        
+        .container{max-width:1200px;margin:20px auto;padding:0 15px}
+        .category{display:none}
+        .category.active{display:block;}
+        
+        .grid{display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;}
+        @media (max-width: 480px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
+        
+        .card{background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 4px 15px rgba(0,0,0,0.08); display: flex; flex-direction: column; position: relative;}
+        .badge-last { position: absolute; top: 10px; left: 10px; background: var(--yellow); color: #000; font-size: 9px; font-weight: 900; padding: 4px 8px; border-radius: 4px; z-index: 10; text-transform: uppercase; border: 1px solid #000; }
+        .badge-promo { position: absolute; top: 10px; right: 10px; background: var(--red); color: #fff; font-size: 9px; font-weight: 900; padding: 4px 8px; border-radius: 4px; z-index: 10; text-transform: uppercase; }
+        
+        .img-container { width: 100%; background: #eee; position: relative; padding-top: 133%; overflow: hidden; }
+        .card img{ position: absolute; top:0; left:0; width: 100%; height: 100%; object-fit: cover; cursor: zoom-in;}
+        
+        .info{padding:12px; text-align:center; flex-grow: 1; display: flex; flex-direction: column;}
+        .info h3{font-size:11px; margin:0 0 8px; text-transform:uppercase; height: 30px; overflow: hidden; color: #333;}
+        .price-old { color: #999; text-decoration: line-through; font-size: 11px; display: block; height: 14px;}
+        .price-new { color: var(--red); font-weight: 900; font-size: 19px; margin-bottom: 8px; display: block;}
+        
+        .sizes{display:flex; justify-content:center; gap:6px; margin:5px 0; flex-wrap:wrap;}
+        .size{border:2px solid #ddd; padding:5px 8px; font-size:10px; font-weight:700; cursor:pointer; border-radius: 4px;}
+        .size.disabled{opacity:0.1; pointer-events:none;}
+        .size.selected{border-color:var(--red); background: var(--red); color: white;}
+        
+        .buy{background:var(--whats); color:#fff; border:none; width:100%; font-size:10px; font-weight:900; padding:12px; border-radius:6px; text-transform:uppercase; opacity:0.4; pointer-events:none; cursor:pointer; margin-top: auto;}
+        
+        #cart-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--black); color: white; padding: 15px; display: none; justify-content: center; gap: 20px; align-items: center; z-index: 2000; border-top: 3px solid var(--red); }
+        .btn-finish { background: var(--whats); color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 900; cursor: pointer; text-transform: uppercase; font-size: 12px;}
+        
+        #zoom{display:none; position:fixed; inset:0; background:rgba(0,0,0,0.95); align-items:center; justify-content:center; z-index:3000;}
+        #zoom img{max-width:90%; max-height:90%; border-radius: 8px;}
 
-<style>
-:root{ --red:#E60000; --black:#0a0a0a; --gray:#f2f2f2; --whats:#25D366; --yellow:#FFD700; --white:#fff; }
-body{margin:0;font-family:Montserrat;background:var(--gray); padding-bottom: 120px; color: var(--black);}
-
-header{background:var(--black);color:#fff;text-align:center;padding:25px;border-bottom:4px solid var(--red); cursor: pointer;}
-header span{color:var(--red)}
-
-.search-container { background: #fff; padding: 15px; display: flex; justify-content: center; position: sticky; top:0; z-index: 1100; box-shadow: 0 2px 10px rgba(0,0,0,0.05);}
-#searchBar { width: 100%; max-width: 600px; padding: 12px 25px; border: 2px solid #eee; border-radius: 30px; outline: none; font-family: Montserrat; font-size: 16px;}
-
-nav{background:#fff;display:flex;justify-content: center;position:sticky;top:72px;z-index:1000;box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-top: 1px solid #eee; overflow-x: auto;}
-.nav-link{padding:18px 25px;border:none;background:none;font-weight:700;font-size:12px;text-transform:uppercase;color:#666;cursor:pointer;white-space:nowrap;}
-.nav-link.active{color:var(--red);border-bottom:3px solid var(--red)}
-
-.container{max-width:1200px;margin:20px auto;padding:0 15px}
-.category{display:none}
-.category.active{display:block; animation: fadeIn 0.4s ease;}
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-.grid{display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;}
-@media (max-width: 480px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
-
-.card{background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 4px 15px rgba(0,0,0,0.08); display: flex; flex-direction: column; position: relative;}
-
-.badge-last { position: absolute; top: 10px; left: 10px; background: var(--yellow); color: #000; font-size: 9px; font-weight: 900; padding: 4px 8px; border-radius: 4px; z-index: 10; text-transform: uppercase; border: 1px solid #000; }
-.badge-promo { position: absolute; top: 10px; right: 10px; background: var(--red); color: #fff; font-size: 9px; font-weight: 900; padding: 4px 8px; border-radius: 4px; z-index: 10; text-transform: uppercase; }
-
-.img-container { width: 100%; background: #eee; position: relative; padding-top: 133%; overflow: hidden; }
-.card img{ position: absolute; top:0; left:0; width: 100%; height: 100%; object-fit: cover; cursor: zoom-in;}
-
-.info{padding:12px; text-align:center; flex-grow: 1; display: flex; flex-direction: column;}
-.info h3{font-size:11px; margin:0 0 8px; text-transform:uppercase; height: 30px; overflow: hidden; color: #333;}
-
-.price-old { color: #999; text-decoration: line-through; font-size: 11px; display: block; height: 14px;}
-.price-new { color: var(--red); font-weight: 900; font-size: 19px; margin-bottom: 8px; display: block;}
-
-.colors, .sizes{display:flex; justify-content:center; gap:6px; margin:5px 0; flex-wrap:wrap;}
-.dot{width:22px; height:22px; border-radius:50%; border:2px solid #ddd; cursor:pointer;}
-.dot.selected{border-color:var(--red); transform: scale(1.1);}
-
-.size{border:2px solid #ddd; padding:5px 8px; font-size:10px; font-weight:700; cursor:pointer; border-radius: 4px;}
-.size.disabled{opacity:0.1; pointer-events:none;}
-.size.selected{border-color:var(--red); background: var(--red); color: white;}
-
-.buy{background:var(--whats); color:#fff; border:none; width:100%; font-size:10px; font-weight:900; padding:12px; border-radius:6px; text-transform:uppercase; opacity:0.4; pointer-events:none; cursor:pointer; margin-top: auto;}
-
-#cart-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--black); color: white; padding: 15px; display: none; justify-content: center; gap: 20px; align-items: center; z-index: 2000; border-top: 3px solid var(--red); }
-.btn-finish { background: var(--whats); color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 900; cursor: pointer; text-transform: uppercase; font-size: 12px;}
-
-#zoom{display:none; position:fixed; inset:0; background:rgba(0,0,0,0.95); align-items:center; justify-content:center; z-index:3000;}
-#zoom img{max-width:90%; max-height:90%; border-radius: 8px;}
-
-#adminPanel{display:none; position:fixed; inset:0; background:#000; color:#fff; z-index:4000; padding:20px; overflow:auto;}
-.admin-card { background: #1a1a1a; padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid var(--red); }
-.admin-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 12px; background: #222; padding: 8px; border-radius: 5px;}
-.admin-card input { background: #333; color: #fff; border: 1px solid #444; padding: 5px; border-radius: 4px; text-align: center; }
-.input-price { width: 80px; color: var(--whats) !important; font-weight: 700; }
-</style>
+        /* Admin Estilos */
+        #adminPanel{display:none; position:fixed; inset:0; background:#000; color:#fff; z-index:4000; padding:20px; overflow:auto;}
+        .admin-card { background: #1a1a1a; padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid var(--red); position: relative; }
+        .admin-card label { display: block; font-size: 10px; color: #888; margin-top: 10px; text-transform: uppercase; }
+        .admin-card input { background: #333; color: #fff; border: 1px solid #444; padding: 10px; border-radius: 4px; width: 100%; box-sizing: border-box; margin-top: 5px; }
+        .admin-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; background: #222; padding: 8px; border-radius: 5px; }
+        .admin-row input { width: 70px; margin: 0; text-align: center; }
+        .btn-add { background: var(--whats); color: white; border: none; padding: 15px; border-radius: 8px; width: 100%; font-weight: 900; cursor: pointer; margin-bottom: 20px; }
+        .btn-danger { background: var(--red); color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-weight: 700; margin-top: 15px; }
+        .btn-export { background: var(--yellow); color: black; border: none; padding: 20px; border-radius: 8px; width: 100%; font-weight: 900; cursor: pointer; margin-top: 40px; }
+        .lock-btn { background: #444; color: #fff; border: none; padding: 12px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: 900; margin-bottom: 10px; }
+        .lock-btn.active { background: var(--red); }
+    </style>
 </head>
 <body>
 
 <header id="logo"><h1>Distrito <span>Imports</span></h1></header>
 
-<div class="search-container">
-    <input type="text" id="searchBar" placeholder="Pesquisar no estoque..." onkeyup="search()">
-</div>
+<div class="search-container"><input type="text" id="searchBar" placeholder="Pesquisar produto..." onkeyup="search()"></div>
 
 <nav id="navbar">
-    <button class="nav-link active" onclick="showCat('camisas',this)">Camisas</button>
-    <button class="nav-link" onclick="showCat('bermudas',this)">Bermudas</button>
-    <button class="nav-link" onclick="showCat('conjuntos',this)">Conjuntos</button>
+    <button id="btn-camisas" class="nav-link active" onclick="showCat('camisas',this)">Camisas</button>
+    <button id="btn-bermudas" class="nav-link" onclick="showCat('bermudas',this)">Bermudas</button>
+    <button id="btn-conjuntos" class="nav-link" onclick="showCat('conjuntos',this)">Conjuntos</button>
+    <button id="btn-tenis" class="nav-link" onclick="showCat('tenis',this)">Tênis</button>
 </nav>
 
 <main class="container">
     <section id="camisas" class="category active"><div class="grid" id="grid-camisas"></div></section>
     <section id="bermudas" class="category"><div class="grid" id="grid-bermudas"></div></section>
     <section id="conjuntos" class="category"><div class="grid" id="grid-conjuntos"></div></section>
+    <section id="tenis" class="category"><div class="grid" id="grid-tenis"></div></section>
 </main>
 
 <div id="cart-bar">
     <div id="cart-info"><span id="cart-count">0 ITENS</span> | <b id="cart-total">R$ 0,00</b></div>
-    <button class="btn-finish" onclick="sendCartWhatsApp()">Pedir no WhatsApp</button>
+    <button class="btn-finish" onclick="sendCartWhatsApp()">Pedir Agora</button>
 </div>
 
 <div id="zoom" onclick="this.style.display='none'"><img src=""></div>
 
 <div id="adminPanel">
-    <h2 style="display:flex; justify-content: space-between;">Painel Distrito <button onclick="closeAdmin()" style="background:var(--red); color:#fff; border:none; padding:10px;">X</button></h2>
+    <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 style="margin:0;">PAINEL ADMIN</h2>
+        <button onclick="closeAdmin()" style="background:var(--red); color:white; border:none; padding:10px 20px; border-radius:5px; font-weight:900;">FECHAR</button>
+    </div>
     <div id="adminContent"></div>
 </div>
 
@@ -104,108 +107,93 @@ const whatsapp = "5522999400239";
 const senhaAdmin = "2123";
 let cart = [];
 
-const produtosBase = {
-    camisas: [{nome:"Camisa Peruana Hugo Boss", preco:"99,90", precoAntigo:"129,90", cores:{Preto:{img:"https://i.postimg.cc/xdrnT8XQ/Whats-App-Image-2026-01-24-at-20-55-04.jpg",estoque:{P:1,M:5,G:10,GG:5}}}}],
-    bermudas: [{nome:"Bermuda Cargo Verde", preco:"110,00", precoAntigo:"", cores:{Verde:{img:"https://i.postimg.cc/WtRW03ty/Whats-App-Image-2026-01-25-at-17-24-20-(1).jpg",estoque:{38:1,39:5,40:4}}}}],
-    conjuntos: [{nome:"Conjunto Nike Dry-Fit", preco:"179,90", precoAntigo:"", cores:{Original:{img:"https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg",estoque:{P:1,M:2,G:7}}}}]
+// ==========================================
+// COLE SEU BACKUP DENTRO DAS CHAVES ABAIXO
+// ==========================================
+const estoqueFixo = {
+    camisas: [{nome:"Camisa de Exemplo", preco:"99,90", precoAntigo:"", cores:{Padrao:{img:"https://via.placeholder.com/400x533",estoque:{P:5,M:5,G:5,GG:2}}}}],
+    bermudas: [],
+    conjuntos: [],
+    tenis: []
 };
 
-let produtos = JSON.parse(localStorage.getItem("estoque_distrito_v5")) || produtosBase;
+let produtos = JSON.parse(localStorage.getItem("distrito_v9")) || estoqueFixo;
+let bloqueios = JSON.parse(localStorage.getItem("bloqueios_distrito")) || { camisas: false, bermudas: false, conjuntos: false, tenis: true };
 
 function renderAll() {
     Object.keys(produtos).forEach(render);
+    updateNavStatus();
+}
+
+function updateNavStatus() {
+    Object.entries(bloqueios).forEach(([cat, status]) => {
+        const btn = document.getElementById('btn-'+cat);
+        if(btn) btn.innerText = status ? cat.toUpperCase() + ' 🔒' : cat.toUpperCase();
+    });
 }
 
 function render(cat){
     const grid = document.getElementById('grid-'+cat);
     if(!grid) return;
+    if(bloqueios[cat]) {
+        grid.innerHTML = <div style="grid-column: 1/-1; text-align:center; padding:60px; background:#fff; border-radius:15px;"><i class="fas fa-lock" style="font-size:40px; color:var(--red); margin-bottom:15px;"></i><h3>LANÇAMENTO EM BREVE</h3><p>Fique atento às nossas redes sociais!</p></div>;
+        return;
+    }
     grid.innerHTML = '';
     produtos[cat].forEach((p, i) => {
-        const coresDisp = Object.keys(p.cores);
-        const primeiraCor = coresDisp[0];
-        let isLast = Object.values(p.cores[primeiraCor].estoque).some(q => q === 1);
-
+        const cor = Object.keys(p.cores)[0];
+        let isLast = Object.values(p.cores[cor].estoque).some(q => q === 1);
         grid.innerHTML += `
             <div class="card" data-name="${p.nome}">
                 ${p.precoAntigo ? '<div class="badge-promo">Oferta</div>' : ''}
                 ${isLast ? '<div class="badge-last">Última Peça</div>' : ''}
-                <div class="img-container"><img id="img-${cat}-${i}" src="${p.cores[primeiraCor].img}" onclick="zoom(this.src)"></div>
+                <div class="img-container"><img id="img-${cat}-${i}" src="${p.cores[cor].img}" onclick="zoom(this.src)"></div>
                 <div class="info">
                     <h3>${p.nome}</h3>
                     <span class="price-old">${p.precoAntigo ? 'R$ '+p.precoAntigo : ''}</span>
                     <span class="price-new">R$ ${p.preco}</span>
-                    <div class="colors">${coresDisp.map(c=>`<div class="dot" style="background:${getHex(c)}" onclick="selectCor('${cat}',${i},'${c}', this)"></div>`).join('')}</div>
                     <div class="sizes" id="${cat}-sizes-${i}"></div>
-                    <button id="${cat}-buy-${i}" class="buy">Escolha tamanho</button>
+                    <button id="${cat}-buy-${i}" class="buy">Escolha o Tamanho</button>
                 </div>
             </div>`;
-        selectCor(cat, i, primeiraCor);
+        renderSizes(cat, i, cor);
     });
 }
 
-function selectCor(cat, i, cor, el){
-    if(el){
-        const parent = el.parentElement;
-        parent.querySelectorAll('.dot').forEach(d => d.classList.remove('selected'));
-        el.classList.add('selected');
-    }
-    const p = produtos[cat][i];
-    document.getElementById(`img-${cat}-${i}`).src = p.cores[cor].img;
-    const sizes = document.getElementById(`${cat}-sizes-${i}`);
-    sizes.innerHTML = '';
-    Object.entries(p.cores[cor].estoque).forEach(([t, q]) => {
-        sizes.innerHTML += `<div class="size ${q <= 0 ? 'disabled' : ''}" onclick="selectSize(this, '${cat}',${i},'${cor}','${t}')">${t}</div>`;
+function renderSizes(cat, i, cor){
+    const sizesDiv = document.getElementById(${cat}-sizes-${i});
+    sizesDiv.innerHTML = '';
+    Object.entries(produtos[cat][i].cores[cor].estoque).forEach(([t, q]) => {
+        sizesDiv.innerHTML += <div class="size ${q <= 0 ? 'disabled' : ''}" onclick="selectSize(this,'${cat}',${i},'${cor}','${t}')">${t}</div>;
     });
 }
 
 function selectSize(el, cat, i, cor, t){
-    document.querySelectorAll(`#${cat}-sizes-${i} .size`).forEach(s => s.classList.remove('selected'));
+    el.parentElement.querySelectorAll('.size').forEach(s => s.classList.remove('selected'));
     el.classList.add('selected');
-    const btn = document.getElementById(`${cat}-buy-${i}`);
-    btn.style.opacity = 1; btn.style.pointerEvents = 'auto'; btn.innerText = "Adicionar";
-    btn.onclick = () => addToCart(cat, i, cor, t);
-}
-
-function addToCart(cat, i, cor, t) {
-    const p = produtos[cat][i];
-    cart.push({ nome: p.nome, preco: p.preco, cor, tamanho: t });
-    updateCartUI();
-    const btn = document.getElementById(`${cat}-buy-${i}`);
-    btn.innerText = "✅ OK!";
-    setTimeout(() => { btn.innerText = "Adicionar Mais"; }, 1000);
+    const btn = document.getElementById(${cat}-buy-${i});
+    btn.style.opacity = 1; btn.style.pointerEvents = 'auto'; btn.innerText = "Adicionar ao Pedido";
+    btn.onclick = () => { cart.push({ nome: produtos[cat][i].nome, preco: produtos[cat][i].preco, cor, tamanho: t }); updateCartUI(); btn.innerText = "✅ ADICIONADO!"; setTimeout(()=>btn.innerText="Adicionar Mais",1000); };
 }
 
 function updateCartUI() {
     const bar = document.getElementById('cart-bar');
-    if(cart.length > 0) {
-        bar.style.display = 'flex';
-        let total = cart.reduce((acc, item) => acc + parseFloat(item.preco.replace(',','.')), 0);
-        document.getElementById('cart-count').innerText = `${cart.length} ITENS`;
-        document.getElementById('cart-total').innerText = `R$ ${total.toFixed(2).replace('.',',')}`;
-    }
+    bar.style.display = cart.length > 0 ? 'flex' : 'none';
+    let total = cart.reduce((acc, item) => acc + parseFloat(item.preco.replace(',','.')), 0);
+    document.getElementById('cart-count').innerText = ${cart.length} ITENS;
+    document.getElementById('cart-total').innerText = R$ ${total.toFixed(2).replace('.',',')};
 }
 
 function sendCartWhatsApp() {
-    let msg = `🚀 *PEDIDO DISTRITO IMPORTS*\n\n`;
-    cart.forEach((item, index) => { msg += `${index+1}. *${item.nome}* (${item.cor}) - Tam: ${item.tamanho} - R$ ${item.preco}\n`; });
-    window.location.href = `https://wa.me/${whatsapp}?text=${encodeURIComponent(msg)}`;
+    let msg = 🚀 *PEDIDO DISTRITO IMPORTS*\n\n;
+    cart.forEach((item, index) => { msg += ${index+1}. ${item.nome} - Tam: ${item.tamanho} - R$ ${item.preco}\n; });
+    window.location.href = https://wa.me/${whatsapp}?text=${encodeURIComponent(msg)};
 }
 
 function search() {
-    let input = document.getElementById('searchBar').value.toLowerCase();
-    document.querySelectorAll('.category').forEach(cat => {
-        let cards = cat.getElementsByClassName('card'), match = false;
-        for (let card of cards) {
-            let name = card.getAttribute('data-name').toLowerCase();
-            card.style.display = name.includes(input) ? (match = true, "flex") : "none";
-        }
-        cat.style.display = input.length > 0 ? (match ? "block" : "none") : (document.querySelector(`.nav-link[onclick*="'${cat.id}'"]`).classList.contains('active') ? "block" : "none");
-    });
+    let q = document.getElementById('searchBar').value.toLowerCase();
+    document.querySelectorAll('.card').forEach(c => c.style.display = c.dataset.name.toLowerCase().includes(q) ? "flex" : "none" );
 }
-
-function getHex(c){ const h={'Preto':'#000','Branco':'#fff','Verde':'#2d5a27','Original':'#444'}; return h[c]||'#ccc';}
-
-function zoom(s){ document.querySelector('#zoom img').src=s; document.getElementById('zoom').style.display='flex';}
 
 function showCat(id, btn){
     document.querySelectorAll('.category').forEach(c => c.style.display = 'none');
@@ -214,47 +202,68 @@ function showCat(id, btn){
     btn.classList.add('active');
 }
 
+function zoom(s){ document.querySelector('#zoom img').src=s; document.getElementById('zoom').style.display='flex'; }
+
+// PAINEL ADMIN
 let taps = 0;
 document.getElementById("logo").addEventListener("click", () => {
     taps++; setTimeout(() => taps = 0, 1000);
-    if(taps >= 5){ let p = prompt("Senha:"); if(p === senhaAdmin) openAdmin(); }
+    if(taps >= 5){ let p = prompt("Senha Admin:"); if(p === senhaAdmin) openAdmin(); }
 });
 
 function openAdmin(){
     document.getElementById("adminPanel").style.display = "block";
     const c = document.getElementById("adminContent");
     c.innerHTML = '';
-    Object.entries(produtos).forEach(([cat, arr]) => {
-        arr.forEach((p, i) => {
+    
+    Object.keys(produtos).forEach(cat => {
+        c.innerHTML += `<div style="background:var(--red); padding:10px; margin:30px 0 10px; font-weight:900; border-radius:4px;">${cat.toUpperCase()}</div>
+        <button class="btn-add" onclick="addNew('${cat}')"><i class="fas fa-plus"></i> NOVO PRODUTO EM ${cat.toUpperCase()}</button>
+        <button class="lock-btn ${bloqueios[cat]?'active':''}" onclick="toggleLock('${cat}')">${bloqueios[cat]?'🔓 LIBERAR CATEGORIA':'🔒 TRANCAR CATEGORIA'}</button>`;
+        
+        produtos[cat].forEach((p, i) => {
             let itemHtml = `<div class="admin-card">
-                <b>${p.nome.toUpperCase()}</b><br>
-                <div style="margin:10px 0">
-                    Preço: <input class="input-price" type="text" value="${p.preco}" onchange="updatePrice('${cat}',${i},'atual',this.value)">
-                    Antigo: <input class="input-price" type="text" value="${p.precoAntigo}" placeholder="Vazio" onchange="updatePrice('${cat}',${i},'antigo',this.value)">
-                </div>`;
+                <label>Nome:</label><input type="text" value="${p.nome}" onchange="updateVal('${cat}',${i},'nome',this.value)">
+                <label>Preço:</label><input type="text" value="${p.preco}" onchange="updateVal('${cat}',${i},'preco',this.value)">
+                <label>Promo (De):</label><input type="text" value="${p.precoAntigo}" placeholder="Vazio se não tiver" onchange="updateVal('${cat}',${i},'precoAntigo',this.value)">`;
+            
             Object.entries(p.cores).forEach(([cor, obj]) => {
+                itemHtml += <label>Link da Foto:</label><input type="text" value="${obj.img}" onchange="updateImg('${cat}',${i},'${cor}',this.value)">;
                 Object.entries(obj.estoque).forEach(([t, q]) => {
-                    itemHtml += `<div class="admin-row"><span>${cor} - Tam ${t}</span><input type="number" value="${q}" onchange="updateStock('${cat}',${i},'${cor}','${t}',this.value)"></div>`;
+                    itemHtml += <div class="admin-row"><span>Tam ${t}</span><input type="number" value="${q}" onchange="updateStock('${cat}',${i},'${cor}','${t}',this.value)"></div>;
                 });
             });
-            itemHtml += `</div>`;
+            itemHtml += <button class="btn-danger" onclick="removeProd('${cat}',${i})">EXCLUIR PRODUTO</button></div>;
             c.innerHTML += itemHtml;
         });
     });
+    c.innerHTML += <button class="btn-export" onclick="exportData()"><i class="fas fa-save"></i> SALVAR CÓDIGO DE BACKUP</button>;
 }
 
-function updatePrice(cat, i, tipo, val){
-    if(tipo === 'atual') produtos[cat][i].preco = val;
-    else produtos[cat][i].precoAntigo = val;
-    localStorage.setItem("estoque_distrito_v5", JSON.stringify(produtos));
+function addNew(cat){
+    let grade = (cat === 'tenis' || cat === 'bermudas') ? {38:0, 40:0, 42:0, 44:0} : {P:0, M:0, G:0, GG:0};
+    produtos[cat].unshift({ nome: "Novo Produto", preco: "0,00", precoAntigo: "", cores: { Padrao: { img: "", estoque: grade } } });
+    save(); openAdmin();
 }
 
-function updateStock(cat, i, cor, t, val){
-    produtos[cat][i].cores[cor].estoque[t] = Number(val);
-    localStorage.setItem("estoque_distrito_v5", JSON.stringify(produtos));
-}
-
+function removeProd(cat, i){ if(confirm("Deseja apagar este produto para sempre?")) { produtos[cat].splice(i, 1); save(); openAdmin(); } }
+function toggleLock(cat){ bloqueios[cat] = !bloqueios[cat]; localStorage.setItem("bloqueios_distrito", JSON.stringify(bloqueios)); openAdmin(); }
+function updateVal(cat, i, f, v){ produtos[cat][i][f] = v; save(); }
+function updateImg(cat, i, c, v){ produtos[cat][i].cores[c].img = v; save(); }
+function updateStock(cat, i, cor, t, v){ produtos[cat][i].cores[cor].estoque[t] = Number(v); save(); }
+function save(){ localStorage.setItem("distrito_v9", JSON.stringify(produtos)); }
 function closeAdmin(){ document.getElementById("adminPanel").style.display = "none"; renderAll(); }
+
+function exportData(){
+    let data = JSON.stringify(produtos, null, 4);
+    let blob = new Blob([data], {type: "text/plain"});
+    let a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "backup_distrito.txt";
+    a.click();
+    alert("BACKUP REALIZADO!\n\nUm arquivo foi baixado. Abra ele, copie o texto e cole no código onde diz 'estoqueFixo' para salvar as mudanças para sempre.");
+}
+
 renderAll();
 </script>
 </body>
