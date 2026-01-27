@@ -1,224 +1,154 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Distrito Imports | Catálogo Oficial</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <style>
-        :root{ --red:#E60000; --black:#0a0a0a; --gray:#f2f2f2; --whats:#25D366; --yellow:#FFD700; --white:#fff; }
-        body{margin:0;font-family:Montserrat;background:var(--gray); padding-bottom: 120px; color: var(--black); overflow-x: hidden;}
-        header{background:var(--black);color:#fff;text-align:center;padding:25px;border-bottom:4px solid var(--red); cursor: pointer;}
-        header span{color:var(--red)}
-        .search-container { background: #fff; padding: 15px; display: flex; justify-content: center; position: sticky; top:0; z-index: 1100; box-shadow: 0 2px 10px rgba(0,0,0,0.05);}
-        #searchBar { width: 100%; max-width: 600px; padding: 12px 25px; border: 2px solid #eee; border-radius: 30px; outline: none; font-size: 16px; width: 90%;}
-        nav{background:#fff;display:flex;justify-content: center;position:sticky;top:72px;z-index:1000;box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-top: 1px solid #eee; overflow-x: auto;}
-        .nav-link{padding:18px 25px;border:none;background:none;font-weight:700;font-size:12px;text-transform:uppercase;color:#666;cursor:pointer;white-space:nowrap;}
-        .nav-link.active{color:var(--red);border-bottom:3px solid var(--red)}
-        .container{max-width:1200px;margin:20px auto;padding:0 15px}
-        .category{display:none}
-        .category.active{display:block;}
-        .grid{display:grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px;}
-        @media (max-width: 480px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
-        .card{background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 4px 15px rgba(0,0,0,0.08); display: flex; flex-direction: column; position: relative;}
-        .badge-promo { position: absolute; top: 10px; right: 10px; background: var(--red); color: #fff; font-size: 9px; font-weight: 900; padding: 4px 8px; border-radius: 4px; z-index: 10; }
-        .img-container { width: 100%; background: #eee; position: relative; padding-top: 133%; overflow: hidden; }
-        .card img{ position: absolute; top:0; left:0; width: 100%; height: 100%; object-fit: cover; cursor: zoom-in;}
-        .info{padding:12px; text-align:center; flex-grow: 1; display: flex; flex-direction: column;}
-        .info h3{font-size:11px; margin:0 0 8px; text-transform:uppercase; color: #333; height: 30px; overflow: hidden;}
-        .price-new { color: var(--red); font-weight: 900; font-size: 18px; margin-bottom: 8px; display: block;}
-        .sizes{display:flex; justify-content:center; gap:5px; margin:5px 0; flex-wrap:wrap;}
-        .size{border:1px solid #ddd; padding:5px 8px; font-size:10px; font-weight:700; cursor:pointer; border-radius: 4px;}
-        .size.selected{border-color:var(--red); background: var(--red); color: white;}
-        .buy{background:var(--whats); color:#fff; border:none; width:100%; font-size:10px; font-weight:900; padding:12px; border-radius:6px; cursor:pointer; margin-top: auto; opacity: 0.4; pointer-events: none;}
-        #cart-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--black); color: white; padding: 15px; display: none; justify-content: center; align-items: center; z-index: 2000; border-top: 3px solid var(--red); }
-        #zoom{display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); align-items:center; justify-content:center; z-index:3000;}
-        #zoom img{max-width:90%; max-height:85%; border-radius: 10px;}
-        #adminPanel{display:none; position:fixed; inset:0; background:#000; color:#fff; z-index:4000; padding:20px; overflow:auto;}
-        .admin-card { background: #1a1a1a; padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid var(--red); }
-        .admin-card label { font-size: 10px; color: #888; text-transform: uppercase; display: block; margin-top: 10px;}
-        .admin-card input { background: #333; color: #fff; border: 1px solid #444; padding: 10px; width: 100%; box-sizing: border-box; margin-top: 5px; border-radius: 5px;}
-        .btn-add { background: var(--whats); color: white; border: none; padding: 15px; border-radius: 8px; width: 100%; font-weight: 900; cursor: pointer; margin-bottom: 20px; }
-        .btn-export { background: var(--yellow); color: black; border: none; padding: 15px; border-radius: 8px; width: 100%; font-weight: 900; margin-top: 20px; cursor: pointer; }
-        .lock-btn { background: #444; color: #fff; border: none; padding: 10px; border-radius: 5px; width: 100%; margin-bottom: 10px; font-weight: 900; cursor: pointer;}
-        .lock-btn.active { background: var(--red); }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Distrito Imports | Catálogo Oficial</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+--red:#E60000; --black:#0a0a0a; --gray:#f2f2f2;
+--whats:#25D366; --yellow:#FFD700; --white:#fff;
+}
+body{margin:0;font-family:Montserrat;background:var(--gray);padding-bottom:120px}
+header{background:var(--black);color:#fff;text-align:center;padding:25px;border-bottom:4px solid var(--red);cursor:pointer}
+header span{color:var(--red)}
+.search-container{background:#fff;padding:15px;position:sticky;top:0;z-index:1100}
+#searchBar{width:90%;max-width:600px;padding:12px 25px;border:2px solid #eee;border-radius:30px;font-size:16px}
+nav{background:#fff;display:flex;justify-content:center;position:sticky;top:72px;z-index:1000}
+.nav-link{padding:18px 25px;font-weight:700;font-size:12px;border:none;background:none;color:#666;cursor:pointer}
+.nav-link.active{color:var(--red);border-bottom:3px solid var(--red)}
+.container{max-width:1200px;margin:20px auto;padding:0 15px}
+.category{display:none}
+.category.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:20px}
+.card{background:#fff;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,.08);overflow:hidden;display:flex;flex-direction:column}
+.img-container{padding-top:133%;position:relative}
+.card img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;cursor:zoom-in}
+.info{padding:12px;text-align:center;flex-grow:1;display:flex;flex-direction:column}
+.info h3{font-size:11px;margin-bottom:8px;text-transform:uppercase}
+.price-new{color:var(--red);font-weight:900;font-size:18px}
+.sizes{display:flex;justify-content:center;gap:5px;flex-wrap:wrap}
+.size{border:1px solid #ddd;padding:5px 8px;font-size:10px;font-weight:700;border-radius:4px;cursor:pointer}
+.size.selected{background:var(--red);color:#fff}
+.size.disabled{opacity:.25;pointer-events:none}
+.buy{background:var(--whats);color:#fff;border:none;padding:12px;border-radius:6px;font-size:10px;font-weight:900;margin-top:auto;opacity:.4;pointer-events:none}
+
+#cart-bar{position:fixed;bottom:0;left:0;width:100%;background:var(--black);color:#fff;display:none;justify-content:center;align-items:center;padding:15px;z-index:2000}
+#zoom{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);align-items:center;justify-content:center;z-index:3000}
+#zoom img{max-width:90%;max-height:85%}
+#adminPanel{display:none;position:fixed;inset:0;background:#000;color:#fff;z-index:4000;padding:20px;overflow:auto}
+.admin-card{background:#1a1a1a;padding:15px;border-radius:10px;margin-bottom:20px}
+</style>
 </head>
+
 <body>
 
 <header id="logo"><h1>Distrito <span>Imports</span></h1></header>
-<div class="search-container"><input type="text" id="searchBar" placeholder="Pesquisar..." onkeyup="search()"></div>
-<nav id="navbar">
-    <button id="btn-camisas" class="nav-link active" onclick="showCat('camisas',this)">Camisas</button>
-    <button id="btn-bermudas" class="nav-link" onclick="showCat('bermudas',this)">Bermudas</button>
-    <button id="btn-conjuntos" class="nav-link" onclick="showCat('conjuntos',this)">Conjuntos</button>
-    <button id="btn-tenis" class="nav-link" onclick="showCat('tenis',this)">Tênis</button>
+
+<div class="search-container">
+<input id="searchBar" placeholder="Pesquisar..." onkeyup="search()">
+</div>
+
+<nav>
+<button class="nav-link active" onclick="showCat('camisas',this)">Camisas</button>
+<button class="nav-link" onclick="showCat('bermudas',this)">Bermudas</button>
+<button class="nav-link" onclick="showCat('conjuntos',this)">Conjuntos</button>
+<button class="nav-link" onclick="showCat('tenis',this)">Tênis</button>
 </nav>
 
 <main class="container">
-    <section id="camisas" class="category active"><div class="grid" id="grid-camisas"></div></section>
-    <section id="bermudas" class="category"><div class="grid" id="grid-bermudas"></div></section>
-    <section id="conjuntos" class="category"><div class="grid" id="grid-conjuntos"></div></section>
-    <section id="tenis" class="category"><div class="grid" id="grid-tenis"></div></section>
+<section id="camisas" class="category active"><div class="grid" id="grid-camisas"></div></section>
+<section id="bermudas" class="category"><div class="grid" id="grid-bermudas"></div></section>
+<section id="conjuntos" class="category"><div class="grid" id="grid-conjuntos"></div></section>
+<section id="tenis" class="category"><div class="grid" id="grid-tenis"></div></section>
 </main>
 
 <div id="cart-bar">
-    <div id="cart-info"><span id="cart-count">0 ITENS</span> | <b id="cart-total">R$ 0,00</b></div>
-    <button onclick="sendCartWhatsApp()" style="background:var(--whats); color:white; border:none; padding:10px 20px; margin-left:20px; border-radius:5px; font-weight:900;">FINALIZAR</button>
+<span id="cart-count">0 ITENS</span> | <b id="cart-total">R$ 0,00</b>
+<button onclick="sendCartWhatsApp()" style="margin-left:20px;background:var(--whats);color:#fff;border:none;padding:10px 20px;border-radius:5px;font-weight:900">FINALIZAR</button>
 </div>
 
-<div id="zoom" onclick="this.style.display='none'"><img src=""></div>
-
-<div id="adminPanel">
-    <div style="display:flex; justify-content: space-between; align-items: center;">
-        <h2>PAINEL ADMIN</h2>
-        <button onclick="closeAdmin()" style="background:var(--red); color:white; border:none; padding:10px 20px; border-radius:5px;">SAIR</button>
-    </div>
-    <div id="adminContent"></div>
-</div>
+<div id="zoom" onclick="this.style.display='none'"><img></div>
 
 <script>
-const whatsapp = "5522999400239";
-const senhaAdmin = "2123";
-let cart = [];
+const whatsapp="5522999400239";
+let cart=JSON.parse(localStorage.getItem("cart_distrito"))||[];
 
-// ABAIXO O ESTOQUE PRINCIPAL - QUANDO GERAR O BACKUP, COLE O TEXTO DENTRO DAS CHAVES
-const estoqueFixo = {
-    camisas: [{nome:"Camisa Exemplo", preco:"99,90", precoAntigo:"", cores:{Padrão:{img:"https://via.placeholder.com/400x533",estoque:{P:5,M:5,G:5}}}}],
-    bermudas: [], conjuntos: [], tenis: []
+const estoqueFixo={
+camisas:[{nome:"Camisa Exemplo",preco:"99,90",cores:{Padrão:{img:"https://via.placeholder.com/400x533",estoque:{P:5,M:5,G:5}}}}],
+bermudas:[],conjuntos:[],tenis:[]
 };
 
-let produtos = JSON.parse(localStorage.getItem("distrito_v10")) || estoqueFixo;
-let bloqueios = JSON.parse(localStorage.getItem("bloqueios_v10")) || { camisas: false, bermudas: false, conjuntos: false, tenis: true };
+let produtos=JSON.parse(localStorage.getItem("distrito_v10"))||estoqueFixo;
 
-function renderAll() {
-    Object.keys(produtos).forEach(cat => {
-        const grid = document.getElementById('grid-'+cat);
-        if(!grid) return;
-        grid.innerHTML = '';
-        if(bloqueios[cat]) {
-            grid.innerHTML = <div style="grid-column:1/-1; text-align:center; padding:50px;"><h3>🔒 EM BREVE</h3><p>Categoria sendo atualizada.</p></div>;
-            return;
-        }
-        produtos[cat].forEach((p, i) => {
-            const corNome = Object.keys(p.cores)[0];
-            const pCor = p.cores[corNome];
-            grid.innerHTML += `
-                <div class="card" data-name="${p.nome}">
-                    ${p.precoAntigo ? '<div class="badge-promo">Oferta</div>' : ''}
-                    <div class="img-container"><img id="img-${cat}-${i}" src="${pCor.img}" onclick="zoom(this.src)"></div>
-                    <div class="info">
-                        <h3>${p.nome}</h3>
-                        <span class="price-new">R$ ${p.preco}</span>
-                        <div class="sizes" id="${cat}-sizes-${i}"></div>
-                        <button id="${cat}-buy-${i}" class="buy">Escolha Tamanho</button>
-                    </div>
-                </div>`;
-            const szDiv = document.getElementById(${cat}-sizes-${i});
-            Object.entries(pCor.estoque).forEach(([t, q]) => {
-                szDiv.innerHTML += <div class="size ${q<=0?'disabled':''}" onclick="selectSize(this,'${cat}',${i},'${corNome}','${t}')">${t}</div>;
-            });
-        });
-    });
-    updateNavStatus();
+function renderAll(){
+Object.keys(produtos).forEach(cat=>{
+const grid=document.getElementById("grid-"+cat); if(!grid)return;
+grid.innerHTML="";
+produtos[cat].forEach((p,i)=>{
+const cor=Object.keys(p.cores)[0];
+const pc=p.cores[cor];
+grid.innerHTML+=`
+<div class="card" data-name="${p.nome}">
+<div class="img-container"><img src="${pc.img}" onclick="zoom(this.src)"></div>
+<div class="info">
+<h3>${p.nome}</h3>
+<span class="price-new">R$ ${p.preco}</span>
+<div class="sizes" id="${cat}-sizes-${i}"></div>
+<button id="${cat}-buy-${i}" class="buy">Escolha Tamanho</button>
+</div></div>`;
+const sz=document.getElementById(`${cat}-sizes-${i}`);
+Object.entries(pc.estoque).forEach(([t,q])=>{
+sz.innerHTML+=`<div class="size ${q<=0?'disabled':''}" onclick="selectSize(this,'${cat}',${i},'${cor}','${t}')">${t}</div>`;
+});
+});
+});
+updateUI();
 }
 
-function selectSize(el, cat, i, cor, t){
-    el.parentElement.querySelectorAll('.size').forEach(s => s.classList.remove('selected'));
-    el.classList.add('selected');
-    const btn = document.getElementById(${cat}-buy-${i});
-    btn.style.opacity = 1; btn.style.pointerEvents = 'auto'; btn.innerText = "Adicionar";
-    btn.onclick = () => { cart.push({nome: produtos[cat][i].nome, preco: produtos[cat][i].preco, tamanho: t}); updateUI(); btn.innerText = "✅ OK"; };
+function selectSize(el,cat,i,cor,t){
+const p=produtos[cat][i];
+if(p.cores[cor].estoque[t]<=0){alert("Esgotado");return;}
+el.parentElement.querySelectorAll(".size").forEach(s=>s.classList.remove("selected"));
+el.classList.add("selected");
+const btn=document.getElementById(`${cat}-buy-${i}`);
+btn.style.opacity=1;btn.style.pointerEvents="auto";btn.innerText="Adicionar";
+btn.onclick=()=>{
+p.cores[cor].estoque[t]--;
+cart.push({nome:p.nome,preco:p.preco,tamanho:t});
+save();renderAll();
+btn.innerText="✅ ADICIONADO";btn.style.pointerEvents="none";
+};
 }
 
 function updateUI(){
-    const bar = document.getElementById('cart-bar');
-    bar.style.display = cart.length > 0 ? 'flex' : 'none';
-    let total = cart.reduce((acc, it) => acc + parseFloat(it.preco.replace(',','.')), 0);
-    document.getElementById('cart-count').innerText = cart.length + " ITENS";
-    document.getElementById('cart-total').innerText = "R$ " + total.toFixed(2).replace('.',',');
+localStorage.setItem("cart_distrito",JSON.stringify(cart));
+document.getElementById("cart-bar").style.display=cart.length?"flex":"none";
+let total=cart.reduce((a,i)=>a+parseFloat(i.preco.replace(",",".")),0);
+document.getElementById("cart-count").innerText=cart.length+" ITENS";
+document.getElementById("cart-total").innerText="R$ "+total.toFixed(2).replace(".",",");
 }
 
-function updateNavStatus() {
-    Object.entries(bloqueios).forEach(([cat, status]) => {
-        const btn = document.getElementById('btn-'+cat);
-        if(btn) btn.innerHTML = status ? cat.toUpperCase() + ' 🔒' : cat.toUpperCase();
-    });
+function sendCartWhatsApp(){
+let m="🛍️ *PEDIDO – DISTRITO IMPORTS*\n\n";
+cart.forEach((i,n)=>m+=`${n+1}. ${i.nome} | Tam: ${i.tamanho} | R$ ${i.preco}\n`);
+cart=[];localStorage.removeItem("cart_distrito");
+window.location.href=`https://wa.me/${whatsapp}?text=${encodeURIComponent(m)}`;
 }
 
-function showCat(id, btn){
-    document.querySelectorAll('.category').forEach(c => c.classList.remove('active'));
-    document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    btn.classList.add('active');
+function search(){
+let q=searchBar.value.toLowerCase();
+document.querySelectorAll(".card").forEach(c=>c.style.display=c.dataset.name.toLowerCase().includes(q)?"flex":"none");
 }
+function zoom(s){document.querySelector("#zoom img").src=s;zoom.style.display="flex";}
+function showCat(id,b){document.querySelectorAll(".category").forEach(c=>c.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav-link").forEach(n=>n.classList.remove("active"));b.classList.add("active");}
+function save(){localStorage.setItem("distrito_v10",JSON.stringify(produtos));}
 
-function sendCartWhatsApp() {
-    let m = 🚀 *NOVO PEDIDO DISTRITO*\n\n;
-    cart.forEach(it => m += - ${it.nome} (Tam: ${it.tamanho}) - R$ ${it.preco}\n);
-    window.location.href = https://wa.me/${whatsapp}?text=${encodeURIComponent(m)};
-}
-
-function search() {
-    let q = document.getElementById('searchBar').value.toLowerCase();
-    document.querySelectorAll('.card').forEach(c => c.style.display = c.dataset.name.toLowerCase().includes(q) ? "flex" : "none");
-}
-
-function zoom(s){ document.querySelector('#zoom img').src=s; document.getElementById('zoom').style.display='flex';}
-
-// ADMIN LOGIC
-let taps = 0;
-document.getElementById("logo").onclick = () => {
-    taps++; setTimeout(()=>taps=0, 1000);
-    if(taps>=5){ let p = prompt("Senha:"); if(p===senhaAdmin) openAdmin(); }
-};
-
-function openAdmin(){
-    document.getElementById("adminPanel").style.display = "block";
-    const c = document.getElementById("adminContent");
-    c.innerHTML = '';
-    Object.keys(produtos).forEach(cat => {
-        c.innerHTML += `<div style="background:var(--red); padding:10px; margin:20px 0; font-weight:900;">${cat.toUpperCase()}</div>
-        <button class="btn-add" onclick="addNew('${cat}')">+ NOVO PRODUTO</button>
-        <button class="lock-btn ${bloqueios[cat]?'active':''}" onclick="toggleLock('${cat}')">${bloqueios[cat]?'🔓 DESTRAVAR':'🔒 TRANCAR'}</button>`;
-        
-        produtos[cat].forEach((p, i) => {
-            const cor = Object.keys(p.cores)[0];
-            let itemHtml = `<div class="admin-card">
-                <label>Nome:</label><input type="text" value="${p.nome}" onchange="produtos['${cat}'][${i}].nome=this.value;save()">
-                <label>Preço:</label><input type="text" value="${p.preco}" onchange="produtos['${cat}'][${i}].preco=this.value;save()">
-                <label>Link da Foto:</label><input type="text" value="${p.cores[cor].img}" onchange="produtos['${cat}'][${i}].cores['${cor}'].img=this.value;save()">`;
-            
-            Object.entries(p.cores[cor].estoque).forEach(([t, q]) => {
-                itemHtml += `<div style="display:flex; justify-content:space-between; align-items:center; margin-top:5px;">
-                    <span>Tamanho ${t}</span><input type="number" style="width:60px" value="${q}" onchange="produtos['${cat}'][${i}].cores['${cor}'].estoque['${t}']=Number(this.value);save()">
-                </div>`;
-            });
-            itemHtml += <button onclick="produtos['${cat}'].splice(${i},1);save();openAdmin()" style="background:none; border:none; color:red; cursor:pointer; margin-top:15px; font-weight:900;">[X] EXCLUIR PRODUTO</button></div>;
-            c.innerHTML += itemHtml;
-        });
-    });
-    c.innerHTML += <button class="btn-export" onclick="exportData()">💾 GERAR CÓDIGO DE BACKUP</button>;
-}
-
-function addNew(cat){
-    let g = (cat==='tenis'||cat==='bermudas')?{38:0,40:0,42:0,44:0}:{P:0,M:0,G:0,GG:0};
-    produtos[cat].unshift({nome:"Novo Produto", preco:"0,00", cores:{Padrão:{img:"",estoque:g}}});
-    save(); openAdmin();
-}
-function toggleLock(cat){ bloqueios[cat]=!bloqueios[cat]; localStorage.setItem("bloqueios_v10", JSON.stringify(bloqueios)); openAdmin(); }
-function save(){ localStorage.setItem("distrito_v10", JSON.stringify(produtos)); }
-function closeAdmin(){ document.getElementById("adminPanel").style.display="none"; renderAll(); }
-function exportData(){
-    let d = JSON.stringify(produtos, null, 2);
-    console.log(d);
-    alert("Código copiado para o log. Um arquivo será baixado!");
-    let b = new Blob([d], {type:"text/plain"});
-    let a = document.createElement("a");
-    a.href = URL.createObjectURL(b); a.download="backup.txt"; a.click();
-}
 renderAll();
 </script>
 </body>
-</html>
+    </html>
