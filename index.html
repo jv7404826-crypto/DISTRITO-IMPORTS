@@ -3,60 +3,68 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Distrito Imports | Catálogo</title>
+<title>Distrito Imports | Catálogo Oficial</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-:root{ --red:#E60000; --black:#0a0a0a; --gray:#f2f2f2; --whats:#25D366; --white:#fff; }
-body{margin:0;font-family:Montserrat;background:var(--gray); padding-bottom: 100px;}
-header{background:var(--black);color:#fff;text-align:center;padding:20px;border-bottom:4px solid var(--red); cursor: pointer;}
+:root{ --red:#E60000; --black:#0a0a0a; --gray:#f2f2f2; --whats:#25D366; --yellow:#FFD700; --white:#fff; }
+body{margin:0;font-family:Montserrat;background:var(--gray); padding-bottom: 120px; color: var(--black);}
+
+header{background:var(--black);color:#fff;text-align:center;padding:25px;border-bottom:4px solid var(--red); cursor: pointer;}
 header span{color:var(--red)}
 
-.search-container { background: #fff; padding: 10px 15px; display: flex; justify-content: center; position: sticky; top:0; z-index: 1100;}
-#searchBar { width: 100%; max-width: 500px; padding: 12px 20px; border: 2px solid #eee; border-radius: 25px; outline: none; font-family: Montserrat;}
+.search-container { background: #fff; padding: 15px; display: flex; justify-content: center; position: sticky; top:0; z-index: 1100; box-shadow: 0 2px 10px rgba(0,0,0,0.05);}
+#searchBar { width: 100%; max-width: 600px; padding: 12px 25px; border: 2px solid #eee; border-radius: 30px; outline: none; font-family: Montserrat; font-size: 16px;}
 
-nav{background:#fff;display:flex;overflow-x:auto;justify-content: center;position:sticky;top:58px;z-index:1000;box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-top: 1px solid #eee;}
-.nav-link{padding:15px 20px;border:none;background:none;font-weight:700;font-size:11px;text-transform:uppercase;color:#666;cursor:pointer;white-space:nowrap}
+nav{background:#fff;display:flex;justify-content: center;position:sticky;top:72px;z-index:1000;box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-top: 1px solid #eee; overflow-x: auto;}
+.nav-link{padding:18px 25px;border:none;background:none;font-weight:700;font-size:12px;text-transform:uppercase;color:#666;cursor:pointer;white-space:nowrap;}
 .nav-link.active{color:var(--red);border-bottom:3px solid var(--red)}
 
-.container{max-width:1200px;margin:10px auto;padding:0 15px}
+.container{max-width:1200px;margin:20px auto;padding:0 15px}
 .category{display:none}
-.category.active{display:block; animation: fadeIn 0.3s;}
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.category.active{display:block; animation: fadeIn 0.4s ease;}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-h2 { font-size: 18px; text-transform: uppercase; font-weight: 900; margin: 25px 0 15px; border-left: 4px solid var(--red); padding-left: 10px; display: flex; align-items: center; gap: 8px; }
+.grid{display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;}
+@media (max-width: 480px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:15px}
-.card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05); display: flex; flex-direction: column; position: relative;}
-.card img{width:100%;aspect-ratio:3/4;object-fit:cover;cursor:zoom-in}
+.card{background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 4px 15px rgba(0,0,0,0.08); display: flex; flex-direction: column; position: relative;}
 
-.info{padding:12px;text-align:center; flex-grow: 1; display: flex; flex-direction: column;}
-.info h3{font-size:12px;margin:0 0 6px;text-transform:uppercase; min-height: 30px; line-height: 1.2;}
-.price{color:var(--red);font-weight:900;font-size:18px;margin-bottom:6px;display:block}
+.badge-last { position: absolute; top: 10px; left: 10px; background: var(--yellow); color: #000; font-size: 9px; font-weight: 900; padding: 4px 8px; border-radius: 4px; z-index: 10; text-transform: uppercase; border: 1px solid #000; }
+.badge-promo { position: absolute; top: 10px; right: 10px; background: var(--red); color: #fff; font-size: 9px; font-weight: 900; padding: 4px 8px; border-radius: 4px; z-index: 10; text-transform: uppercase; }
 
-.colors,.sizes{display:flex;justify-content:center;gap:6px;margin:6px 0;flex-wrap:wrap;}
-.dot{width:22px;height:22px;border-radius:50%;border:2px solid #ccc;cursor:pointer;}
-.dot.selected{border-color:var(--red); transform: scale(1.1); box-shadow: 0 0 5px rgba(0,0,0,0.2);}
+.img-container { width: 100%; background: #eee; position: relative; padding-top: 133%; overflow: hidden; }
+.card img{ position: absolute; top:0; left:0; width: 100%; height: 100%; object-fit: cover; cursor: zoom-in;}
 
-.size{border:2px solid #ccc;padding:4px 8px;font-size:10px;font-weight:700;cursor:pointer; border-radius: 4px;}
-.size.disabled{opacity:.2;pointer-events:none; background: #eee;}
+.info{padding:12px; text-align:center; flex-grow: 1; display: flex; flex-direction: column;}
+.info h3{font-size:11px; margin:0 0 8px; text-transform:uppercase; height: 30px; overflow: hidden; color: #333;}
+
+.price-old { color: #999; text-decoration: line-through; font-size: 11px; display: block; height: 14px;}
+.price-new { color: var(--red); font-weight: 900; font-size: 19px; margin-bottom: 8px; display: block;}
+
+.colors, .sizes{display:flex; justify-content:center; gap:6px; margin:5px 0; flex-wrap:wrap;}
+.dot{width:22px; height:22px; border-radius:50%; border:2px solid #ddd; cursor:pointer;}
+.dot.selected{border-color:var(--red); transform: scale(1.1);}
+
+.size{border:2px solid #ddd; padding:5px 8px; font-size:10px; font-weight:700; cursor:pointer; border-radius: 4px;}
+.size.disabled{opacity:0.1; pointer-events:none;}
 .size.selected{border-color:var(--red); background: var(--red); color: white;}
 
-.buy{background:var(--whats);color:#fff;border:none;width:100%;font-size:10px;font-weight:700;padding:12px;border-radius:4px;text-transform:uppercase;opacity:.4;pointer-events:none; cursor:pointer; margin-top: auto;}
+.buy{background:var(--whats); color:#fff; border:none; width:100%; font-size:10px; font-weight:900; padding:12px; border-radius:6px; text-transform:uppercase; opacity:0.4; pointer-events:none; cursor:pointer; margin-top: auto;}
 
-#cart-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--black); color: white; padding: 15px; display: none; justify-content: space-around; align-items: center; z-index: 2000; border-top: 3px solid var(--red); box-shadow: 0 -5px 15px rgba(0,0,0,0.3); }
-.btn-finish { background: var(--whats); color: white; border: none; padding: 12px 20px; border-radius: 5px; font-weight: 900; cursor: pointer; text-transform: uppercase; }
+#cart-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--black); color: white; padding: 15px; display: none; justify-content: center; gap: 20px; align-items: center; z-index: 2000; border-top: 3px solid var(--red); }
+.btn-finish { background: var(--whats); color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 900; cursor: pointer; text-transform: uppercase; font-size: 12px;}
 
-#zoom{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);align-items:center;justify-content:center;z-index:3000; cursor: zoom-out;}
-#zoom img{max-width:95%;max-height:85%; border-radius: 8px;}
+#zoom{display:none; position:fixed; inset:0; background:rgba(0,0,0,0.95); align-items:center; justify-content:center; z-index:3000;}
+#zoom img{max-width:90%; max-height:90%; border-radius: 8px;}
 
-#adminPanel{display:none;position:fixed;inset:0;background:#000c;color:#fff;z-index:4000;padding:20px;overflow:auto}
-.admin-item{border-bottom:1px solid #333;padding:10px 0;display:flex;justify-content:space-between;align-items:center;}
-.admin-item input{width:50px; background:#222; color:#fff; border:1px solid #444; padding:5px;}
-
-footer{text-align:center;padding:30px;background:#0a0a0a;color:#666;font-size:11px;}
+#adminPanel{display:none; position:fixed; inset:0; background:#000; color:#fff; z-index:4000; padding:20px; overflow:auto;}
+.admin-card { background: #1a1a1a; padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid var(--red); }
+.admin-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 12px; background: #222; padding: 8px; border-radius: 5px;}
+.admin-card input { background: #333; color: #fff; border: 1px solid #444; padding: 5px; border-radius: 4px; text-align: center; }
+.input-price { width: 80px; color: var(--whats) !important; font-weight: 700; }
 </style>
 </head>
 <body>
@@ -64,7 +72,7 @@ footer{text-align:center;padding:30px;background:#0a0a0a;color:#666;font-size:11
 <header id="logo"><h1>Distrito <span>Imports</span></h1></header>
 
 <div class="search-container">
-    <input type="text" id="searchBar" placeholder="O que você procura?" onkeyup="search()">
+    <input type="text" id="searchBar" placeholder="Pesquisar no estoque..." onkeyup="search()">
 </div>
 
 <nav id="navbar">
@@ -74,52 +82,35 @@ footer{text-align:center;padding:30px;background:#0a0a0a;color:#666;font-size:11
 </nav>
 
 <main class="container">
-    <section id="camisas" class="category active"><h2>👕 Camisas</h2><div class="grid" id="grid-camisas"></div></section>
-    <section id="bermudas" class="category"><h2>🩳 Bermudas</h2><div class="grid" id="grid-bermudas"></div></section>
-    <section id="conjuntos" class="category"><h2>⚡ Conjuntos</h2><div class="grid" id="grid-conjuntos"></div></section>
+    <section id="camisas" class="category active"><div class="grid" id="grid-camisas"></div></section>
+    <section id="bermudas" class="category"><div class="grid" id="grid-bermudas"></div></section>
+    <section id="conjuntos" class="category"><div class="grid" id="grid-conjuntos"></div></section>
 </main>
 
 <div id="cart-bar">
-    <div id="cart-info">
-        <span id="cart-count" style="font-weight:900; color:var(--whats)">0 ITENS</span><br>
-        <small id="cart-total">R$ 0,00</small>
-    </div>
-    <button class="btn-finish" onclick="sendCartWhatsApp()">Finalizar Pedido <i class="fab fa-whatsapp"></i></button>
+    <div id="cart-info"><span id="cart-count">0 ITENS</span> | <b id="cart-total">R$ 0,00</b></div>
+    <button class="btn-finish" onclick="sendCartWhatsApp()">Pedir no WhatsApp</button>
 </div>
 
 <div id="zoom" onclick="this.style.display='none'"><img src=""></div>
 
 <div id="adminPanel">
-    <h2>Painel de Estoque <button onclick="closeAdmin()" style="float:right; background:var(--red); color:#fff; border:none; padding:5px 15px;">X</button></h2>
+    <h2 style="display:flex; justify-content: space-between;">Painel Distrito <button onclick="closeAdmin()" style="background:var(--red); color:#fff; border:none; padding:10px;">X</button></h2>
     <div id="adminContent"></div>
 </div>
-
-<footer>© 2026 Distrito Imports — Itaperuna / RJ</footer>
 
 <script>
 const whatsapp = "5522999400239";
 const senhaAdmin = "2123";
 let cart = [];
 
-// Produtos Base - Organize aqui
 const produtosBase = {
-    camisas: [
-        {nome:"Camisa Hugo Boss Peruana", preco:"99,90", cores:{Preto:{img:"https://i.postimg.cc/xdrnT8XQ/Whats-App-Image-2026-01-24-at-20-55-04.jpg",estoque:{P:1,M:1,G:1,GG:1}}}}
-    ],
-    bermudas: [
-        {nome:"Bermuda Cargo Premium", preco:"110,00", cores:{Verde:{img:"https://i.postimg.cc/WtRW03ty/Whats-App-Image-2026-01-25-at-17-24-20-(1).jpg",estoque:{38:1,40:1,42:1}}}}
-    ],
-    conjuntos: [
-        {nome:"Conjunto Nike Dry-Fit", preco:"179,90", cores:{Original:{img:"https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg",estoque:{P:1,M:1,G:1}}}}
-    ]
+    camisas: [{nome:"Camisa Peruana Hugo Boss", preco:"99,90", precoAntigo:"129,90", cores:{Preto:{img:"https://i.postimg.cc/xdrnT8XQ/Whats-App-Image-2026-01-24-at-20-55-04.jpg",estoque:{P:1,M:5,G:10}}}}],
+    bermudas: [{nome:"Bermuda Cargo Verde", preco:"110,00", precoAntigo:"", cores:{Verde:{img:"https://i.postimg.cc/WtRW03ty/Whats-App-Image-2026-01-25-at-17-24-20-(1).jpg",estoque:{38:1,40:4}}}}],
+    conjuntos: [{nome:"Conjunto Nike Dry-Fit", preco:"179,90", precoAntigo:"", cores:{Original:{img:"https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg",estoque:{P:1,M:2}}}}]
 };
 
-// Lógica para não bugar quando mudar categoria
-let produtos = JSON.parse(localStorage.getItem("estoque_distrito_v2"));
-if(!produtos || !produtos.camisas) { 
-    produtos = produtosBase;
-    localStorage.setItem("estoque_distrito_v2", JSON.stringify(produtos));
-}
+let produtos = JSON.parse(localStorage.getItem("estoque_distrito_v5")) || produtosBase;
 
 function renderAll() {
     Object.keys(produtos).forEach(render);
@@ -131,18 +122,24 @@ function render(cat){
     grid.innerHTML = '';
     produtos[cat].forEach((p, i) => {
         const coresDisp = Object.keys(p.cores);
+        const primeiraCor = coresDisp[0];
+        let isLast = Object.values(p.cores[primeiraCor].estoque).some(q => q === 1);
+
         grid.innerHTML += `
             <div class="card" data-name="${p.nome}">
-                <img id="img-${cat}-${i}" src="${p.cores[coresDisp[0]].img}" onclick="zoom(this.src)">
+                ${p.precoAntigo ? '<div class="badge-promo">Oferta</div>' : ''}
+                ${isLast ? '<div class="badge-last">Última Peça</div>' : ''}
+                <div class="img-container"><img id="img-${cat}-${i}" src="${p.cores[primeiraCor].img}" onclick="zoom(this.src)"></div>
                 <div class="info">
                     <h3>${p.nome}</h3>
-                    <span class="price">R$ ${p.preco}</span>
+                    <span class="price-old">${p.precoAntigo ? 'R$ '+p.precoAntigo : ''}</span>
+                    <span class="price-new">R$ ${p.preco}</span>
                     <div class="colors">${coresDisp.map(c=>`<div class="dot" style="background:${getHex(c)}" onclick="selectCor('${cat}',${i},'${c}', this)"></div>`).join('')}</div>
                     <div class="sizes" id="${cat}-sizes-${i}"></div>
                     <button id="${cat}-buy-${i}" class="buy">Escolha tamanho</button>
                 </div>
             </div>`;
-        selectCor(cat, i, coresDisp[0]);
+        selectCor(cat, i, primeiraCor);
     });
 }
 
@@ -153,11 +150,8 @@ function selectCor(cat, i, cor, el){
         el.classList.add('selected');
     }
     const p = produtos[cat][i];
-    const imgEl = document.getElementById(`img-${cat}-${i}`);
-    if(imgEl) imgEl.src = p.cores[cor].img;
-    
+    document.getElementById(`img-${cat}-${i}`).src = p.cores[cor].img;
     const sizes = document.getElementById(`${cat}-sizes-${i}`);
-    if(!sizes) return;
     sizes.innerHTML = '';
     Object.entries(p.cores[cor].estoque).forEach(([t, q]) => {
         sizes.innerHTML += `<div class="size ${q <= 0 ? 'disabled' : ''}" onclick="selectSize(this, '${cat}',${i},'${cor}','${t}')">${t}</div>`;
@@ -168,7 +162,7 @@ function selectSize(el, cat, i, cor, t){
     document.querySelectorAll(`#${cat}-sizes-${i} .size`).forEach(s => s.classList.remove('selected'));
     el.classList.add('selected');
     const btn = document.getElementById(`${cat}-buy-${i}`);
-    btn.style.opacity = 1; btn.style.pointerEvents = 'auto'; btn.innerText = "Adicionar ao Carrinho";
+    btn.style.opacity = 1; btn.style.pointerEvents = 'auto'; btn.innerText = "Adicionar";
     btn.onclick = () => addToCart(cat, i, cor, t);
 }
 
@@ -177,8 +171,8 @@ function addToCart(cat, i, cor, t) {
     cart.push({ nome: p.nome, preco: p.preco, cor, tamanho: t });
     updateCartUI();
     const btn = document.getElementById(`${cat}-buy-${i}`);
-    btn.innerText = "✅ No Carrinho";
-    setTimeout(() => { btn.innerText = "Adicionar Mais"; }, 1500);
+    btn.innerText = "✅ OK!";
+    setTimeout(() => { btn.innerText = "Adicionar Mais"; }, 1000);
 }
 
 function updateCartUI() {
@@ -187,49 +181,33 @@ function updateCartUI() {
         bar.style.display = 'flex';
         let total = cart.reduce((acc, item) => acc + parseFloat(item.preco.replace(',','.')), 0);
         document.getElementById('cart-count').innerText = `${cart.length} ITENS`;
-        document.getElementById('cart-total').innerText = `Total: R$ ${total.toFixed(2).replace('.',',')}`;
+        document.getElementById('cart-total').innerText = `R$ ${total.toFixed(2).replace('.',',')}`;
     }
 }
 
 function sendCartWhatsApp() {
-    let msg = `🚀 *NOVO PEDIDO - DISTRITO IMPORTS*\n\n`;
-    cart.forEach((item, index) => {
-        msg += `${index + 1}. *${item.nome}*\n   Cor: ${item.cor} | Tam: ${item.tamanho} | R$ ${item.preco}\n\n`;
-    });
+    let msg = `🚀 *PEDIDO DISTRITO IMPORTS*\n\n`;
+    cart.forEach((item, index) => { msg += `${index+1}. *${item.nome}* (${item.cor}) - Tam: ${item.tamanho} - R$ ${item.preco}\n`; });
     window.location.href = `https://wa.me/${whatsapp}?text=${encodeURIComponent(msg)}`;
 }
 
 function search() {
     let input = document.getElementById('searchBar').value.toLowerCase();
     document.querySelectorAll('.category').forEach(cat => {
-        let cards = cat.getElementsByClassName('card');
-        let hasMatch = false;
+        let cards = cat.getElementsByClassName('card'), match = false;
         for (let card of cards) {
             let name = card.getAttribute('data-name').toLowerCase();
-            if (name.includes(input)) {
-                card.style.display = "flex";
-                hasMatch = true;
-            } else {
-                card.style.display = "none";
-            }
+            card.style.display = name.includes(input) ? (match = true, "flex") : "none";
         }
-        if(input.length > 0) cat.style.display = hasMatch ? "block" : "none";
-        else {
-            const btn = document.querySelector(`.nav-link[onclick*="'${cat.id}'"]`);
-            cat.style.display = btn.classList.contains('active') ? "block" : "none";
-        }
+        cat.style.display = input.length > 0 ? (match ? "block" : "none") : (document.querySelector(`.nav-link[onclick*="'${cat.id}'"]`).classList.contains('active') ? "block" : "none");
     });
 }
 
-function getHex(cor){
-    const cores = {Preto:'#000', Branco:'#fff', Marinho:'#001f3f', Verde:'#2d5a27', Original:'#444'};
-    return cores[cor] || '#ccc';
-}
+function getHex(c){ const h={'Preto':'#000','Branco':'#fff','Verde':'#2d5a27','Original':'#444'}; return h[c]||'#ccc';}
 
-function zoom(src){ document.querySelector('#zoom img').src = src; document.getElementById('zoom').style.display = 'flex'; }
+function zoom(s){ document.querySelector('#zoom img').src=s; document.getElementById('zoom').style.display='flex';}
 
 function showCat(id, btn){
-    document.getElementById('searchBar').value = '';
     document.querySelectorAll('.category').forEach(c => c.style.display = 'none');
     document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
     document.getElementById(id).style.display = 'block';
@@ -247,28 +225,36 @@ function openAdmin(){
     const c = document.getElementById("adminContent");
     c.innerHTML = '';
     Object.entries(produtos).forEach(([cat, arr]) => {
-        c.innerHTML += `<h3 style="color:var(--red); border-bottom:1px solid #444; margin:15px 0 5px">${cat.toUpperCase()}</h3>`;
         arr.forEach((p, i) => {
+            let itemHtml = `<div class="admin-card">
+                <b>${p.nome.toUpperCase()}</b><br>
+                <div style="margin:10px 0">
+                    Preço: <input class="input-price" type="text" value="${p.preco}" onchange="updatePrice('${cat}',${i},'atual',this.value)">
+                    Antigo: <input class="input-price" type="text" value="${p.precoAntigo}" placeholder="Vazio" onchange="updatePrice('${cat}',${i},'antigo',this.value)">
+                </div>`;
             Object.entries(p.cores).forEach(([cor, obj]) => {
                 Object.entries(obj.estoque).forEach(([t, q]) => {
-                    c.innerHTML += `
-                    <div class="admin-item">
-                        <span>${p.nome} (${cor}) - ${t}</span>
-                        <input type="number" value="${q}" onchange="updateStock('${cat}',${i},'${cor}','${t}',this.value)">
-                    </div>`;
+                    itemHtml += `<div class="admin-row"><span>${cor} - Tam ${t}</span><input type="number" value="${q}" onchange="updateStock('${cat}',${i},'${cor}','${t}',this.value)"></div>`;
                 });
             });
+            itemHtml += `</div>`;
+            c.innerHTML += itemHtml;
         });
     });
 }
 
-function updateStock(cat, idx, cor, t, val){
-    produtos[cat][idx].cores[cor].estoque[t] = Number(val);
-    localStorage.setItem("estoque_distrito_v2", JSON.stringify(produtos));
+function updatePrice(cat, i, tipo, val){
+    if(tipo === 'atual') produtos[cat][i].preco = val;
+    else produtos[cat][i].precoAntigo = val;
+    localStorage.setItem("estoque_distrito_v5", JSON.stringify(produtos));
+}
+
+function updateStock(cat, i, cor, t, val){
+    produtos[cat][i].cores[cor].estoque[t] = Number(val);
+    localStorage.setItem("estoque_distrito_v5", JSON.stringify(produtos));
 }
 
 function closeAdmin(){ document.getElementById("adminPanel").style.display = "none"; renderAll(); }
-
 renderAll();
 </script>
 </body>
