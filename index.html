@@ -105,9 +105,9 @@ const senhaAdmin = "2123";
 let cart = [];
 
 const produtosBase = {
-    camisas: [{nome:"Camisa Peruana Hugo Boss", preco:"99,90", precoAntigo:"129,90", cores:{Preto:{img:"https://i.postimg.cc/xdrnT8XQ/Whats-App-Image-2026-01-24-at-20-55-04.jpg",estoque:{P:1,M:5,G:10}}}}],
-    bermudas: [{nome:"Bermuda Cargo Verde", preco:"110,00", precoAntigo:"", cores:{Verde:{img:"https://i.postimg.cc/WtRW03ty/Whats-App-Image-2026-01-25-at-17-24-20-(1).jpg",estoque:{38:1,40:4}}}}],
-    conjuntos: [{nome:"Conjunto Nike Dry-Fit", preco:"179,90", precoAntigo:"", cores:{Original:{img:"https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg",estoque:{P:1,M:2}}}}]
+    camisas: [{nome:"Camisa Peruana Hugo Boss", preco:"99,90", precoAntigo:"129,90", cores:{Preto:{img:"https://i.postimg.cc/xdrnT8XQ/Whats-App-Image-2026-01-24-at-20-55-04.jpg",estoque:{P:1,M:5,G:10,GG:5}}}}],
+    bermudas: [{nome:"Bermuda Cargo Verde", preco:"110,00", precoAntigo:"", cores:{Verde:{img:"https://i.postimg.cc/WtRW03ty/Whats-App-Image-2026-01-25-at-17-24-20-(1).jpg",estoque:{38:1,39:5,40:4}}}}],
+    conjuntos: [{nome:"Conjunto Nike Dry-Fit", preco:"179,90", precoAntigo:"", cores:{Original:{img:"https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg",estoque:{P:1,M:2,G:7}}}}]
 };
 
 let produtos = JSON.parse(localStorage.getItem("estoque_distrito_v5")) || produtosBase;
