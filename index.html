@@ -17,8 +17,8 @@ header span{color:var(--red)}
 .search-container { background: #fff; padding: 10px 15px; display: flex; justify-content: center; position: sticky; top:0; z-index: 1100;}
 #searchBar { width: 100%; max-width: 500px; padding: 12px 20px; border: 2px solid #eee; border-radius: 25px; outline: none; font-family: Montserrat;}
 
-nav{background:#fff;display:flex;justify-content: center;position:sticky;top:58px;z-index:1000;box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-top: 1px solid #eee;}
-.nav-link{padding:15px 25px;border:none;background:none;font-weight:700;font-size:12px;text-transform:uppercase;color:#666;cursor:pointer;white-space:nowrap}
+nav{background:#fff;display:flex;overflow-x:auto;justify-content: center;position:sticky;top:58px;z-index:1000;box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-top: 1px solid #eee;}
+.nav-link{padding:15px 20px;border:none;background:none;font-weight:700;font-size:11px;text-transform:uppercase;color:#666;cursor:pointer;white-space:nowrap}
 .nav-link.active{color:var(--red);border-bottom:3px solid var(--red)}
 
 .container{max-width:1200px;margin:10px auto;padding:0 15px}
@@ -33,12 +33,12 @@ h2 { font-size: 18px; text-transform: uppercase; font-weight: 900; margin: 25px 
 .card img{width:100%;aspect-ratio:3/4;object-fit:cover;cursor:zoom-in}
 
 .info{padding:12px;text-align:center; flex-grow: 1; display: flex; flex-direction: column;}
-.info h3{font-size:12px;margin:0 0 6px;text-transform:uppercase; min-height: 30px;}
+.info h3{font-size:12px;margin:0 0 6px;text-transform:uppercase; min-height: 30px; line-height: 1.2;}
 .price{color:var(--red);font-weight:900;font-size:18px;margin-bottom:6px;display:block}
 
 .colors,.sizes{display:flex;justify-content:center;gap:6px;margin:6px 0;flex-wrap:wrap;}
 .dot{width:22px;height:22px;border-radius:50%;border:2px solid #ccc;cursor:pointer;}
-.dot.selected{border-color:var(--red); transform: scale(1.1);}
+.dot.selected{border-color:var(--red); transform: scale(1.1); box-shadow: 0 0 5px rgba(0,0,0,0.2);}
 
 .size{border:2px solid #ccc;padding:4px 8px;font-size:10px;font-weight:700;cursor:pointer; border-radius: 4px;}
 .size.disabled{opacity:.2;pointer-events:none; background: #eee;}
@@ -46,14 +46,17 @@ h2 { font-size: 18px; text-transform: uppercase; font-weight: 900; margin: 25px 
 
 .buy{background:var(--whats);color:#fff;border:none;width:100%;font-size:10px;font-weight:700;padding:12px;border-radius:4px;text-transform:uppercase;opacity:.4;pointer-events:none; cursor:pointer; margin-top: auto;}
 
-#cart-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--black); color: white; padding: 15px; display: none; justify-content: space-around; align-items: center; z-index: 2000; border-top: 3px solid var(--red); }
-.btn-finish { background: var(--whats); color: white; border: none; padding: 12px 20px; border-radius: 5px; font-weight: 900; cursor: pointer; }
+#cart-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--black); color: white; padding: 15px; display: none; justify-content: space-around; align-items: center; z-index: 2000; border-top: 3px solid var(--red); box-shadow: 0 -5px 15px rgba(0,0,0,0.3); }
+.btn-finish { background: var(--whats); color: white; border: none; padding: 12px 20px; border-radius: 5px; font-weight: 900; cursor: pointer; text-transform: uppercase; }
 
 #zoom{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);align-items:center;justify-content:center;z-index:3000; cursor: zoom-out;}
 #zoom img{max-width:95%;max-height:85%; border-radius: 8px;}
 
 #adminPanel{display:none;position:fixed;inset:0;background:#000c;color:#fff;z-index:4000;padding:20px;overflow:auto}
-.admin-item{border-bottom:1px solid #333;padding:10px 0;display:flex;justify-content:space-between;}
+.admin-item{border-bottom:1px solid #333;padding:10px 0;display:flex;justify-content:space-between;align-items:center;}
+.admin-item input{width:50px; background:#222; color:#fff; border:1px solid #444; padding:5px;}
+
+footer{text-align:center;padding:30px;background:#0a0a0a;color:#666;font-size:11px;}
 </style>
 </head>
 <body>
@@ -61,7 +64,7 @@ h2 { font-size: 18px; text-transform: uppercase; font-weight: 900; margin: 25px 
 <header id="logo"><h1>Distrito <span>Imports</span></h1></header>
 
 <div class="search-container">
-    <input type="text" id="searchBar" placeholder="Pesquisar..." onkeyup="search()">
+    <input type="text" id="searchBar" placeholder="O que você procura?" onkeyup="search()">
 </div>
 
 <nav id="navbar">
@@ -87,29 +90,36 @@ h2 { font-size: 18px; text-transform: uppercase; font-weight: 900; margin: 25px 
 <div id="zoom" onclick="this.style.display='none'"><img src=""></div>
 
 <div id="adminPanel">
-    <h2>Estoque <button onclick="closeAdmin()" style="float:right; background:var(--red); color:#fff; border:none; padding:5px 15px;">X</button></h2>
+    <h2>Painel de Estoque <button onclick="closeAdmin()" style="float:right; background:var(--red); color:#fff; border:none; padding:5px 15px;">X</button></h2>
     <div id="adminContent"></div>
 </div>
+
+<footer>© 2026 Distrito Imports — Itaperuna / RJ</footer>
 
 <script>
 const whatsapp = "5522999400239";
 const senhaAdmin = "2123";
 let cart = [];
 
-// Base de dados com as NOVAS categorias
+// Produtos Base - Organize aqui
 const produtosBase = {
     camisas: [
-        {nome:"Camisa Peruana Premium", preco:"99,90", cores:{Preto:{img:"https://via.placeholder.com/300x400",estoque:{P:1,M:1,G:1,GG:1}}}}
+        {nome:"Camisa Hugo Boss Peruana", preco:"99,90", cores:{Preto:{img:"https://i.postimg.cc/xdrnT8XQ/Whats-App-Image-2026-01-24-at-20-55-04.jpg",estoque:{P:1,M:1,G:1,GG:1}}}}
     ],
     bermudas: [
-        {nome:"Bermuda Cargo", preco:"110,00", cores:{Verde:{img:"https://via.placeholder.com/300x400",estoque:{38:1,40:1,42:1}}}}
+        {nome:"Bermuda Cargo Premium", preco:"110,00", cores:{Verde:{img:"https://i.postimg.cc/WtRW03ty/Whats-App-Image-2026-01-25-at-17-24-20-(1).jpg",estoque:{38:1,40:1,42:1}}}}
     ],
     conjuntos: [
-        {nome:"Conjunto Dry-Fit", preco:"179,90", cores:{Original:{img:"https://via.placeholder.com/300x400",estoque:{P:1,M:1,G:1}}}}
+        {nome:"Conjunto Nike Dry-Fit", preco:"179,90", cores:{Original:{img:"https://i.postimg.cc/zDQZp382/IMG-20260124-WA0214.jpg",estoque:{P:1,M:1,G:1}}}}
     ]
 };
 
-let produtos = JSON.parse(localStorage.getItem("estoque_distrito")) || produtosBase;
+// Lógica para não bugar quando mudar categoria
+let produtos = JSON.parse(localStorage.getItem("estoque_distrito_v2"));
+if(!produtos || !produtos.camisas) { 
+    produtos = produtosBase;
+    localStorage.setItem("estoque_distrito_v2", JSON.stringify(produtos));
+}
 
 function renderAll() {
     Object.keys(produtos).forEach(render);
@@ -127,7 +137,7 @@ function render(cat){
                 <div class="info">
                     <h3>${p.nome}</h3>
                     <span class="price">R$ ${p.preco}</span>
-                    <div class="colors">${coresDisp.map(c=><div class="dot" style="background:${getHex(c)}" onclick="selectCor('${cat}',${i},'${c}', this)"></div>).join('')}</div>
+                    <div class="colors">${coresDisp.map(c=>`<div class="dot" style="background:${getHex(c)}" onclick="selectCor('${cat}',${i},'${c}', this)"></div>`).join('')}</div>
                     <div class="sizes" id="${cat}-sizes-${i}"></div>
                     <button id="${cat}-buy-${i}" class="buy">Escolha tamanho</button>
                 </div>
@@ -143,18 +153,21 @@ function selectCor(cat, i, cor, el){
         el.classList.add('selected');
     }
     const p = produtos[cat][i];
-    document.getElementById(img-${cat}-${i}).src = p.cores[cor].img;
-    const sizes = document.getElementById(${cat}-sizes-${i});
+    const imgEl = document.getElementById(`img-${cat}-${i}`);
+    if(imgEl) imgEl.src = p.cores[cor].img;
+    
+    const sizes = document.getElementById(`${cat}-sizes-${i}`);
+    if(!sizes) return;
     sizes.innerHTML = '';
     Object.entries(p.cores[cor].estoque).forEach(([t, q]) => {
-        sizes.innerHTML += <div class="size ${q <= 0 ? 'disabled' : ''}" onclick="selectSize(this, '${cat}',${i},'${cor}','${t}')">${t}</div>;
+        sizes.innerHTML += `<div class="size ${q <= 0 ? 'disabled' : ''}" onclick="selectSize(this, '${cat}',${i},'${cor}','${t}')">${t}</div>`;
     });
 }
 
 function selectSize(el, cat, i, cor, t){
-    document.querySelectorAll(#${cat}-sizes-${i} .size).forEach(s => s.classList.remove('selected'));
+    document.querySelectorAll(`#${cat}-sizes-${i} .size`).forEach(s => s.classList.remove('selected'));
     el.classList.add('selected');
-    const btn = document.getElementById(${cat}-buy-${i});
+    const btn = document.getElementById(`${cat}-buy-${i}`);
     btn.style.opacity = 1; btn.style.pointerEvents = 'auto'; btn.innerText = "Adicionar ao Carrinho";
     btn.onclick = () => addToCart(cat, i, cor, t);
 }
@@ -163,27 +176,27 @@ function addToCart(cat, i, cor, t) {
     const p = produtos[cat][i];
     cart.push({ nome: p.nome, preco: p.preco, cor, tamanho: t });
     updateCartUI();
-    const btn = document.getElementById(${cat}-buy-${i});
-    btn.innerText = "✅ Adicionado!";
+    const btn = document.getElementById(`${cat}-buy-${i}`);
+    btn.innerText = "✅ No Carrinho";
     setTimeout(() => { btn.innerText = "Adicionar Mais"; }, 1500);
 }
 
 function updateCartUI() {
     const bar = document.getElementById('cart-bar');
-    const total = cart.reduce((acc, item) => acc + parseFloat(item.preco.replace(',','.')), 0);
     if(cart.length > 0) {
         bar.style.display = 'flex';
-        document.getElementById('cart-count').innerText = ${cart.length} ITENS NO CARRINHO;
-        document.getElementById('cart-total').innerText = Total: R$ ${total.toFixed(2).replace('.',',')};
+        let total = cart.reduce((acc, item) => acc + parseFloat(item.preco.replace(',','.')), 0);
+        document.getElementById('cart-count').innerText = `${cart.length} ITENS`;
+        document.getElementById('cart-total').innerText = `Total: R$ ${total.toFixed(2).replace('.',',')}`;
     }
 }
 
 function sendCartWhatsApp() {
-    let msg = 🚀 *NOVO PEDIDO - DISTRITO IMPORTS*\n\n;
+    let msg = `🚀 *NOVO PEDIDO - DISTRITO IMPORTS*\n\n`;
     cart.forEach((item, index) => {
-        msg += ${index + 1}. *${item.nome}*\n   🎨 Cor: ${item.cor} | 📏 Tam: ${item.tamanho} | R$ ${item.preco}\n\n;
+        msg += `${index + 1}. *${item.nome}*\n   Cor: ${item.cor} | Tam: ${item.tamanho} | R$ ${item.preco}\n\n`;
     });
-    window.location.href = https://wa.me/${whatsapp}?text=${encodeURIComponent(msg)};
+    window.location.href = `https://wa.me/${whatsapp}?text=${encodeURIComponent(msg)}`;
 }
 
 function search() {
@@ -201,12 +214,15 @@ function search() {
             }
         }
         if(input.length > 0) cat.style.display = hasMatch ? "block" : "none";
-        else cat.style.display = document.querySelector(.nav-link[onclick*="'${cat.id}'"]).classList.contains('active') ? "block" : "none";
+        else {
+            const btn = document.querySelector(`.nav-link[onclick*="'${cat.id}'"]`);
+            cat.style.display = btn.classList.contains('active') ? "block" : "none";
+        }
     });
 }
 
 function getHex(cor){
-    const cores = {Preto:'#000', Branco:'#fff', Marinho:'#001f3f', Verde:'#2d5a27', Original: '#666'};
+    const cores = {Preto:'#000', Branco:'#fff', Marinho:'#001f3f', Verde:'#2d5a27', Original:'#444'};
     return cores[cor] || '#ccc';
 }
 
@@ -231,10 +247,15 @@ function openAdmin(){
     const c = document.getElementById("adminContent");
     c.innerHTML = '';
     Object.entries(produtos).forEach(([cat, arr]) => {
+        c.innerHTML += `<h3 style="color:var(--red); border-bottom:1px solid #444; margin:15px 0 5px">${cat.toUpperCase()}</h3>`;
         arr.forEach((p, i) => {
             Object.entries(p.cores).forEach(([cor, obj]) => {
                 Object.entries(obj.estoque).forEach(([t, q]) => {
-                    c.innerHTML += <div class="admin-item">${p.nome} (${cor}) - ${t}: <input type="number" value="${q}" onchange="updateStock('${cat}',${i},'${cor}','${t}',this.value)"></div>;
+                    c.innerHTML += `
+                    <div class="admin-item">
+                        <span>${p.nome} (${cor}) - ${t}</span>
+                        <input type="number" value="${q}" onchange="updateStock('${cat}',${i},'${cor}','${t}',this.value)">
+                    </div>`;
                 });
             });
         });
@@ -243,7 +264,7 @@ function openAdmin(){
 
 function updateStock(cat, idx, cor, t, val){
     produtos[cat][idx].cores[cor].estoque[t] = Number(val);
-    localStorage.setItem("estoque_distrito", JSON.stringify(produtos));
+    localStorage.setItem("estoque_distrito_v2", JSON.stringify(produtos));
 }
 
 function closeAdmin(){ document.getElementById("adminPanel").style.display = "none"; renderAll(); }
