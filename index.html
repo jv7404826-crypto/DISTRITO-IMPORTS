@@ -3,60 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Distrito Imports | Catálogo Oficial</title>
+    <title>Distrito Imports | Gestão</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root{ --red:#E60000; --black:#0a0a0a; --gray:#f2f2f2; --whats:#25D366; --yellow:#FFD700; }
+        :root{ --red:#E60000; --black:#0a0a0a; --gray:#f4f4f4; --whats:#25D366; --yellow:#FFD700; --dark-gray:#222; }
         body{margin:0;font-family:'Montserrat',sans-serif;background:var(--gray);padding-bottom:100px;color:var(--black);overflow-x:hidden;}
         
-        /* TELA DE IGNIÇÃO */
-        #ignicao { position: fixed; inset: 0; background: var(--black); z-index: 10001; display: none; flex-direction: column; align-items: center; justify-content: center; color: white; text-align: center; padding: 20px; cursor: pointer; }
-        .spinner { width: 35px; height: 35px; border: 4px solid rgba(255,255,255,0.1); border-top-color: var(--red); border-radius: 50%; animation: spin 1s linear infinite; margin-top: 20px; }
+        /* BLOQUEIO CLIENTE */
+        #ignicao { position: fixed; inset: 0; background: var(--black); z-index: 10001; display: none; flex-direction: column; align-items: center; justify-content: center; color: white; text-align: center; padding: 30px; }
+        .spinner { width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.1); border-top-color: var(--red); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
 
         header{background:var(--black);color:#fff;text-align:center;padding:20px;border-bottom:4px solid var(--red);cursor:pointer;}
-        header h1{margin:0; font-size:20px; text-transform:uppercase;}
+        header h1{margin:0; font-size:18px; text-transform:uppercase; letter-spacing:1px;}
         header span{color:var(--red)}
 
-        /* BANNER DINÂMICO */
-        .banner-top { width: 100%; height: 180px; background-size: cover; background-position: center; display: none; border-bottom: 2px solid #ddd; }
-
-        .search-area { background: #fff; padding: 12px; display: flex; justify-content: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        #searchBar { width: 90%; padding: 12px 15px; border: 1px solid #ccc; border-radius: 25px; outline: none; font-family: Montserrat; font-size: 14px; }
+        /* LAYOUT LOJA */
+        .banner-top { width: 100%; height: 180px; background-size: cover; background-position: center; display: none; }
+        .search-area { background: #fff; padding: 12px; display: flex; justify-content: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        #searchBar { width: 90%; padding: 12px 18px; border: 1px solid #ddd; border-radius: 30px; outline: none; font-family: Montserrat; font-size: 14px; }
         
-        nav{background:#fff;display:flex;justify-content:center;overflow-x:auto; padding: 5px 0;}
-        .nav-link{padding:12px 15px;border:none;background:none;font-weight:700;font-size:10px;text-transform:uppercase;color:#777;cursor:pointer;white-space:nowrap;}
-        .nav-link.active{color:var(--red);border-bottom:2px solid var(--red)}
+        nav{background:#fff;display:flex;justify-content:center;overflow-x:auto; padding: 5px 0; border-bottom: 1px solid #eee;}
+        .nav-link{padding:12px 18px;border:none;background:none;font-weight:700;font-size:10px;text-transform:uppercase;color:#999;cursor:pointer;white-space:nowrap; transition: 0.3s;}
+        .nav-link.active{color:var(--red);border-bottom:3px solid var(--red)}
         
-        .container{max-width:1200px;margin:10px auto;padding:0 8px}
-        .grid{display:grid;grid-template-columns:repeat(2, 1fr);gap:10px;}
-        .card{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);display:flex;flex-direction:column;position:relative;}
-        .tag { position: absolute; top: 8px; left: 8px; padding: 4px 7px; border-radius: 4px; font-size: 8px; font-weight: 900; color: #fff; text-transform: uppercase; z-index: 5; }
-        .img-box{width:100%;padding-top:125%;position:relative;background:#f9f9f9;}
+        .container{max-width:1200px;margin:15px auto;padding:0 10px}
+        .grid{display:grid;grid-template-columns:repeat(2, 1fr);gap:12px;}
+        .card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.08);display:flex;flex-direction:column;position:relative;}
+        .tag { position: absolute; top: 8px; left: 8px; padding: 5px 8px; border-radius: 5px; font-size: 8px; font-weight: 900; color: #fff; text-transform: uppercase; z-index: 5; }
+        .img-box{width:100%;padding-top:125%;position:relative;background:#fdfdfd;}
         .img-box img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;}
         
-        .info{padding:10px;text-align:center;flex-grow:1;}
-        .old-price { text-decoration: line-through; color: #999; font-size: 11px; }
-        .price{color:var(--red);font-weight:900;font-size:17px;}
-        
-        .sizes{display:flex;justify-content:center;gap:4px;margin:10px 0;flex-wrap:wrap;}
-        .size{border:1px solid #ddd;padding:5px 7px;font-size:10px;border-radius:4px;cursor:pointer;font-weight:bold;}
-        .size.active{background:var(--red);color:#fff;}
+        .info{padding:12px;text-align:center;flex-grow:1;}
+        .price{color:var(--red);font-weight:900;font-size:18px; margin-top:5px;}
+        .sizes{display:flex;justify-content:center;gap:5px;margin:12px 0;flex-wrap:wrap;}
+        .size{border:1.5px solid #eee;padding:6px 9px;font-size:11px;border-radius:6px;cursor:pointer;font-weight:bold; background: #fff;}
+        .size.active{background:var(--red);color:#fff;border-color:var(--red);}
         .size.out{opacity:0.2;pointer-events:none;}
+        .btn-buy{background:var(--whats);color:#fff;border:none;width:100%;padding:12px;border-radius:8px;font-weight:900;font-size:11px;cursor:pointer;opacity:0.3;pointer-events:none; transition: 0.3s;}
+
+        /* PAINEL ADMIN - NOVO DESIGN */
+        #adminPanel { display:none; position:fixed; inset:0; background:var(--gray); z-index:10010; overflow:auto; padding:0; color:var(--black); }
+        .admin-header { background:var(--black); color:#fff; padding:20px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:5; }
+        .admin-content { padding: 15px; }
+        .dashboard-card { background:#fff; border-radius:15px; padding:15px; margin-bottom:20px; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
+        .admin-item-card { background:#fff; border-radius:12px; padding:15px; margin-bottom:15px; border-left: 6px solid var(--black); box-shadow:0 2px 8px rgba(0,0,0,0.05); }
         
-        .btn-buy{background:var(--whats);color:#fff;border:none;width:100%;padding:10px;border-radius:6px;font-weight:900;font-size:10px;cursor:pointer;opacity:0.3;pointer-events:none;}
-
-        .aba-info { background: #fff; padding: 15px; margin: 15px 10px; border-radius: 10px; font-size: 11px; border-left: 4px solid var(--red); }
-        .trust-badges { background: #fff; padding: 20px; text-align: center; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .badge { font-size: 9px; font-weight: 700; color: #777; text-transform: uppercase; }
-
-        #modal-checkout { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:10005; align-items:center; justify-content:center; padding:20px; }
-        .modal-content { background:#fff; padding:25px; border-radius:15px; width:100%; max-width:350px; text-align: center; }
-        .modal-content input { width:100%; padding:14px; margin:10px 0; border:1px solid #ddd; border-radius:8px; box-sizing:border-box; }
-
-        #adminPanel { display:none; position:fixed; inset:0; background:#000; z-index:10010; padding:20px; overflow:auto; color:#fff; }
-        .admin-section { background:#1a1a1a; padding:15px; margin-bottom:15px; border-radius:8px; border-top: 2px solid var(--yellow); }
-        .admin-item { background:#222; padding:12px; margin-bottom:10px; border-radius:8px; border-left:4px solid var(--red); }
-        .admin-item input, .admin-item select, .config-input { width:100%; padding:10px; margin:5px 0; background:#333; color:#fff; border:1px solid #444; border-radius: 5px; box-sizing: border-box; font-family: Montserrat;}
+        .input-group { margin-bottom: 12px; }
+        .input-group label { display:block; font-size:10px; font-weight:700; color:#777; margin-bottom:5px; text-transform:uppercase; }
+        .admin-input { width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; box-sizing:border-box; font-family: Montserrat; font-size:13px; background:#f9f9f9; }
+        
+        .stock-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
+        .stock-box { text-align: center; }
+        .stock-box input { width:100%; padding:8px; text-align:center; border:1px solid #ddd; border-radius:5px; font-weight:bold; }
+        
+        .btn-add { position:fixed; bottom:20px; right:20px; background:var(--whats); color:#fff; border:none; width:60px; height:60px; border-radius:50%; font-size:30px; box-shadow:0 4px 15px rgba(37,211,102,0.4); z-index:10; cursor:pointer; }
+        .btn-danger { background:#fff; color:var(--red); border:1px solid var(--red); padding:8px; border-radius:6px; font-size:10px; font-weight:bold; margin-top:10px; width:100%; cursor:pointer; }
+        .btn-save-global { background:var(--red); color:#fff; border:none; padding:15px; width:100%; border-radius:10px; font-weight:900; margin-bottom:20px; }
 
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
@@ -64,118 +66,101 @@
 <body>
 
 <div id="ignicao" onclick="contaCliques()">
-    <h1>DISTRITO <span>IMPORTS</span></h1>
-    <p style="font-size:10px; opacity:0.6;">CLIQUE PARA INICIAR A IGNIÇÃO</p>
     <div class="spinner"></div>
+    <h1 style="font-size:22px;">DISTRITO <span>IMPORTS</span></h1>
+    <p style="font-size:13px; opacity:0.7;">Estamos atualizando o catálogo...</p>
 </div>
 
 <header id="logo-admin"><h1>DISTRITO <span>IMPORTS</span></h1></header>
 
 <div class="banner-top" id="banner-img"></div>
 
-<div class="search-area">
-    <input type="text" id="searchBar" placeholder="Pesquisar modelos..." onkeyup="filtrar()">
-</div>
+<div class="search-area"><input type="text" id="searchBar" placeholder="Procurar modelo..." onkeyup="filtrar()"></div>
 
-<nav>
+<nav id="nav-cats">
     <button class="nav-link active" onclick="trocarCat('camisas',this)">Camisas</button>
     <button class="nav-link" onclick="trocarCat('bermudas',this)">Bermudas</button>
     <button class="nav-link" onclick="trocarCat('conjuntos',this)">Conjuntos</button>
     <button class="nav-link" onclick="trocarCat('tenis',this)">Tênis</button>
 </nav>
 
-<div class="container">
-    <div id="product-grid" class="grid"></div>
-</div>
+<div class="container"><div id="product-grid" class="grid"></div></div>
 
-<div class="aba-info">
-    <h3 style="color:var(--red); font-size:13px; margin:0 0 5px 0;">🔄 TROCAS E DEVOLUÇÕES</h3>
-    <p style="margin:0">Para Itaperuna: Se não servir, você tem até <b>3 dias úteis</b> para solicitar a troca. A peça deve estar com etiqueta.</p>
-</div>
-
-<div class="trust-badges">
-    <div class="badge">🚚 Entrega em Itaperuna</div>
-    <div class="badge">💎 Qualidade Premium G5</div>
-    <div class="badge">🔒 Compra 100% Segura</div>
-    <div class="badge">💬 Suporte VIP WhatsApp</div>
-</div>
-
-<div id="cart-bar" style="position:fixed; bottom:0; width:100%; background:var(--black); color:#fff; padding:15px; display:none; justify-content:space-around; align-items:center; z-index:9000; border-top:3px solid var(--red);">
-    <span id="cart-count" style="font-weight:900;">0 ITENS</span>
-    <button onclick="abrirCheckout()" style="background:var(--whats); color:#fff; border:none; padding:12px 20px; border-radius:8px; font-weight:900; text-transform: uppercase;">Finalizar Pedido</button>
-</div>
-
-<div id="modal-checkout">
-    <div class="modal-content">
-        <h3 style="margin:0">Quase lá!</h3>
-        <p style="font-size:12px; color:#666;">Diga seu nome para iniciarmos o pedido.</p>
-        <input type="text" id="nomeCliente" placeholder="Seu nome">
-        <button onclick="finalizarPedido()" style="width:100%; padding:15px; background:var(--whats); color:#fff; border:none; border-radius:8px; font-weight:900;">ENVIAR PARA WHATSAPP</button>
-        <button onclick="document.getElementById('modal-checkout').style.display='none'" style="margin-top:15px; background:none; border:none; color:#999; font-weight:bold;">VOLTAR</button>
+<div id="modal-checkout" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:10005; align-items:center; justify-content:center; padding:20px;">
+    <div style="background:#fff; padding:25px; border-radius:20px; width:100%; max-width:350px; text-align:center;">
+        <h3 style="margin:0 0 15px 0;">Dados de Entrega</h3>
+        <input type="text" id="nomeCli" placeholder="Seu Nome" style="width:100%; padding:15px; margin-bottom:10px; border:1px solid #ddd; border-radius:10px; box-sizing:border-box;">
+        <input type="text" id="endCli" placeholder="Rua e Número" style="width:100%; padding:15px; margin-bottom:10px; border:1px solid #ddd; border-radius:10px; box-sizing:border-box;">
+        <input type="text" id="bairroCli" placeholder="Bairro" style="width:100%; padding:15px; margin-bottom:15px; border:1px solid #ddd; border-radius:10px; box-sizing:border-box;">
+        <button onclick="finalizarPedido()" style="width:100%; padding:18px; background:var(--whats); color:#fff; border:none; border-radius:10px; font-weight:900;">PEDIR NO WHATSAPP</button>
+        <button onclick="document.getElementById('modal-checkout').style.display='none'" style="margin-top:15px; background:none; border:none; color:#999;">Voltar</button>
     </div>
+</div>
+
+<div id="cart-bar" style="position:fixed; bottom:0; width:100%; background:var(--black); color:#fff; padding:15px; display:none; justify-content:space-around; align-items:center; z-index:9000;">
+    <span id="cart-count" style="font-weight:900;">0 ITENS</span>
+    <button onclick="document.getElementById('modal-checkout').style.display='flex'" style="background:var(--red); color:#fff; border:none; padding:12px 25px; border-radius:8px; font-weight:900;">FINALIZAR</button>
 </div>
 
 <div id="adminPanel">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-        <h2 style="color:var(--yellow); font-size:18px;">ADMIN DISTRITO</h2>
-        <button onclick="fecharAdmin()" style="padding:10px;background:var(--red);color:#fff;border:none;border-radius:5px; font-weight:900;">SAIR</button>
+    <div class="admin-header">
+        <h2 style="font-size:16px; margin:0;">PAINEL GESTÃO</h2>
+        <button onclick="fecharAdmin()" style="background:none; border:1px solid #fff; color:#fff; padding:5px 15px; border-radius:5px;">FECHAR</button>
     </div>
 
-    <div class="admin-section">
-        <h3 style="margin:0 0 10px 0; font-size:12px;">⚙️ CONFIGURAÇÕES RÁPIDAS</h3>
-        <label style="font-size:10px;">WhatsApp Loja (ex: 5522999400239):</label>
-        <input type="text" id="cfg-whats" class="config-input" onchange="salvarCfg()">
-        <label style="font-size:10px;">Link da Foto do Banner Topo:</label>
-        <input type="text" id="cfg-banner" class="config-input" onchange="salvarCfg()">
-    </div>
+    <div class="admin-content">
+        <div class="dashboard-card">
+            <h3 style="margin:0 0 15px 0; font-size:14px; color:var(--red);">⚙️ CONFIGURAÇÕES DA LOJA</h3>
+            <div class="input-group">
+                <label>WhatsApp da Loja</label>
+                <input type="text" id="cfg-whats" class="admin-input" placeholder="Ex: 5522999400239">
+            </div>
+            <div class="input-group">
+                <label>Link do Banner (Topo)</label>
+                <input type="text" id="cfg-banner" class="admin-input" placeholder="Link da imagem .jpg">
+            </div>
+            <button onclick="toggleM()" id="btnStatusLoja" style="width:100%; padding:12px; border-radius:8px; border:none; font-weight:900;"></button>
+        </div>
 
-    <button id="mLock" onclick="toggleM()" style="width:100%; padding:15px; font-weight:900; margin-bottom:15px; border-radius:8px; border:none; cursor:pointer;"></button>
+        <div id="admin-list-header" style="margin-bottom:10px; font-weight:900; font-size:12px; color:#555; text-transform:uppercase;"></div>
+        <div id="admin-list"></div>
+    </div>
     
-    <div id="admin-list"></div>
-    
-    <button onclick="novoProd()" style="width:100%; padding:18px; background:var(--whats); color:#fff; border:none; border-radius:10px; font-weight:900;">+ ADICIONAR NOVO PRODUTO</button>
+    <button class="btn-add" onclick="novoProd()">+</button>
 </div>
 
 <script>
     let cat = 'camisas'; let car = []; let cli = 0;
-
-    let db = JSON.parse(localStorage.getItem('DIST_DB_FINAL_V1')) || {camisas:[], bermudas:[], conjuntos:[], tenis:[]};
-    let locks = JSON.parse(localStorage.getItem('DIST_LOCKS_FINAL_V1')) || {master:true, camisas:false, bermudas:false, conjuntos:false, tenis:false};
-    let config = JSON.parse(localStorage.getItem('DIST_CFG_FINAL_V1')) || {whats: "5522999400239", banner: ""};
+    let db = JSON.parse(localStorage.getItem('DIST_DB_V4')) || {camisas:[], bermudas:[], conjuntos:[], tenis:[]};
+    let locks = JSON.parse(localStorage.getItem('DIST_LK_V4')) || {master:true};
+    let config = JSON.parse(localStorage.getItem('DIST_CF_V4')) || {whats: "5522999400239", banner: ""};
 
     function init(){
         document.getElementById('ignicao').style.display = locks.master ? 'flex' : 'none';
         if(config.banner) {
             document.getElementById('banner-img').style.backgroundImage = `url('${config.banner}')`;
             document.getElementById('banner-img').style.display = 'block';
-        } else { document.getElementById('banner-img').style.display = 'none'; }
+        }
         render();
     }
 
     function contaCliques(){
-        cli++; if(cli >= 5) { if(prompt("Senha Admin:") === "2123") abrirAdmin(); cli = 0; }
+        cli++; if(cli >= 5) { if(prompt("Senha:") === "2123") abrirAdmin(); cli = 0; }
         setTimeout(()=> cli=0, 2000);
     }
 
     function render(){
-        const grid = document.getElementById('product-grid');
-        grid.innerHTML = '';
-        if(locks[cat]){
-            grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px;opacity:0.5;"><h2>🔒 EM MANUTENÇÃO</h2></div>`;
-            return;
-        }
+        const grid = document.getElementById('product-grid'); grid.innerHTML = '';
         db[cat].forEach((p, i) => {
-            let tagHTML = p.tag ? `<div class="tag" style="background:${p.tag==='promo'?'var(--red)':p.tag==='lançamento'?'#25D366':'#FFD700'}">${p.tag}</div>` : '';
             grid.innerHTML += `
                 <div class="card" data-name="${p.nome}">
-                    ${tagHTML}
-                    <div class="img-box"><img src="${p.img || 'https://via.placeholder.com/400x500?text=Distrito+Imports'}"></div>
+                    ${p.tag?`<div class="tag" style="background:var(--red)">${p.tag}</div>`:''}
+                    <div class="img-box"><img src="${p.img || 'https://via.placeholder.com/400x500'}"></div>
                     <div class="info">
-                        <h3 style="font-size:12px;">${p.nome}</h3>
-                        ${p.precoAntigo ? `<div class="old-price">R$ ${p.precoAntigo}</div>`:''}
+                        <div style="font-size:11px; font-weight:700; height:30px; overflow:hidden;">${p.nome}</div>
                         <div class="price">R$ ${p.preco}</div>
                         <div class="sizes" id="sz-${i}"></div>
-                        <button class="btn-buy" id="bt-${i}">ESCOLHER TAMANHO</button>
+                        <button class="btn-buy" id="bt-${i}">SELECIONE TAMANHO</button>
                     </div>
                 </div>`;
             const sDiv = document.getElementById(`sz-${i}`);
@@ -189,84 +174,69 @@
         el.parentElement.querySelectorAll('.size').forEach(s => s.classList.remove('active'));
         el.classList.add('active');
         const b = document.getElementById(`bt-${idx}`);
-        b.style.opacity = '1'; b.style.pointerEvents = 'auto'; b.innerText = "ADICIONAR";
-        b.onclick = () => { car.push({n: db[cat][idx].nome, t: t}); updateCar(); b.innerText = "✅ ADICIONADO"; b.style.background="#000"; };
+        b.style.opacity = '1'; b.style.pointerEvents = 'auto'; b.innerText = "ADICIONAR AO PEDIDO";
+        b.onclick = () => { car.push({n: db[cat][idx].nome, t: t}); updateCar(); b.innerText = "✅ NO CARRINHO"; b.style.background="#000"; };
     }
 
     function updateCar(){
         document.getElementById('cart-bar').style.display = car.length > 0 ? 'flex' : 'none';
-        document.getElementById('cart-count').innerText = car.length + (car.length === 1 ? " ITEM" : " ITENS");
+        document.getElementById('cart-count').innerText = car.length + " ITENS";
     }
-
-    function abrirCheckout(){ document.getElementById('modal-checkout').style.display = 'flex'; }
 
     function finalizarPedido(){
-        const nome = document.getElementById('nomeCliente').value;
-        if(!nome) return alert("Por favor, diga seu nome!");
-        let m = `*PEDIDO DISTRITO IMPORTS*\n*Cliente:* ${nome}\n\n`;
-        car.forEach(i => m += `• ${i.n} - Tam: ${i.t}\n`);
+        const n = document.getElementById('nomeCli').value;
+        const e = document.getElementById('endCli').value;
+        const b = document.getElementById('bairroCli').value;
+        if(!n || !e || !b) return alert("Preencha tudo!");
+        let m = `*PEDIDO DISTRITO IMPORTS*\n\n*Cliente:* ${n}\n*Endereço:* ${e}, ${b}\n\n*Itens:*\n`;
+        car.forEach(i => m += `• ${i.n} - ${i.t}\n`);
         window.location.href = `https://wa.me/${config.whats}?text=${encodeURIComponent(m)}`;
-    }
-
-    function trocarCat(c, b){
-        cat = c; document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-        b.classList.add('active'); render();
-    }
-
-    function filtrar(){
-        let v = document.getElementById('searchBar').value.toLowerCase();
-        document.querySelectorAll('.card').forEach(c => {
-            c.style.display = c.dataset.name.toLowerCase().includes(v) ? 'flex' : 'none';
-        });
     }
 
     function abrirAdmin(){
         document.getElementById('adminPanel').style.display = 'block';
         document.getElementById('cfg-whats').value = config.whats;
         document.getElementById('cfg-banner').value = config.banner;
-        const m = document.getElementById('mLock');
-        m.innerText = locks.master ? "🔓 DAR IGNIÇÃO (LOJA ABERTA)" : "🔒 TRANCAR LOJA (SITE PRETO)";
-        m.style.background = locks.master ? "green" : "red";
+        const s = document.getElementById('btnStatusLoja');
+        s.innerText = locks.master ? "LOJA FECHADA (ABRIR AGORA)" : "LOJA ABERTA (FECHAR AGORA)";
+        s.style.background = locks.master ? "var(--whats)" : "var(--red)";
+        s.style.color = "#fff";
         
         const list = document.getElementById('admin-list');
-        list.innerHTML = `<h3 style="font-size:12px;">ESTOQUE ATUAL: ${cat.toUpperCase()}</h3>`;
+        document.getElementById('admin-list-header').innerText = `Editando: ${cat}`;
+        list.innerHTML = '';
         db[cat].forEach((p, i) => {
             let st = '';
             Object.entries(p.estoque).forEach(([t, q]) => {
-                st += `<div style="display:flex;justify-content:space-between;margin:5px 0;"><span>Tam ${t}:</span><input type="number" value="${q}" style="width:40px; text-align:center" onchange="db['${cat}'][${i}].estoque['${t}']=Number(this.value);salvar()"></div>`;
+                st += `<div class="stock-box"><label style="font-size:9px;">${t}</label><input type="number" value="${q}" onchange="db['${cat}'][${i}].estoque['${t}']=Number(this.value);salvar()"></div>`;
             });
-            list.innerHTML += `<div class="admin-item">
-                <input type="text" value="${p.nome}" onchange="db['${cat}'][${i}].nome=this.value;salvar()">
-                <input type="text" value="${p.preco}" placeholder="Preço" onchange="db['${cat}'][${i}].preco=this.value;salvar()">
-                <input type="text" value="${p.precoAntigo || ''}" placeholder="Preço Riscado" onchange="db['${cat}'][${i}].precoAntigo=this.value;salvar()">
-                <select onchange="db['${cat}'][${i}].tag=this.value;salvar()">
-                    <option value="">Sem Etiqueta</option>
-                    <option value="promo" ${p.tag==='promo'?'selected':''}>Promoção</option>
-                    <option value="lançamento" ${p.tag==='lançamento'?'selected':''}>Lançamento</option>
-                    <option value="destaque" ${p.tag==='destaque'?'selected':''}>Destaque</option>
-                </select>
-                <input type="text" value="${p.img}" placeholder="Link Foto" onchange="db['${cat}'][${i}].img=this.value;salvar()">
-                ${st}
-                <button onclick="if(confirm('Apagar?')){db['${cat}'].splice(${i},1);salvar();abrirAdmin()}" style="color:red; background:none; border:none; font-size:10px; cursor:pointer;">[X] EXCLUIR PRODUTO</button>
-            </div>`;
+            list.innerHTML += `
+                <div class="admin-item-card">
+                    <div class="input-group"><label>Nome do Produto</label><input type="text" class="admin-input" value="${p.nome}" onchange="db['${cat}'][${i}].nome=this.value;salvar()"></div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                        <div class="input-group"><label>Preço</label><input type="text" class="admin-input" value="${p.preco}" onchange="db['${cat}'][${i}].preco=this.value;salvar()"></div>
+                        <div class="input-group"><label>Tag (Ex: Promo)</label><input type="text" class="admin-input" value="${p.tag||''}" onchange="db['${cat}'][${i}].tag=this.value;salvar()"></div>
+                    </div>
+                    <div class="input-group"><label>Link da Foto</label><input type="text" class="admin-input" value="${p.img}" onchange="db['${cat}'][${i}].img=this.value;salvar()"></div>
+                    <label style="font-size:10px; font-weight:700; color:#777;">ESTOQUE DISPONÍVEL</label>
+                    <div class="stock-grid">${st}</div>
+                    <button class="btn-danger" onclick="if(confirm('Apagar?')){db['${cat}'].splice(${i},1);salvar();abrirAdmin()}">EXCLUIR PRODUTO</button>
+                </div>`;
         });
     }
 
-    function salvarCfg(){
-        config.whats = document.getElementById('cfg-whats').value;
-        config.banner = document.getElementById('cfg-banner').value;
-        localStorage.setItem('DIST_CFG_FINAL_V1', JSON.stringify(config));
-    }
-
-    function toggleM(){ locks.master = !locks.master; localStorage.setItem('DIST_LOCKS_FINAL_V1', JSON.stringify(locks)); abrirAdmin(); }
-    function salvar(){ localStorage.setItem('DIST_DB_FINAL_V1', JSON.stringify(db)); }
-    function fecharAdmin(){ document.getElementById('adminPanel').style.display='none'; init(); }
+    function trocarCat(c, b){ cat = c; document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active')); b.classList.add('active'); render(); if(document.getElementById('adminPanel').style.display === 'block') abrirAdmin(); }
+    function filtrar(){ let v = document.getElementById('searchBar').value.toLowerCase(); document.querySelectorAll('.card').forEach(c => { c.style.display = c.dataset.name.toLowerCase().includes(v) ? 'flex' : 'none'; }); }
+    function salvarCfg(){ config.whats = document.getElementById('cfg-whats').value; config.banner = document.getElementById('cfg-banner').value; localStorage.setItem('DIST_CF_V4', JSON.stringify(config)); }
+    function toggleM(){ locks.master = !locks.master; localStorage.setItem('DIST_LK_V4', JSON.stringify(locks)); abrirAdmin(); }
+    function salvar(){ localStorage.setItem('DIST_DB_V4', JSON.stringify(db)); }
+    function fecharAdmin(){ salvarCfg(); document.getElementById('adminPanel').style.display='none'; init(); }
     function novoProd(){
         let g = (cat === 'tenis' || cat === 'bermudas') ? {38:0,40:0,42:0,44:0} : {P:0,M:0,G:0,GG:0};
-        db[cat].unshift({nome:"Novo Item", preco:"0,00", img:"", estoque:g, tag:""});
+        db[cat].unshift({nome:"Novo Produto", preco:"0,00", img:"", estoque:g, tag:""});
         salvar(); abrirAdmin();
     }
-
+    document.getElementById('logo-admin').onclick = () => { if(prompt("Senha:")==="2123") abrirAdmin(); };
     init();
 </script>
 </body>
