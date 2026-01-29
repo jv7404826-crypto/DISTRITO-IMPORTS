@@ -3,23 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Distrito Imports | Premium</title>
+    <title>Distrito Imports | Gestão Total</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root{ --red:#E60000; --black:#0a0a0a; --gray:#f2f2f2; --whats:#25D366; --yellow:#FFD700; --dark-gray:#444; }
-        body{margin:0;font-family:'Montserrat',sans-serif;background:var(--gray);padding-bottom:100px;color:var(--black);overflow-x:hidden;}
+        :root{ --red:#E60000; --black:#0a0a0a; --gray:#f2f2f2; --whats:#25D366; --yellow:#FFD700; --dark-gray:#333; }
+        body{margin:0;font-family:'Montserrat',sans-serif;background:var(--gray);padding-bottom:120px;color:var(--black);overflow-x:hidden;}
         
-        /* TELA DE BLOQUEIO SECRETA (SÓ ABRE COM 5 CLIQUES NO LOGO) */
-        #tela-bloqueio { position: fixed; inset: 0; background: var(--black); z-index: 30000; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; }
-        #logo-tranca { font-weight: 900; letter-spacing: 2px; cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; }
+        /* BLOQUEIO DISCRETO */
+        #tela-bloqueio { position: fixed; inset: 0; background: var(--black); z-index: 50000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        #logo-tranca { font-weight: 900; color:white; cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent;}
+        #logo-tranca span { color: var(--red); }
         .input-secreta { display: none; background: transparent; border: none; border-bottom: 2px solid #333; color: white; padding: 10px; width: 150px; text-align: center; font-size: 20px; outline: none; margin-top: 30px; }
 
-        header{background:var(--black);color:#fff;text-align:center;padding:20px;border-bottom:4px solid var(--red);cursor:pointer; user-select:none;}
+        header{background:var(--black);color:#fff;text-align:center;padding:20px;border-bottom:4px solid var(--red);cursor:pointer;}
         header h1{margin:0; font-size:18px; text-transform:uppercase; font-weight:900;}
         header span{color:var(--red)}
 
-        nav{background:#fff;display:flex;justify-content:center;position:sticky;top:0;z-index:1000;box-shadow:0 2px 5px rgba(0,0,0,0.1);overflow-x:auto;}
-        .nav-link{padding:15px 20px;border:none;background:none;font-weight:700;font-size:12px;text-transform:uppercase;cursor:pointer;white-space:nowrap;color:#666;}
+        #banner-topo img { width: 100%; display: block; }
+        .search-box { padding: 10px; background: #fff; display: flex; justify-content: center; position: sticky; top: 0; z-index: 1100; }
+        #searchBar { width: 90%; padding: 12px; border: 1px solid #ddd; border-radius: 25px; outline: none; font-family: Montserrat; }
+
+        nav{background:#fff;display:flex;justify-content:flex-start;position:sticky;top:54px;z-index:1000;box-shadow:0 2px 5px rgba(0,0,0,0.1);overflow-x:auto; scrollbar-width: none;}
+        .nav-link{padding:15px 20px;border:none;background:none;font-weight:700;font-size:11px;text-transform:uppercase;cursor:pointer;white-space:nowrap;color:#666;}
         .nav-link.active{color:var(--red);border-bottom:3px solid var(--red)}
 
         .grid{display:grid;grid-template-columns:repeat(2, 1fr);gap:10px;padding:10px;}
@@ -27,245 +32,213 @@
         .img-box{width:100%;padding-top:130%;position:relative;background:#eee;}
         .img-box img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;}
         
-        .tag-elastano { position: absolute; bottom: 10px; right: 10px; background: var(--yellow); color: #000; font-size: 8px; padding: 4px 6px; border-radius: 4px; font-weight: 900; z-index: 5; }
-
-        .info{padding:10px;text-align:center;flex-grow:1;}
-        .price{color:var(--red);font-weight:900;font-size:17px;margin-bottom:10px;}
-        .sizes{display:flex;justify-content:center;gap:4px;margin-bottom:10px;flex-wrap:wrap;}
-        .size{border:1px solid #ddd;padding:5px 8px;font-size:10px;border-radius:4px;cursor:pointer;font-weight:bold;}
+        .tag-prod { position: absolute; top: 8px; left: 8px; background: var(--red); color: #fff; font-size: 8px; padding: 4px 8px; border-radius: 4px; font-weight: 900; z-index: 5; text-transform: uppercase; }
+        .price{color:var(--red);font-weight:900;font-size:18px;margin-bottom:10px; text-align:center;}
+        .sizes{display:flex;justify-content:center;gap:4px;margin-bottom:12px;flex-wrap:wrap; padding: 0 5px;}
+        .size{border:1px solid #ddd;padding:6px 8px;font-size:10px;border-radius:4px;cursor:pointer;font-weight:bold;}
         .size.active{background:var(--red);color:#fff;border-color:var(--red);}
-        .size.out { opacity: 0.2; text-decoration: line-through; pointer-events: none; }
-
-        .btn-buy{background:var(--whats);color:#fff;border:none;width:100%;padding:12px;border-radius:6px;font-weight:900;font-size:11px;cursor:pointer;text-transform:uppercase;}
+        .size.out { opacity: 0.15; text-decoration: line-through; pointer-events: none; }
+        .btn-buy{background:var(--whats);color:#fff;border:none;width:100%;padding:14px;font-weight:900;font-size:10px;cursor:pointer;text-transform:uppercase;}
 
         /* CARRINHO */
-        #cart-bar{position:fixed;bottom:0;width:100%;background:var(--black);color:#fff;padding:15px;display:none;justify-content:space-around;align-items:center;z-index:2000;border-top:3px solid var(--red);}
-        #modal-carrinho { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:5000; align-items:center; justify-content:center; padding:20px; }
-        .cart-content { background:#fff; padding:20px; border-radius:15px; width:100%; max-width:400px; color:#333; }
+        #cart-bar{position:fixed;bottom:0;width:100%;background:var(--black);color:#fff;padding:15px;display:none;justify-content:space-around;align-items:center;z-index:2000;border-top:4px solid var(--red);}
+        #modal-carrinho { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:10000; align-items:center; justify-content:center; padding:15px; }
+        .cart-content { background:#fff; padding:20px; border-radius:15px; width:100%; max-width:400px; color:#333; max-height: 85vh; overflow-y: auto; }
 
-        /* PAINEL GESTÃO */
-        #adminPanel{display:none;position:fixed;inset:0;background:var(--black);z-index:40000;overflow:auto;color:#fff;}
-        .admin-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; font-weight: 900; text-transform: uppercase; border-bottom: 1px solid #222; }
+        /* ADMIN */
+        #adminPanel{display:none;position:fixed;inset:0;background:var(--black);z-index:60000;overflow:auto;color:#fff;}
         .config-card { background: white; border-radius: 15px; margin: 15px; padding: 20px; color: #333; }
-        .admin-input-card { width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 8px; margin-top: 5px; box-sizing: border-box; font-family: Montserrat; margin-bottom: 10px; }
+        .admin-input-card { width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 8px; margin-top: 5px; box-sizing: border-box; font-family: Montserrat; margin-bottom: 10px; font-weight: 700; }
         .btn-acao { width: 100%; padding: 15px; border: none; border-radius: 10px; font-weight: 900; margin-top: 10px; text-transform: uppercase; cursor:pointer;}
         .btn-yellow { background: var(--yellow); color: black; }
-        .btn-gray { background: var(--dark-gray); color: white; }
+        .grade-input { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
     </style>
 </head>
 <body>
 
 <div id="tela-bloqueio">
-    <h1 id="logo-tranca" onclick="contarCliquesTranca()">DISTRITO <span style="color:var(--red)">IMPORTS</span></h1>
-    <input type="password" id="passInput" class="input-secreta" placeholder="••••" oninput="checarSenha(this.value)">
+    <h1 id="logo-tranca" onclick="tCli++">DISTRITO <span>IMPORTS</span></h1>
+    <input type="password" id="passInput" class="input-secreta" oninput="checarSenha(this.value)">
 </div>
 
 <header id="logo-admin"><h1>DISTRITO <span>IMPORTS</span></h1></header>
+<div id="banner-topo"></div>
+<div class="search-box"><input type="text" id="searchBar" placeholder="O que você busca?" onkeyup="filtrar()"></div>
 
-<nav>
-    <button class="nav-link active" onclick="changeCat('camisas',this)">Camisas</button>
-    <button class="nav-link" onclick="changeCat('bermudas',this)">Bermudas</button>
-    <button class="nav-link" onclick="changeCat('conjuntos',this)">Conjuntos</button>
-    <button class="nav-link" onclick="changeCat('tenis',this)">Tênis</button>
-</nav>
-
-<div class="container"><div id="product-grid" class="grid"></div></div>
+<nav id="menu-categorias"></nav>
+<div id="product-grid" class="grid"></div>
 
 <div id="cart-bar">
     <span id="cart-count">0 ITENS</span>
-    <button onclick="abrirCheckout()" style="background:var(--whats);color:#fff;border:none;padding:10px 20px;border-radius:5px;font-weight:900;">FINALIZAR</button>
+    <button onclick="abrirCheckout()" style="background:var(--whats);color:#fff;border:none;padding:10px;border-radius:5px;font-weight:900;">FINALIZAR</button>
 </div>
 
 <div id="modal-carrinho">
     <div class="cart-content">
-        <h3 style="text-align:center; color:var(--red)">MEU CARRINHO</h3>
-        <div id="lista-itens" style="max-height: 200px; overflow-y: auto; margin-bottom: 15px;"></div>
-        <input type="text" id="cliNome" placeholder="Seu Nome" class="admin-input-card">
-        <input type="text" id="cliBairro" placeholder="Seu Bairro" class="admin-input-card">
-        <button onclick="enviarPedido()" class="btn-acao" style="background:var(--whats); color:white;">PEDIR NO WHATSAPP</button>
-        <button onclick="fecharCheckout()" style="width:100%; background:none; border:none; color:#999; margin-top:10px;">Voltar</button>
+        <h3 style="text-align:center; color:var(--red)">DADOS DE ENTREGA</h3>
+        <div id="lista-itens" style="margin-bottom:15px; border-bottom:1px solid #eee;"></div>
+        <input type="text" id="cliNome" placeholder="Nome Completo" class="admin-input-card">
+        <input type="text" id="cliBairro" placeholder="Bairro" class="admin-input-card">
+        <input type="text" id="cliRua" placeholder="Rua" class="admin-input-card">
+        <input type="text" id="cliNum" placeholder="Número da Casa" class="admin-input-card">
+        <button onclick="enviarPedido()" class="btn-acao" style="background:var(--whats); color:white;">ENVIAR WHATSAPP</button>
+        <button onclick="fecharCheckout()" style="width:100%; background:none; border:none; color:#999; margin-top:15px;">VOLTAR</button>
     </div>
 </div>
 
 <div id="adminPanel">
-    <div class="admin-header">
-        <span>Painel Gestão</span>
-        <button class="btn-gray" style="padding:5px 15px;" onclick="closeAdmin()">FECHAR</button>
+    <div style="padding:20px; display:flex; justify-content:space-between; align-items:center; background:#111;">
+        <span style="font-weight:900;">PAINEL GESTÃO</span>
+        <button onclick="closeAdmin()" style="background:var(--red); color:white; border:none; padding:8px 15px; border-radius:5px; font-weight:900;">SAIR</button>
     </div>
+
     <div class="config-card">
-        <label style="font-size:10px; font-weight:900; color:#999;">WHATSAPP DA LOJA</label>
-        <input type="text" id="admZap" class="admin-input-card" value="5522999400239">
-        <button id="btn-lock-master" class="btn-acao" onclick="toggleLojaMaster()" style="color:white;"></button>
+        <label style="font-weight:900; font-size:10px; color:red;">GERENCIAR CATEGORIAS</label>
+        <div style="display:flex; gap:5px; margin-top:10px;">
+            <input type="text" id="novaCatNome" placeholder="Ex: Relógios" class="admin-input-card" style="margin:0;">
+            <button onclick="addCategoria()" style="background:black; color:white; border:none; padding:0 20px; border-radius:8px; font-weight:900;">[+]</button>
+        </div>
+        <div id="lista-cats-admin" style="margin-top:15px; display:flex; flex-wrap:wrap; gap:5px;"></div>
     </div>
-    <div style="padding: 0 15px;">
-        <button class="btn-acao btn-yellow" onclick="generateBackup()">💾 GERAR CÓDIGO DE BACKUP</button>
+
+    <div class="config-card">
+        <label style="font-weight:900; font-size:10px;">CONFIGURAÇÕES</label>
+        <input type="text" id="admZap" class="admin-input-card" placeholder="WhatsApp (55...)" onchange="config.zap=this.value;save()">
+        <input type="text" id="admBanner" class="admin-input-card" placeholder="URL Imagem Banner" onchange="config.banner=this.value;save()">
+        <button id="btn-lock" class="btn-acao" onclick="toggleMaster()"></button>
     </div>
-    <div id="admin-list-prods" style="padding-bottom: 100px;"></div>
-    <button style="position:fixed; bottom:20px; right:20px; width:60px; height:60px; border-radius:50%; background:var(--whats); color:white; border:none; font-size:30px; box-shadow:0 5px 15px rgba(0,0,0,0.4);" onclick="addNovo()">+</button>
+
+    <div id="admin-list-prods" style="padding-bottom:100px;"></div>
+    <button style="position:fixed; bottom:20px; right:20px; width:65px; height:65px; border-radius:50%; background:var(--whats); color:white; border:none; font-size:35px; box-shadow:0 5px 15px rgba(0,0,0,0.5);" onclick="addNovo()">+</button>
 </div>
 
 <script>
-    let db = JSON.parse(localStorage.getItem('DIST_VFINAL')) || {camisas:[], bermudas:[], conjuntos:[], tenis:[]};
-    let locks = JSON.parse(localStorage.getItem('DIST_LOCKS_VFINAL')) || {master:true, camisas:false, bermudas:false, conjuntos:false, tenis:false};
-    let catAtual = 'camisas';
+    let db = JSON.parse(localStorage.getItem('DIST_MAX_DB')) || { Camisas: [] };
+    let config = JSON.parse(localStorage.getItem('DIST_MAX_CF')) || { zap: "5522999400239", banner: "", master: true };
+    let catAtual = Object.keys(db)[0];
     let carrinho = [];
-    let cliquesTranca = 0;
-    let cliquesAdmin = 0;
+    let tCli = 0; let aCli = 0;
+
+    // MONITOR DE CLIQUES
+    setInterval(() => {
+        if(tCli >= 5) { document.getElementById('passInput').style.display = 'block'; document.getElementById('passInput').focus(); tCli = 0; }
+        if(aCli >= 5) { if(prompt("SENHA ADMIN:") === "2123") openAdmin(); aCli = 0; }
+    }, 1000);
+
+    function checarSenha(v){ if(v === "2123") { document.getElementById('tela-bloqueio').style.display='none'; document.getElementById('passInput').value=''; } }
+    document.getElementById('logo-admin').onclick = () => aCli++;
 
     function init(){
-        if(!locks.master) document.getElementById('tela-bloqueio').style.display = 'none';
-        updateBtnLock();
-        render();
+        if(!config.master) document.getElementById('tela-bloqueio').style.display = 'none';
+        document.getElementById('admZap').value = config.zap;
+        document.getElementById('admBanner').value = config.banner;
+        renderMenu(); render(); updateBanner(); updateBtn();
     }
 
-    // DESBLOQUEIO SECRETO DA TELA INICIAL
-    function contarCliquesTranca(){
-        cliquesTranca++;
-        if(cliquesTranca >= 5){
-            document.getElementById('passInput').style.display = 'block';
-            document.getElementById('passInput').focus();
-        }
-        setTimeout(() => cliquesTranca = 0, 2000);
-    }
-
-    function checarSenha(v){ 
-        if(v === "2123"){
-            document.getElementById('tela-bloqueio').style.display = 'none';
-            document.getElementById('passInput').value = '';
-            document.getElementById('passInput').style.display = 'none';
-        } 
+    function renderMenu(){
+        const nav = document.getElementById('menu-categorias');
+        nav.innerHTML = '';
+        Object.keys(db).forEach(cat => {
+            nav.innerHTML += `<button class="nav-link ${cat===catAtual?'active':''}" onclick="catAtual='${cat}';renderMenu();render();">${cat}</button>`;
+        });
     }
 
     function render(){
         const grid = document.getElementById('product-grid');
         grid.innerHTML = '';
-        if(locks[catAtual]){
-            grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:50px;color:#999;"><h2>🔒 EM BREVE</h2><p>Novidades chegando!</p></div>`;
-            return;
-        }
-        db[catAtual].forEach((p, i) => {
-            let selo = (catAtual === 'conjuntos' || catAtual === 'bermudas') ? '<div class="tag-elastano">ELASTANO TECH</div>' : '';
+        (db[catAtual] || []).forEach((p, i) => {
             grid.innerHTML += `
                 <div class="card">
-                    ${selo}
-                    <div class="img-box"><img src="${p.img || 'https://via.placeholder.com/400x520?text=Distrito'}"></div>
+                    ${p.tag?`<div class="tag-prod">${p.tag}</div>`:''}
+                    <div class="img-box"><img src="${p.img || 'https://via.placeholder.com/400'}"></div>
                     <div class="info">
-                        <h3 style="font-size:10px; height:24px; overflow:hidden;">${p.nome}</h3>
+                        <h3 style="font-size:10px;">${p.nome}</h3>
                         <div class="price">R$ ${p.preco}</div>
-                        <div class="sizes" id="sz-${i}"></div>
-                        <button class="btn-buy" id="bt-${i}" disabled>Escolha o Tamanho</button>
+                        <div class="sizes">${Object.entries(p.estoque).map(([t,q])=>`<div class="size ${q<=0?'out':''}" onclick="selTam(this,'${catAtual}',${i},'${t}')">${t}</div>`).join('')}</div>
+                        <button class="btn-buy" id="bt-${i}" disabled>ESCOLHA O TAMANHO</button>
                     </div>
                 </div>`;
-            const sDiv = document.getElementById(`sz-${i}`);
-            Object.entries(p.estoque).forEach(([tam, qtd]) => {
-                sDiv.innerHTML += `<div class="size ${qtd<=0?'out':''}" onclick="selTam(this, ${i}, '${tam}')">${tam}</div>`;
-            });
         });
     }
 
-    function selTam(el, idx, tam){
+    function selTam(el, cat, idx, tam){
         el.parentElement.querySelectorAll('.size').forEach(s => s.classList.remove('active'));
         el.classList.add('active');
         const btn = document.getElementById(`bt-${idx}`);
         btn.disabled = false; btn.innerText = "ADICIONAR";
         btn.onclick = () => {
-            carrinho.push({n: db[catAtual][idx].nome, t: tam, p: db[catAtual][idx].preco, id: Date.now()});
-            updateCarBar();
-            btn.innerText = "✅ ADICIONADO";
+            carrinho.push({n: db[cat][idx].nome, t: tam, p: db[cat][idx].preco});
+            updateCar(); btn.innerText = "✅ OK!";
         };
     }
 
-    function updateCarBar(){
+    function updateCar(){
         document.getElementById('cart-bar').style.display = carrinho.length > 0 ? 'flex' : 'none';
         document.getElementById('cart-count').innerText = carrinho.length + " ITENS";
     }
 
     function abrirCheckout(){
         document.getElementById('modal-carrinho').style.display = 'flex';
-        const lista = document.getElementById('lista-itens');
-        lista.innerHTML = '';
-        carrinho.forEach((item, i) => {
-            lista.innerHTML += `
-                <div style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #eee; font-size:11px;">
-                    <span>${item.n} (${item.t})</span>
-                    <span style="color:red; font-weight:900;" onclick="removerItem(${i})">REMOVER [X]</span>
-                </div>`;
+        const l = document.getElementById('lista-itens');
+        l.innerHTML = '';
+        carrinho.forEach((it, i) => {
+            l.innerHTML += `<div style="display:flex; justify-content:space-between; padding:8px 0; font-size:11px;">
+                <span>${it.n} (${it.t})</span><span style="color:red; font-weight:900;" onclick="carrinho.splice(${i},1);abrirCheckout();updateCar();">[X]</span></div>`;
         });
     }
 
-    function removerItem(i){
-        carrinho.splice(i, 1);
-        if(carrinho.length === 0) fecharCheckout(); else abrirCheckout();
-        updateCarBar();
-    }
-
     function enviarPedido(){
-        const nome = document.getElementById('cliNome').value;
-        const bairro = document.getElementById('cliBairro').value;
-        if(!nome || !bairro) return alert("Preencha Nome e Bairro!");
-        let m = `*NOVO PEDIDO DISTRITO*\n*Cliente:* ${nome}\n*Bairro:* ${bairro}\n\n`;
+        const n=document.getElementById('cliNome').value, b=document.getElementById('cliBairro').value, r=document.getElementById('cliRua').value, num=document.getElementById('cliNum').value;
+        if(!n||!b||!r||!num) return alert("Endereço Incompleto!");
+        let m = `*PEDIDO DISTRITO*\n\n*CLIENTE:* ${n}\n*ENDEREÇO:* ${r}, ${num}\n*BAIRRO:* ${b}\n\n*ITENS:*\n`;
         carrinho.forEach(c => m += `• ${c.n} (${c.t})\n`);
-        window.location.href = `https://wa.me/${document.getElementById('admZap').value}?text=${encodeURIComponent(m)}`;
+        window.location.href = `https://wa.me/${config.zap}?text=${encodeURIComponent(m)}`;
     }
 
-    function fecharCheckout(){ document.getElementById('modal-carrinho').style.display='none'; }
-
-    // ADMIN 5 CLIQUES NO LOGO DO TOPO
-    document.getElementById('logo-admin').onclick = () => {
-        cliquesAdmin++;
-        if(cliquesAdmin >= 5){ if(prompt("Senha Admin:") === "2123") openAdmin(); cliquesAdmin = 0; }
-        setTimeout(() => cliquesAdmin = 0, 2000);
-    };
+    function addCategoria(){
+        const nome = document.getElementById('novaCatNome').value;
+        if(!nome || db[nome]) return;
+        db[nome] = []; save(); renderMenu(); openAdmin();
+    }
 
     function openAdmin(){
         document.getElementById('adminPanel').style.display = 'block';
-        const list = document.getElementById('admin-list-prods');
-        list.innerHTML = `<h3 style="margin:20px; font-size:12px; color:var(--yellow)">GESTÃO: ${catAtual.toUpperCase()}</h3>`;
-        db[catAtual].forEach((p, i) => {
+        const lCats = document.getElementById('lista-cats-admin');
+        lCats.innerHTML = '';
+        Object.keys(db).forEach(cat => {
+            lCats.innerHTML += `<div style="background:#eee; padding:5px 10px; border-radius:5px; font-size:10px; font-weight:900;">${cat.toUpperCase()} <span onclick="if(confirm('Apagar categoria?')){delete db['${cat}'];save();openAdmin();renderMenu();}" style="color:red; margin-left:10px;">[X]</span></div>`;
+        });
+
+        const lProds = document.getElementById('admin-list-prods');
+        lProds.innerHTML = `<h3 style="padding:15px; font-size:12px; color:var(--yellow)">PRODUTOS EM: ${catAtual.toUpperCase()}</h3>`;
+        (db[catAtual] || []).forEach((p, i) => {
             let grade = '';
             Object.entries(p.estoque).forEach(([t, q]) => {
-                grade += `<div style="flex:1; text-align:center;"><label style="font-size:9px; color:#333; font-weight:900;">${t}</label><input type="number" value="${q}" style="width:100%; border:1px solid #eee; text-align:center;" onchange="db['${catAtual}'][${i}].estoque['${t}']=Number(this.value);save()"></div>`;
+                grade += `<div><label style="font-size:8px;">${t}</label><input type="number" value="${q}" class="admin-input-card" style="padding:5px;" onchange="db['${catAtual}'][${i}].estoque['${t}']=Number(this.value);save()"></div>`;
             });
-            list.innerHTML += `
-                <div class="config-card">
-                    <input type="text" class="admin-input-card" value="${p.nome}" onchange="db['${catAtual}'][${i}].nome=this.value;save()">
-                    <input type="text" class="admin-input-card" value="${p.preco}" onchange="db['${catAtual}'][${i}].preco=this.value;save()">
-                    <input type="text" class="admin-input-card" value="${p.img}" placeholder="Link da Imagem" onchange="db['${catAtual}'][${i}].img=this.value;save()">
-                    <div style="display:flex; gap:5px;">${grade}</div>
-                    <button onclick="db['${catAtual}'].splice(${i},1);save();openAdmin()" style="color:red; background:none; border:none; margin-top:10px; font-weight:900; width:100%;">[X] EXCLUIR</button>
-                </div>`;
+            lProds.innerHTML += `<div class="config-card">
+                <input type="text" class="admin-input-card" value="${p.nome}" onchange="db['${catAtual}'][${i}].nome=this.value;save()">
+                <div style="display:flex; gap:10px;"><input type="text" class="admin-input-card" value="${p.preco}" onchange="db['${catAtual}'][${i}].preco=this.value;save()"><input type="text" class="admin-input-card" value="${p.tag||''}" placeholder="Tag" onchange="db['${catAtual}'][${i}].tag=this.value;save()"></div>
+                <input type="text" class="admin-input-card" value="${p.img}" onchange="db['${catAtual}'][${i}].img=this.value;save()">
+                <div class="grade-input">${grade}</div>
+                <button onclick="db['${catAtual}'].splice(${i},1);save();openAdmin();" style="color:red; background:none; border:none; width:100%; margin-top:10px; font-weight:900;">EXCLUIR</button>
+            </div>`;
         });
     }
 
     function addNovo(){
-        let grade = (catAtual === 'tenis' || catAtual === 'bermudas') ? {38:1,40:1,42:1,44:1,46:1,48:1} : {P:1,M:1,G:1,GG:1};
-        db[catAtual].unshift({nome: "Novo Produto", preco: "0,00", img: "", estoque: grade});
+        let g = (catAtual.toLowerCase().includes('tenis') || catAtual.toLowerCase().includes('bermuda')) ? {38:1,40:1,42:1,44:1,46:1,48:1} : {P:1,M:1,G:1,GG:1};
+        db[catAtual].unshift({nome:"Novo Item", preco:"0,00", img:"", tag:"", estoque:g});
         save(); openAdmin();
     }
 
-    function toggleLojaMaster(){
-        locks.master = !locks.master;
-        localStorage.setItem('DIST_LOCKS_VFINAL', JSON.stringify(locks));
-        updateBtnLock();
-    }
-
-    function updateBtnLock(){
-        const btn = document.getElementById('btn-lock-master');
-        btn.innerText = locks.master ? "LOJA FECHADA (CLIQUE PARA ABRIR)" : "LOJA ABERTA (CLIQUE PARA TRANCAR)";
-        btn.style.background = locks.master ? "red" : "green";
-    }
-
-    function generateBackup(){ prompt("CÓDIGO DE BACKUP:", btoa(JSON.stringify(db))); }
-    function save(){ localStorage.setItem('DIST_VFINAL', JSON.stringify(db)); }
+    function save(){ localStorage.setItem('DIST_MAX_DB', JSON.stringify(db)); localStorage.setItem('DIST_MAX_CF', JSON.stringify(config)); }
+    function toggleMaster(){ config.master = !config.master; save(); updateBtn(); }
+    function updateBtn(){ const b=document.getElementById('btn-lock'); b.innerText=config.master?"TRANCAR LOJA":"ABRIR LOJA"; b.style.background=config.master?"red":"green"; b.style.color="white";}
+    function updateBanner(){ document.getElementById('banner-topo').innerHTML = config.banner ? `<img src="${config.banner}">` : ''; }
+    function fecharCheckout(){ document.getElementById('modal-carrinho').style.display='none'; }
     function closeAdmin(){ document.getElementById('adminPanel').style.display='none'; render(); }
-    
-    function changeCat(c, b){
-        catAtual = c;
-        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-        b.classList.add('active');
-        render();
-        if(document.getElementById('adminPanel').style.display === 'block') openAdmin();
-    }
+    function filtrar(){ let v=document.getElementById('searchBar').value.toLowerCase(); document.querySelectorAll('.card').forEach(c=>c.style.display=c.innerText.toLowerCase().includes(v)?'flex':'none');}
 
     init();
 </script>
